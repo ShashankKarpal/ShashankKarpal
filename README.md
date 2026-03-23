@@ -22,7 +22,7 @@ KodeKloud helps learners and teams build practical capability in AI-native DevOp
 - 9 AI playgrounds and 4 cloud environments
 - Real-world, job-simulated projects including agents and RAG workflows
 - Role-based and certification-aligned learning paths
-- [KodeKey](https://kodekloud.com/ai-playgrounds/kodekey) — one API key for multiple LLMs, built for teams prototyping and deploying GenAI faster
+- [KodeKey](https://kodekloud.com/ai-playgrounds/kodekey): one API key for multiple LLMs, built for teams prototyping and deploying GenAI faster
 
 ---
 
