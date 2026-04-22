@@ -57,6 +57,6 @@ All experiments run on local models (LM Studio, Qwen) where possible. I prefer p
 
 ## Find me elsewhere
 
-- [LinkedIn](https://linkedin.com/in/shashankkarpal)
-- [kodekloud.com](https://kodekloud.com)
-- Dubai, UAE
+- 💼 [LinkedIn](https://linkedin.com/in/shashankkarpal)
+- 🌐 [kodekloud.com](https://kodekloud.com)
+- 📍 Dubai, UAE
