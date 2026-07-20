@@ -20,23 +20,22 @@ Regions I cover: IMEA (India, Middle East, Africa), APAC, and CIS. Based in Duba
 
 ## Why I'm on GitHub
 
-Most growth and sales roles do not require a GitHub profile. Mine does, because I believe the best GTM people in technical markets should actually build things. I use this profile to:
+I'm an engineer by degree, electronics and communication, but software was never my trade. I work in growth. For most of my career, "I'm not a developer" was the end of that sentence. AI assistants changed it. Now when something annoys me enough, I build a fix, with Claude doing the heavy lifting and me doing the product thinking, the testing, and the stubborn iteration.
 
-- Ship small tools that solve problems I personally hit (network monitoring, personal knowledge capture, health data aggregation).
-- Experiment with local AI, MCP servers, and privacy-first developer workflows.
-- Keep my instincts close to the tools our learners and customers use every day.
-
-If you care about growth in developer-facing and AI-first markets, reading code still matters.
+I keep the repos public for two reasons. Working in developer-facing markets without ever touching the tools felt dishonest. And tools built to scratch my own itch might scratch someone else's too.
 
 ---
 
 ## Currently building
 
-- **[netwatch](https://github.com/ShashankKarpal/netwatch):** A trust-first network monitor. A fork of Sniffnet with a classification layer that labels connections as expected, new, or flagged. Built for people who want to understand what their machine is actually talking to.
-- **[content-digest-app](https://github.com/ShashankKarpal/content-digest-app):** A local-first Mac menu bar app that captures URLs, summarises them with a local LLM, and builds a personal knowledge base. Zero external data leaves the machine.
-- A small stack of health intelligence tooling that correlates data across multiple wearables.
+I have ADHD-C. Most of what I build exists to close loops my brain leaves open: things I save and never revisit, states I forget to check, context I lose between switches. Each solves a pain point I actually live with, and maybe helps one other person out there with the same wiring.
 
-All experiments run on local models (LM Studio, Qwen) where possible. I prefer privacy-first setups.
+- **[content-digest-app](https://github.com/ShashankKarpal/content-digest-app):** A local-first Mac app that fixes my habit of saving articles, Reddit threads, and videos I never revisit. It summarizes everything I save with a local LLM, builds a knowledge base I can question in plain language, and emails me a morning brief. I can capture from the Mac menu bar, the iPhone share sheet, a Chrome extension on any website, or an iPhone Shortcut, so anything I find anywhere lands in one place. Nothing leaves my machine.
+- **[switchdeck](https://github.com/ShashankKarpal/switchdeck):** A macOS menu bar switcher and usage deck for running multiple Claude and GPT accounts. One click to swap between accounts, a unified view of quota and usage across all of them, and no broken OAuth flows.
+- **zest** (not public yet): A native macOS menu bar battery command center in SwiftUI, and far more than a charge readout. It shows live power flow (which adapter is plugged in and the exact voltage I am drawing right now), full battery health and trends, and any auxiliary devices drawing power. From Control Center it can throw glowing on-screen alerts that tell me what the battery is doing in the moment. Built because I wanted every power answer in one place instead of three utilities.
+- **ledge** (not public yet): An ADHD-first sidebar notepad. Option+Space slides it in from the edge, I type the thought before it vanishes, and it saves to plain Markdown that syncs across Mac, iPhone, and Watch. On iPhone it also captures through Siri and Shortcuts, so a thought gets caught even when my hands are busy. Built because every other notes app made me stop what I was doing.
+
+Everything runs on local models where possible (Ollama, LM Studio, Qwen). I prefer setups where my data stays mine.
 
 ---
 
