@@ -1,3 +1,11 @@
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)"  srcset="design/github/profile-banner-dark-1400x400.png">
+    <source media="(prefers-color-scheme: light)" srcset="design/github/profile-banner-light-1400x400.png">
+    <img alt="Six project marks" src="design/github/profile-banner-dark-1400x400.png" width="680">
+  </picture>
+</p>
+
 # Shashank Karpal
 
 Growth and partnerships at [KodeKloud](https://kodekloud.com), covering IMEA, APAC, and CIS. Based in Dubai.
