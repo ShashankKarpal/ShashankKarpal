@@ -28,3 +28,7 @@ id_ecdsa
 .aws/
 service-account*.json
 *.sqlite3
+
+# --- secrets hygiene completion (audit 2026-07-30) ---
+.env.*
+!.env.example
