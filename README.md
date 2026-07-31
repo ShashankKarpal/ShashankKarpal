@@ -1,8 +1,8 @@
 <p align="center">
   <picture>
-    <source media="(prefers-color-scheme: dark)"  srcset="design/github/profile-banner-dark-1400x400.png">
-    <source media="(prefers-color-scheme: light)" srcset="design/github/profile-banner-light-1400x400.png">
-    <img alt="Six project marks" src="design/github/profile-banner-dark-1400x400.png" width="680">
+    <source media="(prefers-color-scheme: dark)"  srcset="design/github/profile-banner-dark.svg">
+    <source media="(prefers-color-scheme: light)" srcset="design/github/profile-banner-light.svg">
+    <img alt="Six project marks with names" src="design/github/profile-banner-dark.svg" width="680">
   </picture>
 </p>
 
@@ -23,6 +23,7 @@ I have ADHD-C. Most of these close a loop my brain leaves open.
 - **[ledge](https://github.com/ShashankKarpal/ledge).** Sidebar notepad for Mac, iPhone, iPad, and Watch. One hotkey, plain Markdown, your own iCloud folder.
 - **[helios](https://github.com/ShashankKarpal/helios).** Local-only health dashboard. Reads every wearable through Apple Health and picks the best device per metric instead of averaging them.
 - **[content-digest-app](https://github.com/ShashankKarpal/content-digest-app).** Summarises what I save, builds a knowledge base I can question in plain language, emails a morning brief.
+- **[zest](https://github.com/ShashankKarpal/zest).** Menu bar battery command center. Power flow, battery health trends, and every ecosystem device's battery in one place.
 - **[switchdeck](https://github.com/ShashankKarpal/switchdeck).** Menu bar switcher and usage deck for multiple Claude Code accounts.
 - **[uebersicht-claude-tokens](https://github.com/ShashankKarpal/uebersicht-claude-tokens).** Desktop widget showing daily Claude Code token usage.
 - **[netwatch](https://github.com/ShashankKarpal/netwatch).** Fork of Sniffnet, adding a trust layer that flags connections you have not seen before.
