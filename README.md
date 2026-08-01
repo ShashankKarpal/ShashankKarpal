@@ -16,7 +16,7 @@ Personal account. Everything here is built in my own time and does not represent
 
 I am not a software engineer. My degree is in electronics, and software was never my trade. AI assistants closed the gap between "this annoys me" and "I fixed it," so now I build small tools for my own problems. Claude writes most of the code. I do the product thinking, the testing, and the stubborn iteration.
 
-I have ADHD-C. Most of these close a loop my brain leaves open.
+I have ADHD-C. Most of these close a loop my brain leaves open. Maybe one of them closes yours.
 
 ## Projects
 
