@@ -13,7 +13,7 @@ Sources: GitHub account `ShashankKarpal` (9 public repos, 2 of them forks), the 
 
 5. Personal Mac and Apple apps: ledge (notepad, Mac/iPhone/iPad/Watch), zest (battery command center), switchdeck (Claude account switcher), content-digest-app (menu bar knowledge base).
 6. Health and body data: helios (local-only health dashboard, Apple Health, device trust layer).
-7. Dev and AI meta-tooling: uebersicht-claude-tokens (token widget), claude-burnrate (private), claude-bridge (private, cross-account handoff), claude-skills-workspace (private).
+7. Dev and AI meta-tooling: claude-tokens (token widget), claude-burnrate (private), claude-bridge (private, cross-account handoff), claude-skills-workspace (private).
 8. Forks you maintain, not authored: netwatch (from Sniffnet), openTeleprompt.
 9. Work and GTM assets: kodekloud-collateral-kit, kodekloud-salesos-template (both private, both already branded KodeKloud).
 10. Hardware and 3D printing: exists as a real activity (Bambu H2C, MakerWorld) but has zero repos and zero visual assets today. Gap.
@@ -22,7 +22,7 @@ Sources: GitHub account `ShashankKarpal` (9 public repos, 2 of them forks), the 
 
 11. A four-colour account palette was already decided and pushed across ten repos: ink `#1C1B1D`, crimson `#BD4753`, mint `#1B7A55`, turquoise `#0F7D74`. Ledge was the original source of crimson and ink.
 12. Your banner adds the dark-mode halves of the same three accents plus neutrals: paper `#F7F5F2`, crimson-light `#E78892`, mint-light `#7EE0B1`, turquoise-light `#2FD4C4`, plus `#9AA49E` and `#E8ECE9` as supporting greys.
-13. Accents are already grouped by job, not by app: crimson for ledge and content-digest-app, mint for helios and zest, turquoise for switchdeck and uebersicht-claude-tokens, ink only for the two forks.
+13. Accents are already grouped by job, not by app: crimson for ledge and content-digest-app, mint for helios and zest, turquoise for switchdeck and claude-tokens, ink only for the two forks.
 14. The governing rule you already accepted: "the mark identifies the repo, not the colour." Hue repeats are the design, not a defect, because mint at 151 degrees and turquoise at 175 are only 24 degrees apart.
 15. Already retired, do not resurrect: `#18C98B` mint, `#8B9690` slate, `#F5B03E` amber, `#FF6B35` orange, `#D97757` terracotta. Slate was dropped from badges because white-on-slate fails contrast.
 
