@@ -60,7 +60,7 @@ UI_MAP_COMMON = {
 }
 
 PROJECTS = ["ledge", "content-digest-app", "helios", "zest", "switchdeck",
-            "uebersicht-claude-tokens", "claude-bridge", "claude-burnrate",
+            "claude-tokens", "claude-bridge", "claude-burnrate",
             "claude-skills-workspace"]
 
 LOG = []
@@ -294,7 +294,7 @@ def do_repo(project):
     if not priv or project in ("claude-bridge", "claude-burnrate",
                                "claude-skills-workspace"):
         write_banners(project, repo_dir,
-                      svg_names=(project == "uebersicht-claude-tokens"))
+                      svg_names=(project == "claude-tokens"))
     swap_in_file(os.path.join(repo_dir, "README.md"), README_MAP)
     tokens_json_update(project, repo_dir)
     brand_md_notice(project, repo_dir)
@@ -312,13 +312,13 @@ def do_repo(project):
                     swap_in_file(os.path.join(base, fn), UI_MAP_COMMON)
         for p in ("spec/architecture-and-spec.md", "HANDOFF.md", "design/BRAND.md"):
             swap_in_file(os.path.join(repo_dir, p), UI_MAP_COMMON)
-    if project == "uebersicht-claude-tokens":
+    if project == "claude-tokens":
         swap_in_file(os.path.join(repo_dir, "claude-tokens.widget", "index.coffee"),
                      UI_MAP_COMMON)
         rd = os.path.join(repo_dir, "README.md")
         with open(rd) as f:
             s = f.read()
-        s = s.replace("<h1 align=\"center\">uebersicht-claude-tokens</h1>",
+        s = s.replace("<h1 align=\"center\">claude-tokens</h1>",
                       "<h1 align=\"center\">claude-tokens</h1>")
         with open(rd, "w") as f:
             f.write(s)
@@ -328,7 +328,7 @@ def do_repo(project):
 def profile_banner(theme):
     p = gm.PAL[theme]
     order = ["ledge", "content-digest-app", "helios", "zest", "switchdeck",
-             "uebersicht-claude-tokens"]
+             "claude-tokens"]
     W, H = 1400, 400
     parts = ['<rect width="%s" height="%s" fill="%s"/>' % (W, H, p["page"])]
     parts.append('<defs>%s</defs>' % (gm.GRAIN_FILTER % gm.GRAIN[theme]))

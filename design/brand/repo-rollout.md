@@ -10,7 +10,7 @@ Badges and GitHub labels always use the deeper light-theme values, because shiel
 |---|---|---|---|---|
 | Capture and keep | Copper | `#B17E51` | `99612F` | ledge, content-digest-app |
 | Read a signal against a baseline | Brass | `#BFB287` | `4D4323` | helios, zest |
-| Claude and AI tooling | Mist | `#CFDFE8` | `2D647F` | switchdeck, uebersicht-claude-tokens, claude-bridge, claude-burnrate |
+| Claude and AI tooling | Mist | `#CFDFE8` | `2D647F` | switchdeck, claude-tokens, claude-bridge, claude-burnrate |
 | Everything else | Ink | `#F3F1EB` on `#0B0C0D` | `1A1917` | ShashankKarpal, netwatch, openTeleprompt, claude-skills-workspace, making and 3D printing |
 
 ## Public repos
@@ -52,7 +52,7 @@ Badges and GitHub labels always use the deeper light-theme values, because shiel
 - Open cosmetic item: the notification title still reads "SwitchBar". Still cosmetic, still parked.
 - Labels: bug `C73C20`, feature `2D647F`, accounts `2D647F`, shipped `307A64`.
 
-### uebersicht-claude-tokens
+### claude-tokens
 - Category: Mist. Replaces turquoise `#0F7D74`.
 - README header: near-black band, Mist rail.
 - Badges: widget host `2D647F`, licence `1A1917`.
@@ -89,7 +89,7 @@ sed -i '' \
  profile-banner-light.svg
 ```
 
-- Order in the banner stays: ledge, content-digest-app, helios, zest, switchdeck, uebersicht-claude-tokens. The Projects list in the README already matches it; keep it matching.
+- Order in the banner stays: ledge, content-digest-app, helios, zest, switchdeck, claude-tokens. The Projects list in the README already matches it; keep it matching.
 - Open decision carried over: whether claude-bridge and claude-burnrate join the Projects list once public.
 - Before you edit anything locally, run `git pull --ff-only`. The clone is behind the remote, and the drift came from editing in two places.
 

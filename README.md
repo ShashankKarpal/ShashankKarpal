@@ -25,7 +25,7 @@ I have ADHD-C. Most of these close a loop my brain leaves open. Maybe one of the
 - **[helios](https://github.com/ShashankKarpal/helios).** Local-only health dashboard. Reads every wearable through Apple Health and picks the best device per metric instead of averaging them.
 - **[zest](https://github.com/ShashankKarpal/zest).** Menu bar battery command center. Power flow, battery health trends, and every ecosystem device's battery in one place.
 - **[switchdeck](https://github.com/ShashankKarpal/switchdeck).** Menu bar switcher and usage deck for multiple Claude Code accounts.
-- **[uebersicht-claude-tokens](https://github.com/ShashankKarpal/uebersicht-claude-tokens).** Desktop widget showing daily Claude Code token usage.
+- **[claude-tokens](https://github.com/ShashankKarpal/claude-tokens).** Desktop widget showing daily Claude Code token usage.
 - **[netwatch](https://github.com/ShashankKarpal/netwatch).** Fork of Sniffnet, adding a trust layer that flags connections you have not seen before.
 
 Local models where possible. Nothing phones home.
