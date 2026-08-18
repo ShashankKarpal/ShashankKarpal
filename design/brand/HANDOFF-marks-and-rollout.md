@@ -29,7 +29,7 @@ Three category colours, grouped by the job a project does:
 |---|---|---|---|---|
 | Copper | `#B17E51` | `#99612F` | capture and keep | ledge, content-digest-app |
 | Brass | `#BFB287` | `#4D4323` | read a signal against a baseline | helios, zest |
-| Mist | `#CFDFE8` | `#2D647F` | Claude and AI tooling | switchdeck, uebersicht-claude-tokens, claude-bridge, claude-burnrate |
+| Mist | `#CFDFE8` | `#2D647F` | Claude and AI tooling | switchdeck, claude-tokens, claude-bridge, claude-burnrate |
 | Ink | `#F3F1EB` on page | `1A1917` | no accent | profile repo, forks, skills workspace, 3D printing |
 
 Status colours never double as category colours: good `#4FC4A6`, watch `#E0B93A`, problem `#CB5B45`, info `#4681D0`, neutral `#7F8B85` (dark theme). Light theme: `#307A64`, `#695725`, `#C73C20`, `#3A659D`, `#3B413E`.
@@ -71,7 +71,7 @@ Battery cell with a charge wedge in Brass. His words: "brilliant."
 ### switchdeck, Mist. Keep as is, rebuild cleanly.
 Fanned deck of three cards with the active card in Mist. His words: "brilliant."
 
-### uebersicht-claude-tokens, Mist. Keep as is, rebuild cleanly.
+### claude-tokens, Mist. Keep as is, rebuild cleanly.
 Coin stacks with one loose coin tilted at the top. His words: "brilliant."
 
 ### claude-bridge, Mist. New mark.
@@ -159,7 +159,7 @@ For every repo, on the machine this session runs on:
    - any docs page, STATE file or design note that describes the old colours or the old mark
 4. GitHub-side items the API cannot always do: social preview images are uploaded manually. Say so plainly rather than claiming they are done.
 5. Apply the GitHub label colours from `brand-tokens.json`, the same eight labels in every repo.
-6. Rebuild both profile banner SVGs from the new marks. Keep the order: ledge, content-digest-app, helios, zest, switchdeck, uebersicht-claude-tokens. The README Projects list must keep matching that order.
+6. Rebuild both profile banner SVGs from the new marks. Keep the order: ledge, content-digest-app, helios, zest, switchdeck, claude-tokens. The README Projects list must keep matching that order.
 7. The other Mac. Only the machine running the session gets edited. The second machine is brought level with `git pull --ff-only`, never with a parallel editing pass. State this to him at the end with the exact commands.
 
 ## Open items inherited from the previous session

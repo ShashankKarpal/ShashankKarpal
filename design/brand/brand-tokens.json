@@ -80,7 +80,7 @@
       "category": {
         "copper": {"hex": "#B17E51", "rgb": [177, 126, 81],  "contrastOnPage": 5.57,  "means": "capture and keep", "use": "ledge, content-digest-app"},
         "brass":  {"hex": "#BFB287", "rgb": [191, 178, 135], "contrastOnPage": 9.26,  "means": "read a signal against a baseline", "use": "helios, zest"},
-        "mist":   {"hex": "#CFDFE8", "rgb": [207, 223, 232], "contrastOnPage": 14.33, "means": "Claude and AI tooling", "use": "switchdeck, uebersicht-claude-tokens, claude-bridge, claude-burnrate"}
+        "mist":   {"hex": "#CFDFE8", "rgb": [207, 223, 232], "contrastOnPage": 14.33, "means": "Claude and AI tooling", "use": "switchdeck, claude-tokens, claude-bridge, claude-burnrate"}
       },
       "status": {
         "good":    {"hex": "#4FC4A6", "rgb": [79, 196, 166],  "contrastOnPage": 9.12,  "use": "healthy, passing, synced"},
