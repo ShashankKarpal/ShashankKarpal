@@ -1,0 +1,111 @@
+== helios
+  design/marks written (helios)
+  banners and social preview written
+  BRAND.md rewritten
+  regenerated helios/design/brand/symbol-bare-dark.svg
+  regenerated helios/design/brand/symbol-mono-black.svg
+  regenerated helios/design/brand/wordmark-mono-black.svg
+  regenerated helios/design/brand/symbol-dark.svg
+  regenerated helios/design/brand/lockup-stacked-mono-white.svg
+  regenerated helios/design/brand/symbol-light.svg
+  regenerated helios/design/brand/lockup-stacked-dark.svg
+  regenerated helios/design/brand/lockup-horizontal-mono-white.svg
+  regenerated helios/design/brand/lockup-integrated-mono-black.svg
+  regenerated helios/design/brand/wordmark-light.svg
+  regenerated helios/design/brand/symbol-mono-white.svg
+  regenerated helios/design/brand/lockup-stacked-light.svg
+  regenerated helios/design/brand/lockup-horizontal-light.svg
+  regenerated helios/design/brand/wordmark-mono-white.svg
+  regenerated helios/design/brand/lockup-horizontal-dark.svg
+  regenerated helios/design/brand/wordmark-dark.svg
+  regenerated helios/design/brand/lockup-integrated-light.svg
+  regenerated helios/design/brand/lockup-stacked-mono-black.svg
+  regenerated helios/design/brand/lockup-integrated-dark.svg
+  regenerated helios/design/brand/lockup-horizontal-mono-black.svg
+  regenerated helios/design/brand/lockup-integrated-mono-white.svg
+== switchdeck
+  design/marks written (switchdeck)
+  banners and social preview written
+  BRAND.md rewritten
+  regenerated switchdeck/design/logo/switchdeck-lockup-horizontal-dark.svg
+  regenerated switchdeck/design/logo/switchdeck-wordmark.svg
+  regenerated switchdeck/design/logo/switchdeck-wordmark-dark.svg
+  regenerated switchdeck/design/logo/switchdeck-symbol-tile-light.svg
+  regenerated switchdeck/design/logo/switchdeck-symbol-mono-white.svg
+  regenerated switchdeck/design/logo/switchdeck-symbol-dark.svg
+  regenerated switchdeck/design/logo/switchdeck-lockup-horizontal.svg
+  regenerated switchdeck/design/logo/switchdeck-symbol.svg
+  regenerated switchdeck/design/logo/switchdeck-symbol-mono-black.svg
+  regenerated switchdeck/design/logo/switchdeck-symbol-tile-dark.svg
+  regenerated design/web/favicon.svg
+  regenerated switchdeck/design/menubar/SwitchdeckTemplate@2x.png
+  regenerated switchdeck/design/menubar/SwitchdeckTemplate.png
+  regenerated switchdeck/design/menubar/SwitchdeckTemplate@3x.png
+== uebersicht-claude-tokens
+  design/marks written (uebersicht-claude-tokens)
+  banners and social preview written
+  BRAND.md rewritten
+  regenerated uebersicht-claude-tokens/design/logo/claude-tokens-symbol-mono-black.svg
+  regenerated uebersicht-claude-tokens/design/logo/claude-tokens-symbol.svg
+  regenerated uebersicht-claude-tokens/design/logo/claude-tokens-symbol-tile-light.svg
+  regenerated uebersicht-claude-tokens/design/logo/claude-tokens-symbol-tile-dark.svg
+  regenerated uebersicht-claude-tokens/design/logo/claude-tokens-symbol-mono-white.svg
+  regenerated uebersicht-claude-tokens/design/logo/claude-tokens-symbol-dark.svg
+  regenerated uebersicht-claude-tokens/design/logo/claude-tokens-lockup-horizontal.svg
+  regenerated uebersicht-claude-tokens/design/logo/claude-tokens-wordmark.svg
+  regenerated uebersicht-claude-tokens/design/logo/claude-tokens-wordmark-dark.svg
+  regenerated uebersicht-claude-tokens/design/logo/claude-tokens-lockup-horizontal-dark.svg
+== zest
+  design/marks written (zest)
+  banners and social preview written
+  BRAND.md rewritten
+  regenerated zest/design/logo/zest-lockup-horizontal-dark.svg
+  regenerated zest/design/logo/zest-wordmark.svg
+  regenerated zest/design/logo/zest-symbol-mono-black.svg
+  regenerated zest/design/logo/zest-symbol-dark.svg
+  regenerated zest/design/logo/zest-symbol-tile-dark.svg
+  regenerated zest/design/logo/zest-lockup-horizontal.svg
+  regenerated zest/design/logo/zest-symbol-mono-white.svg
+  regenerated zest/design/logo/zest-wordmark-dark.svg
+  regenerated zest/design/logo/zest-symbol.svg
+  regenerated zest/design/logo/zest-symbol-tile-light.svg
+  regenerated design/web/favicon.svg
+  regenerated zest/design/menubar/ZestTemplate@3x.png
+  regenerated zest/design/menubar/ZestTemplate@2x.png
+  regenerated zest/design/menubar/ZestTemplate.png
+== ledge
+  design/marks written (ledge)
+  banners and social preview written
+  BRAND.md rewritten
+  regenerated ledge/design/logo/ledge-lockup-horizontal.svg
+  regenerated ledge/design/logo/ledge-symbol-mono-white.svg
+  regenerated ledge/design/logo/ledge-wordmark-dark.svg
+  regenerated ledge/design/logo/ledge-symbol.svg
+  regenerated ledge/design/logo/ledge-symbol-dark.svg
+  regenerated ledge/design/logo/ledge-lockup-stacked-dark.svg
+  regenerated ledge/design/logo/ledge-symbol-tile-light.svg
+  regenerated ledge/design/logo/ledge-lockup-stacked.svg
+  regenerated ledge/design/logo/ledge-wordmark.svg
+  regenerated ledge/design/logo/ledge-symbol-tile-dark.svg
+  regenerated ledge/design/logo/ledge-symbol-mono-black.svg
+  regenerated ledge/design/logo/ledge-lockup-horizontal-dark.svg
+  regenerated design/web/favicon.svg
+  regenerated ledge/design/logo/menubar-template@3x.png
+  appicon regenerated: ledge/apps/ios/WatchSources/Assets.xcassets/AppIcon.appiconset
+  appicon regenerated: ledge/apps/ios/Sources/Assets.xcassets/AppIcon.appiconset
+== content-digest-app
+  design/marks written (content-digest-app)
+  banners and social preview written
+  BRAND.md rewritten
+  regenerated content-digest-app/design/logo/content-digest-symbol-mono-white.svg
+  regenerated content-digest-app/design/logo/content-digest-lockup-horizontal.svg
+  regenerated content-digest-app/design/logo/content-digest-wordmark.svg
+  regenerated content-digest-app/design/logo/content-digest-symbol.svg
+  regenerated content-digest-app/design/logo/content-digest-wordmark-dark.svg
+  regenerated content-digest-app/design/logo/content-digest-symbol-tile-light.svg
+  regenerated content-digest-app/design/logo/content-digest-lockup-horizontal-dark.svg
+  regenerated content-digest-app/design/logo/content-digest-symbol-mono-black.svg
+  regenerated content-digest-app/design/logo/content-digest-symbol-tile-dark.svg
+  regenerated content-digest-app/design/logo/content-digest-symbol-dark.svg
+  regenerated design/web/favicon.svg
+  regenerated content-digest-app/design/logo/menubar-template.png

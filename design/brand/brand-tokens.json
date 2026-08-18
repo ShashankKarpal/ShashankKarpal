@@ -1,0 +1,208 @@
+{
+  "$meta": {
+    "name": "Shanky personal brand tokens",
+    "direction": "Ink and Bone",
+    "version": "1.0.0",
+    "date": "2026-08-18",
+    "owner": "Shashank Karpal",
+    "defaultTheme": "dark",
+    "scope": "personal repos, personal apps, dashboards, personal documents. KodeKloud client work keeps the KodeKloud system.",
+    "verification": "every text pair listed here clears WCAG AA 4.5:1. Category colours are at least 25 apart (dE76) under simulated deuteranopia and protanopia. See accessibility-report.md.",
+    "rules": [
+      "Category colour and status colour never occupy the same slot in one component. Category goes on the left edge, the mark, or the badge. Status goes in the right-hand chip and always carries a word.",
+      "Three category colours only. Making and 3D printing, forks, and the profile repo stay ink.",
+      "The mark identifies the project. The colour identifies the group.",
+      "Grain is the only permitted texture. No gradients as a full-bleed wash.",
+      "No italics, no underlines, no emoji, no em dashes."
+    ]
+  },
+
+  "font": {
+    "display": {
+      "family": "Karpal Geometric",
+      "files": ["KarpalGeometric-Regular.woff2", "KarpalGeometric-Regular.ttf", "KarpalGeometric-Regular.otf"],
+      "case": "lowercase only, capitals map to the same shapes",
+      "coverage": "a-z, 0-9, hyphen, period, comma, colon, slash, underscore, parentheses, space",
+      "unitsPerEm": 1000,
+      "xHeight": 432,
+      "ascender": 688,
+      "descender": -224,
+      "strokeWeight": 96,
+      "use": "wordmarks, banner headers, app titles, hero numbers. Never body text.",
+      "tracking": "+0.02em at display sizes, +0.04em under 20px",
+      "fallback": "Montserrat, ui-sans-serif, system-ui, sans-serif"
+    },
+    "ui": {
+      "family": "Montserrat",
+      "weights": [400, 500, 600],
+      "fallback": "ui-sans-serif, system-ui, -apple-system, sans-serif",
+      "rules": "no italics, no underlines"
+    },
+    "code": {
+      "family": "ui-monospace, SFMono-Regular, Menlo, monospace",
+      "size": "13px",
+      "lineHeight": 1.55
+    },
+    "scale": {
+      "screen": {
+        "wordmark": {"size": "40-72px", "family": "display", "tracking": "+0.02em"},
+        "h1": {"size": "22px", "weight": 500, "lineHeight": 1.3},
+        "h2": {"size": "18px", "weight": 500, "lineHeight": 1.35},
+        "h3": {"size": "15px", "weight": 600, "lineHeight": 1.4},
+        "body": {"size": "14px", "weight": 400, "lineHeight": 1.65},
+        "small": {"size": "12px", "weight": 400, "lineHeight": 1.55},
+        "micro": {"size": "11px", "weight": 500, "lineHeight": 1.4, "tracking": "+0.04em"},
+        "heroNumber": {"size": "32px", "family": "display"}
+      },
+      "document": {
+        "note": "document chrome only, per your standing house rule",
+        "title": {"size": "18pt", "family": "Montserrat", "lineSpacing": 1.0},
+        "heading": {"size": "13pt", "lineSpacing": 1.0},
+        "body": {"size": "10pt", "lineSpacing": 1.0},
+        "designedCollateral": {"body": 1.5, "cards": 1.4, "note": "supersedes spacing 1 for designed pages, not for plain documents"}
+      }
+    }
+  },
+
+  "color": {
+    "dark": {
+      "surface": {
+        "page":  {"hex": "#0B0C0D", "rgb": [11, 12, 13],   "use": "the page itself, app background, README band"},
+        "card":  {"hex": "#171614", "rgb": [23, 22, 20],   "use": "any panel sitting on the page"},
+        "raised":{"hex": "#201E1B", "rgb": [32, 30, 27],   "use": "a panel inside a panel, hover state, table header"},
+        "edge":  {"hex": "#292826", "rgb": [41, 40, 38],   "use": "quiet dividers and card outlines"},
+        "edgeStrong": {"hex": "#3A3833", "rgb": [58, 56, 51], "use": "input borders, selected rows, anything you must actually see"}
+      },
+      "text": {
+        "primary": {"hex": "#F3F1EB", "rgb": [243, 241, 235], "contrastOnPage": 17.33, "use": "headings, values, anything you read"},
+        "quiet":   {"hex": "#8F8C85", "rgb": [143, 140, 133], "contrastOnPage": 5.83,  "use": "labels, captions, metadata. Never for a number you need."}
+      },
+      "category": {
+        "copper": {"hex": "#B17E51", "rgb": [177, 126, 81],  "contrastOnPage": 5.57,  "means": "capture and keep", "use": "ledge, content-digest-app"},
+        "brass":  {"hex": "#BFB287", "rgb": [191, 178, 135], "contrastOnPage": 9.26,  "means": "read a signal against a baseline", "use": "helios, zest"},
+        "mist":   {"hex": "#CFDFE8", "rgb": [207, 223, 232], "contrastOnPage": 14.33, "means": "Claude and AI tooling", "use": "switchdeck, uebersicht-claude-tokens, claude-bridge, claude-burnrate"}
+      },
+      "status": {
+        "good":    {"hex": "#4FC4A6", "rgb": [79, 196, 166],  "contrastOnPage": 9.12,  "use": "healthy, passing, synced"},
+        "watch":   {"hex": "#E0B93A", "rgb": [224, 185, 58],  "contrastOnPage": 10.41, "use": "degrading, near a limit, stale"},
+        "problem": {"hex": "#CB5B45", "rgb": [203, 91, 69],   "contrastOnPage": 4.77,  "use": "failed, blocked, over the limit"},
+        "info":    {"hex": "#4681D0", "rgb": [70, 129, 208],  "contrastOnPage": 4.95,  "use": "neutral notice, a link, a hint"},
+        "neutral": {"hex": "#7F8B85", "rgb": [127, 139, 133], "contrastOnPage": 5.53,  "use": "not applicable, disabled, no data"}
+      },
+      "utility": {
+        "focus":      {"hex": "#CFDFE8", "use": "2px ring, 2px offset, on every focusable element"},
+        "labelOnFill":{"hex": "#0B0C0D", "use": "text placed on top of any category or status fill"},
+        "grain":      {"opacity": 0.16, "use": "feTurbulence baseFrequency 0.9, numOctaves 3, saturate 0"}
+      }
+    },
+
+    "light": {
+      "surface": {
+        "page":  {"hex": "#F5F5F3", "rgb": [245, 245, 243], "use": "the page itself"},
+        "card":  {"hex": "#FFFFFF", "rgb": [255, 255, 255], "use": "any panel sitting on the page"},
+        "raised":{"hex": "#EDEBE6", "rgb": [237, 235, 230], "use": "panel inside a panel, table header"},
+        "edge":  {"hex": "#E2E0DA", "rgb": [226, 224, 218], "use": "quiet dividers"},
+        "edgeStrong": {"hex": "#CDCAC2", "rgb": [205, 202, 194], "use": "input borders, selected rows"}
+      },
+      "text": {
+        "primary": {"hex": "#1A1917", "rgb": [26, 25, 23], "contrastOnPage": 16.09, "use": "headings, values, body"},
+        "quiet":   {"hex": "#5A5852", "rgb": [90, 88, 82], "contrastOnPage": 6.52,  "use": "labels, captions, metadata"}
+      },
+      "category": {
+        "copper": {"hex": "#99612F", "rgb": [153, 97, 47],  "contrastOnPage": 4.69, "means": "capture and keep"},
+        "brass":  {"hex": "#4D4323", "rgb": [77, 67, 35],   "contrastOnPage": 8.98, "means": "read a signal against a baseline"},
+        "mist":   {"hex": "#2D647F", "rgb": [45, 100, 127], "contrastOnPage": 5.94, "means": "Claude and AI tooling"}
+      },
+      "status": {
+        "good":    {"hex": "#307A64", "rgb": [48, 122, 100], "contrastOnPage": 4.70},
+        "watch":   {"hex": "#695725", "rgb": [105, 87, 37],  "contrastOnPage": 6.43},
+        "problem": {"hex": "#C73C20", "rgb": [199, 60, 32],  "contrastOnPage": 4.70},
+        "info":    {"hex": "#3A659D", "rgb": [58, 101, 157], "contrastOnPage": 5.45},
+        "neutral": {"hex": "#3B413E", "rgb": [59, 65, 62],   "contrastOnPage": 9.56}
+      },
+      "utility": {
+        "focus":      {"hex": "#2D647F"},
+        "labelOnFill":{"hex": "#FFFFFF", "use": "text on any category or status fill in light theme"},
+        "grain":      {"opacity": 0.07}
+      }
+    },
+
+    "shields": {
+      "note": "shields.io badges render white text, so badges always use the light-theme (deeper) values",
+      "copper": "99612F",
+      "brass": "4D4323",
+      "mist": "2D647F",
+      "ink": "1A1917",
+      "good": "307A64",
+      "watch": "695725",
+      "problem": "C73C20",
+      "info": "3A659D"
+    },
+
+    "githubLabels": {
+      "note": "GitHub label hex values, no leading hash. Same deeper values so the auto-chosen text colour stays white.",
+      "bug": "C73C20",
+      "feature": "2D647F",
+      "chore": "3B413E",
+      "docs": "695725",
+      "blocked": "C73C20",
+      "in-progress": "3A659D",
+      "shipped": "307A64",
+      "adhd-loop": "99612F",
+      "local-only": "4D4323",
+      "help-wanted": "3A659D"
+    }
+  },
+
+  "space": {
+    "unit": "4px",
+    "scale": [4, 8, 12, 16, 24, 32, 48, 64],
+    "cardPadding": "16px 20px",
+    "rowGap": "12px",
+    "note": "12px is the floor between rows in any list. You named no air between rows as a real cost, so density is capped, not tuned."
+  },
+
+  "radius": { "control": "6px", "card": "10px", "chip": "4px", "pill": "999px" },
+
+  "border": { "hairline": "1px", "emphasis": "2px", "accentRail": "4px" },
+
+  "pattern": {
+    "grain": {
+      "type": "svg feTurbulence",
+      "baseFrequency": 0.9,
+      "numOctaves": 3,
+      "saturate": 0,
+      "opacityDark": 0.16,
+      "opacityLight": 0.07,
+      "allowed": ["README header band", "app empty states", "hero or cover panels", "PDF and deck cover pages"],
+      "forbidden": ["behind body text", "inside tables", "behind charts or sparklines", "under type smaller than 14px", "on top of any category or status fill"]
+    }
+  },
+
+  "logo": {
+    "wordmark": {
+      "font": "Karpal Geometric",
+      "case": "lowercase",
+      "tracking": "+0.02em",
+      "accentDot": "at most one letter may carry a filled dot in the project's category colour",
+      "minWidth": "96px on screen, 28mm in print",
+      "clearSpace": "half the x-height of the wordmark on all four sides, measured from the ink",
+      "approvedBackgrounds": ["#0B0C0D", "#171614", "#F5F5F3", "#FFFFFF"],
+      "colour": "text primary of the active theme, never a category colour"
+    },
+    "marks": {
+      "status": "open. The four locked shapes (battery cell, collapsing bars, fanned deck, rising bars) are still not drawn as production SVGs.",
+      "requiredSizes": [512, 24, 16],
+      "requiredGrounds": ["dark", "light"],
+      "minSize": "16px"
+    },
+    "never": [
+      "recolour the wordmark to a category colour",
+      "stretch, skew, rotate or outline it",
+      "add shadow, glow or bevel",
+      "place it on a mid-tone grey between #404040 and #A0A0A0",
+      "place it over grain above 0.2 opacity or over a photograph",
+      "ship a banner block in a repo before the artwork exists"
+    ]
+  }
+}
