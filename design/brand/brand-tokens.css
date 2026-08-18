@@ -1,0 +1,209 @@
+/* Shanky personal brand tokens, direction: Ink and Bone, v1.0.0, 2026-08-18
+   Dark is the default. Light applies automatically, or force it with [data-theme="light"].
+   Drop this file in, point font-face at the woff2 next to it, and use the variables.
+   Category colour and status colour never share a slot in one component. */
+
+@font-face {
+  font-family: "Karpal Geometric";
+  src: url("KarpalGeometric-Regular.woff2") format("woff2"),
+       url("KarpalGeometric-Regular.otf") format("opentype"),
+       url("KarpalGeometric-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: block;
+}
+
+:root {
+  /* type */
+  --font-display: "Karpal Geometric", Montserrat, ui-sans-serif, system-ui, sans-serif;
+  --font-ui: Montserrat, ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-code: ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  --size-h1: 22px;
+  --size-h2: 18px;
+  --size-h3: 15px;
+  --size-body: 14px;
+  --size-small: 12px;
+  --size-micro: 11px;
+  --size-hero: 32px;
+
+  --lh-tight: 1.3;
+  --lh-body: 1.65;
+  --track-display: 0.02em;
+  --track-micro: 0.04em;
+
+  /* space, radius, border */
+  --sp-1: 4px;  --sp-2: 8px;  --sp-3: 12px; --sp-4: 16px;
+  --sp-5: 24px; --sp-6: 32px; --sp-7: 48px; --sp-8: 64px;
+  --radius-control: 6px;
+  --radius-card: 10px;
+  --radius-chip: 4px;
+  --radius-pill: 999px;
+  --border-hairline: 1px;
+  --border-emphasis: 2px;
+  --rail: 4px;
+
+  /* dark theme, the default */
+  --page: #0B0C0D;
+  --card: #171614;
+  --raised: #201E1B;
+  --edge: #292826;
+  --edge-strong: #3A3833;
+
+  --text: #F3F1EB;
+  --text-quiet: #8F8C85;
+
+  --cat-copper: #B17E51;   /* capture and keep: ledge, content-digest-app */
+  --cat-brass:  #BFB287;   /* signal against a baseline: helios, zest */
+  --cat-mist:   #CFDFE8;   /* Claude and AI tooling: switchdeck, tokens, bridge, burnrate */
+
+  --st-good:    #4FC4A6;
+  --st-watch:   #E0B93A;
+  --st-problem: #CB5B45;
+  --st-info:    #4681D0;
+  --st-neutral: #7F8B85;
+
+  --label-on-fill: #0B0C0D;
+  --focus: #CFDFE8;
+  --grain-opacity: 0.16;
+
+  color-scheme: dark light;
+}
+
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) {
+    --page: #F5F5F3;
+    --card: #FFFFFF;
+    --raised: #EDEBE6;
+    --edge: #E2E0DA;
+    --edge-strong: #CDCAC2;
+
+    --text: #1A1917;
+    --text-quiet: #5A5852;
+
+    --cat-copper: #99612F;
+    --cat-brass:  #4D4323;
+    --cat-mist:   #2D647F;
+
+    --st-good:    #307A64;
+    --st-watch:   #695725;
+    --st-problem: #C73C20;
+    --st-info:    #3A659D;
+    --st-neutral: #3B413E;
+
+    --label-on-fill: #FFFFFF;
+    --focus: #2D647F;
+    --grain-opacity: 0.07;
+  }
+}
+
+[data-theme="light"] {
+  --page: #F5F5F3;
+  --card: #FFFFFF;
+  --raised: #EDEBE6;
+  --edge: #E2E0DA;
+  --edge-strong: #CDCAC2;
+  --text: #1A1917;
+  --text-quiet: #5A5852;
+  --cat-copper: #99612F;
+  --cat-brass:  #4D4323;
+  --cat-mist:   #2D647F;
+  --st-good:    #307A64;
+  --st-watch:   #695725;
+  --st-problem: #C73C20;
+  --st-info:    #3A659D;
+  --st-neutral: #3B413E;
+  --label-on-fill: #FFFFFF;
+  --focus: #2D647F;
+  --grain-opacity: 0.07;
+}
+
+/* ---- short aliases ----
+   The long names above are canonical and match brand-tokens.json.
+   These aliases exist because shanky-brand-guide.html uses the short spellings.
+   Both resolve to the same value in whichever theme is active, so either is safe. */
+:root, [data-theme="light"], [data-theme="dark"] {
+  --quiet: var(--text-quiet);
+  --copper: var(--cat-copper);
+  --brass: var(--cat-brass);
+  --mist: var(--cat-mist);
+  --good: var(--st-good);
+  --watch: var(--st-watch);
+  --problem: var(--st-problem);
+  --info: var(--st-info);
+  --neutral: var(--st-neutral);
+  --on-fill: var(--label-on-fill);
+  --grain: var(--grain-opacity);
+}
+
+/* ---- base ---- */
+body {
+  background: var(--page);
+  color: var(--text);
+  font-family: var(--font-ui);
+  font-size: var(--size-body);
+  line-height: var(--lh-body);
+  font-weight: 400;
+}
+h1, h2, h3 { font-weight: 500; line-height: var(--lh-tight); margin: 0 0 var(--sp-3); }
+h1 { font-size: var(--size-h1); }
+h2 { font-size: var(--size-h2); }
+h3 { font-size: var(--size-h3); font-weight: 600; }
+em, i { font-style: normal; font-weight: 600; }        /* no italics, ever */
+a { color: var(--st-info); text-decoration: none; }    /* no underlines */
+a:hover { border-bottom: 1px solid currentColor; }
+code, pre { font-family: var(--font-code); font-size: 13px; line-height: 1.55; }
+:focus-visible { outline: var(--border-emphasis) solid var(--focus); outline-offset: 2px; }
+
+/* ---- components ---- */
+.wordmark {
+  font-family: var(--font-display);
+  letter-spacing: var(--track-display);
+  text-transform: lowercase;
+  color: var(--text);
+}
+.hero-number { font-family: var(--font-display); font-size: var(--size-hero); color: var(--text); }
+.label { font-size: var(--size-micro); font-weight: 500; letter-spacing: var(--track-micro); color: var(--text-quiet); }
+
+.card {
+  background: var(--card);
+  border: var(--border-hairline) solid var(--edge);
+  border-radius: var(--radius-card);
+  padding: var(--sp-4) var(--sp-5);
+}
+.card + .card { margin-top: var(--sp-3); }             /* 12px floor between rows */
+
+/* category lives on the left rail only */
+.card--copper { border-left: var(--rail) solid var(--cat-copper); }
+.card--brass  { border-left: var(--rail) solid var(--cat-brass); }
+.card--mist   { border-left: var(--rail) solid var(--cat-mist); }
+.card--ink    { border-left: var(--rail) solid var(--edge-strong); }
+
+/* status lives in a chip on the right, and always carries a word */
+.chip {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: var(--size-micro); font-weight: 500; letter-spacing: var(--track-micro);
+  padding: 3px 9px; border-radius: var(--radius-chip);
+  color: var(--label-on-fill);
+}
+.chip--good    { background: var(--st-good); }
+.chip--watch   { background: var(--st-watch); }
+.chip--problem { background: var(--st-problem); }
+.chip--info    { background: var(--st-info); }
+.chip--neutral { background: var(--st-neutral); }
+
+/* grain: only on banners, covers and empty states */
+.grain { position: relative; isolation: isolate; }
+.grain::after {
+  content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none;
+  opacity: var(--grain-opacity);
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg'><filter id='g'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/><feColorMatrix type='saturate' values='0'/></filter><rect width='100%' height='100%' filter='url(%23g)'/></svg>");
+}
+
+/* readme header band */
+.banner {
+  background: var(--page);
+  border-left: var(--rail) solid var(--cat-mist);
+  padding: var(--sp-5) var(--sp-5) var(--sp-4);
+}
+.banner .sub { color: var(--text-quiet); font-size: var(--size-small); }
