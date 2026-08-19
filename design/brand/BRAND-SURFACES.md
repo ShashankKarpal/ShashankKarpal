@@ -97,6 +97,11 @@ Written 2026-08-19. Update this file the moment a new surface appears
       installed copy, NOT the repo)
 - [ ] Uebersicht burnrate widget if styled artwork is added later
 - [ ] VERIFY: menu bar shows the burn line mark.
+- KNOWN QUIRK (2026-08-19): xbar can wedge into rendering ALL its items
+  blank (hover highlight only, dark and light). Plugins are fine; fix is
+  killall xbar and relaunch. xbar is unmaintained; if it recurs, migrate
+  ccusage.30s.sh and claude-burnrate.1m.sh to ~/SwiftBarPlugins and retire
+  xbar (SwiftBar renders both, proven by claude-bridge).
 
 ### claude-skills-workspace
 - [ ] design/marks export tree only. Branch is MASTER, not main.
