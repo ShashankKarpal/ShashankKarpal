@@ -79,9 +79,14 @@ Written 2026-08-19. Update this file the moment a new surface appears
       Aug 17 dist shipped the entire old bundle for a day).
 - [ ] REBUILD + INSTALL: xcodegen + xcodebuild for Helios Bridge to iPhone
 - [ ] VERIFY: curl the SERVED files on https://helios.local:8420 and
-      compare shasum against dist, then load the page in a fresh private
-      window and look at the tab icon and in-page branding. iPhone home
-      screen icon for the bridge app.
+      compare shasum against dist, then load the page in CHROME INCOGNITO
+      (the only clean client) and look at the tab icon and in-page branding.
+      iPhone home screen icon for the bridge app.
+- CLIENT CACHES after the server is verified (2026-08-19): Chrome normal
+  profile heals with two reloads (SW update then serve). Safari uses its
+  on-disk Favicon Cache even in PRIVATE windows; the fix is quit Safari,
+  rm -rf ~/Library/Safari/"Favicon Cache", reopen. That folder is
+  TCC-protected from automation; Shanky runs it in his own Terminal.
 
 ### content-digest-app
 - [ ] design/marks export tree
