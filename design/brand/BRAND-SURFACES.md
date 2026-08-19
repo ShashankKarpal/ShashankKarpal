@@ -66,27 +66,11 @@ Written 2026-08-19. Update this file the moment a new surface appears
       or retire when next touched (known open item, 2026-08-19)
 - [ ] ios-bridge/Assets.xcassets/AppIcon.appiconset (3x 1024 pngs) and the
       reference copies in design/brand/app-icons/ios-bridge
-- [ ] web/public COMPLETE asset set, not just favicon.svg: favicon.svg,
-      favicon.ico, icon.svg, icon-maskable.svg, icons/icon-192.png,
-      icons/icon-512.png, icons/icon-512-maskable.png, apple-touch-icon.png,
-      splash/*.png (9 sizes). Safari tabs use apple-touch-icon, Chrome can
-      use manifest icons; fixing favicon.svg alone changes nothing visible.
-- [ ] web/public/sw.js: bump the CACHE version string, or every returning
-      browser keeps serving the old assets cache-first.
-- [ ] npm run build in helios/web. dist is what heliosd serves on :8420
-      and it is gitignored, so it MUST be rebuilt on the serving machine;
-      patching single files inside dist is a trap (2026-08-19: a stale
-      Aug 17 dist shipped the entire old bundle for a day).
+- [ ] web/public/favicon.svg + favicon.ico AND web/dist copies (vite build
+      output; either npm run build or copy into dist directly)
 - [ ] REBUILD + INSTALL: xcodegen + xcodebuild for Helios Bridge to iPhone
-- [ ] VERIFY: curl the SERVED files on https://helios.local:8420 and
-      compare shasum against dist, then load the page in CHROME INCOGNITO
-      (the only clean client) and look at the tab icon and in-page branding.
-      iPhone home screen icon for the bridge app.
-- CLIENT CACHES after the server is verified (2026-08-19): Chrome normal
-  profile heals with two reloads (SW update then serve). Safari uses its
-  on-disk Favicon Cache even in PRIVATE windows; the fix is quit Safari,
-  rm -rf ~/Library/Safari/"Favicon Cache", reopen. That folder is
-  TCC-protected from automation; Shanky runs it in his own Terminal.
+- [ ] VERIFY: https://helios.local:8420 tab icon (hard reload; Safari
+      favicon cache is stubborn), iPhone home screen icon.
 
 ### content-digest-app
 - [ ] design/marks export tree
@@ -220,16 +204,24 @@ change, and the easiest one to believe is done when it is not.
 
 ## Machines
 
-- [ ] M4 TOOLCHAIN: generate_marks.py needs cairosvg, pillow, fonttools,
-      icnsutil. OPEN ITEM (2026-08-19): none of the Mac interpreters has
-      cairosvg (/opt/homebrew/bin/python3, python3.13, python3.14,
-      /usr/bin/python3), so the documented rebuild command does not actually
-      run on the M4 today. The 2026-08-19 avatar exports were produced by
-      this same script, same fonts, same seeds, in a Linux environment that
-      had the deps. Deterministic, but it means the M4 cannot currently
-      regenerate its own brand assets. FIX WHEN NEXT TOUCHED: brew install
-      cairo, create a venv inside the profile repo, install the four deps,
-      and record the interpreter path on this line.
+- [ ] M4 TOOLCHAIN (resolved 2026-08-19): the pipeline runs on the M4 via
+      the repo venv. Rebuild any target with:
+
+          cd ~/Projects-with-Claude/shashankkarpal
+          .venv/bin/python design/marks/generate_marks.py [project ...]
+
+      Setup that made it work: brew install cairo (1.18.4), then
+      uv venv --python /opt/homebrew/bin/python3 .venv, then uv pip install
+      --python .venv/bin/python cairosvg pillow fonttools icnsutil. The
+      venv is gitignored; if it is ever missing (new machine, fresh clone),
+      those three lines recreate it.
+- KNOWN QUIRK (2026-08-19): rebuilt PNGs are never byte-identical to the
+  committed ones even when nothing changed. Pillow's effect_noise (the
+  grain) is not seedable, so every run lays fresh grain. Verified: SVGs
+  byte-identical, PNG mean pixel delta about 2.5/255, pure noise. So a
+  dirty git status full of PNGs after a rebuild does NOT mean the marks
+  changed. Diff an SVG to know the truth; git checkout the PNGs if the
+  SVGs are clean and you did not intend a change.
 - [ ] M4: every repo clean and pushed (git status loop, see below)
 - [ ] M1 (shashankkarpal@100.112.78.47): pull per repo. The
       com.shashank.autodeploy launchd job has stalled before (2026-08-19);
