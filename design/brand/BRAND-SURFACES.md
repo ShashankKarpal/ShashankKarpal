@@ -37,6 +37,13 @@ Written 2026-08-19. Update this file the moment a new surface appears
 - [ ] VERIFY: Mac Dock icon (killall Dock if cached), iPhone home screen,
       watch app icon, complication on the face (remove + re-add to bust
       the watchOS snapshot cache), menu bar glyph.
+- KNOWN QUIRK (2026-08-19): reinstalling the iPhone app via devicectl can
+  invalidate the security-scoped folder bookmark. Symptom: Mac notes stop
+  appearing on the iPhone while Watch capture still works (WatchConnectivity
+  is direct). Captures are safe in the app's local pending-captures.md.
+  Fix: open Ledge on the iPhone and re-pick iCloud Drive > Ledge when the
+  "lost access to your folder" notice shows. ALWAYS verify sync end to end
+  after any iPhone reinstall: capture on Mac, confirm on iPhone.
 
 ### helios
 - [ ] design/marks export tree
