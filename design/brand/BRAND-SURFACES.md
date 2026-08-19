@@ -41,9 +41,13 @@ Written 2026-08-19. Update this file the moment a new surface appears
   invalidate the security-scoped folder bookmark. Symptom: Mac notes stop
   appearing on the iPhone while Watch capture still works (WatchConnectivity
   is direct). Captures are safe in the app's local pending-captures.md.
-  Fix: open Ledge on the iPhone and re-pick iCloud Drive > Ledge when the
-  "lost access to your folder" notice shows. ALWAYS verify sync end to end
-  after any iPhone reinstall: capture on Mac, confirm on iPhone.
+  Fix: tap the folder icon (top-left, always visible since 2026-08-19) and
+  re-pick iCloud Drive > Ledge. ALWAYS verify sync end to end after any
+  iPhone reinstall: capture on Mac, confirm on iPhone.
+  History: the button used to appear only when isConnected was false, and
+  two state bugs (ignored startAccessingSecurityScopedResource result,
+  refresh() never clearing isConnected on failure) kept it hidden while
+  sync was dead. Fixed same day; do not regress the always-visible button.
 
 ### helios
 - [ ] design/marks export tree
