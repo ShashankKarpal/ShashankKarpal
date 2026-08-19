@@ -207,7 +207,7 @@ L more. Status: DONE (this session, verified), WAITING-ON-SHANKY, or OPEN
 | 4 | Mirror README false "nowhere else" claim | ink-and-bone/README.md | CRITICAL | S | No | DONE: reworded honestly, incident referenced |
 | 5 | Generated avatar README says upload dark | generate_marks.py build_avatar + out/github/avatar/README.md | CRITICAL (live-avatar regression path) | S | No | DONE: generator fixed, README regenerated, SVGs verified byte-identical, PNG churn reverted |
 | 6 | Helios PWA knowledge deleted from SOP | design/brand/BRAND-SURFACES.md | HIGH | S | No | DONE: restored from the ce8809c-era text, regression recorded with a lesson |
-| 7 | content-digest-app live #ff6b35 | server.py, extension/options.html | HIGH | S | No | DONE: swapped to copper #b17e51, pushed; M1 pulled |
+| 7 | content-digest-app live #ff6b35 | server.py, extension/options.html | HIGH | S | No | DONE with one manual step left: swapped to copper #b17e51, pushed, M1 pulled to 584e235. The running com.shashank.contentdigest process predates the pull; Shanky restarts it (launchctl kickstart -k gui/501/com.shashank.contentdigest on the M1) and reloads the Safari web app. Automation was correctly blocked from killing the live service. |
 | 8 | helios live old palette | web/tailwind.config.js | HIGH | S | No | DONE: full palette swapped per rollout mapping, sw.js bumped v4, dist rebuilt, served files checksum-verified; Chrome incognito eyeball left for Shanky |
 | 9 | Stale old-palette profile banner PNGs | design/github/*-1400x400.png | HIGH | S | No | DONE: removed; README uses the SVGs; SOP notes the removal |
 | 10 | Unpinned toolchain | repo root | HIGH | S | No | DONE: .python-version and requirements.lock committed, SOP recovery lines updated |
@@ -233,7 +233,7 @@ L more. Status: DONE (this session, verified), WAITING-ON-SHANKY, or OPEN
 | 30 | No tags, changelog, or version discipline | both repos | MEDIUM | S | YES (naming) | WAITING-ON-SHANKY: recommend tagging v1.0.0 now and v1.1.0 after this audit's fixes |
 | 31 | Mirror is same-machine, same-account; no off-account backup or restore test | ink-and-bone | MEDIUM | S/M | YES (where) | WAITING-ON-SHANKY |
 | 32 | Category-colour semantics (skills-workspace in ink, taxonomy axis, colour as sole group cue) | tokens, MARKS | MEDIUM | S | YES | WAITING-ON-SHANKY |
-| 33 | docs/STATE.md presented stale state as current | docs/STATE.md | LOW | S | No | DONE: historical header added |
+| 33 | docs/STATE.md presented stale state as current | docs/STATE.md | LOW | S | No | DONE: historical header added. Discovery: the file is excluded via .git/info/exclude, so it was never tracked or public; the note lives on disk only |
 | 34 | Dead code: if False in tile_svg, vacuous rollout condition, no-op replace, seed(96) | generator, rollout | LOW | S | No | OPEN: cosmetic; batch with the next real pipeline edit to keep this session's diffs reviewable |
 | 35 | marks README python3 vs SOP venv command | design/marks/README.md | LOW | S | No | DONE via SOP protocol line update; README run block left generic since consumers have no venv |
 | 36 | specimen2.png stray in font/ | design/brand/font/ | LOW | S | No | OPEN: ask before deleting an artifact I cannot identify |
@@ -264,6 +264,11 @@ correct branches (master for claude-skills-workspace).
 5. Hygiene (items 9, 10, 11, 25 consumers, 26, 28 OFL, 33). 
 6. Mirror refreshed by rsync, monogram and overlay verified present,
    committed, pushed, still private.
+7. GitHub-side verification from the Mac: the monogram render returns 404
+   on the profile repo's main; the generator at HEAD of the profile repo
+   and a public consumer contains zero monogram registry entries; the
+   fetch-aware fleet audit reports all eleven repos dirty=0 ahead=0
+   behind=0, FLEET CLEAN.
 
 ## 7. Open questions for Shanky, each with a recommendation
 
