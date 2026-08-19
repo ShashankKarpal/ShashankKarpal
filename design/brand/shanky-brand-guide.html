@@ -19,6 +19,7 @@
   --copper:#B17E51; --brass:#BFB287; --mist:#CFDFE8;
   --good:#4FC4A6; --watch:#E0B93A; --problem:#CB5B45; --info:#4681D0; --neutral:#7F8B85;
   --on-fill:#0B0C0D; --focus:#CFDFE8; --grain:0.16;
+  --control-border:#716D64; --state-indicator:#9A968C; --link:#5E92DC;
 }
 html[data-theme="light"]{
   --page:#F5F5F3; --card:#FFFFFF; --raised:#EDEBE6; --edge:#E2E0DA; --edge-strong:#CDCAC2;
@@ -26,6 +27,7 @@ html[data-theme="light"]{
   --copper:#99612F; --brass:#4D4323; --mist:#2D647F;
   --good:#307A64; --watch:#695725; --problem:#C73C20; --info:#3A659D; --neutral:#3B413E;
   --on-fill:#FFFFFF; --focus:#2D647F; --grain:0.07;
+  --control-border:#85827B; --state-indicator:#67645C; --link:#3A659D;
 }
 *{box-sizing:border-box}
 body{margin:0; background:var(--page); color:var(--text); font-family:var(--font-ui);
@@ -36,7 +38,7 @@ h2{font-size:18px; margin-top:0}
 h3{font-size:15px; font-weight:600; margin-bottom:8px}
 p{margin:0 0 12px} p:last-child{margin-bottom:0}
 em,i{font-style:normal; font-weight:600}
-a{color:var(--info); text-decoration:none} a:hover{border-bottom:1px solid currentColor}
+a{color:var(--link); text-decoration:underline; text-decoration-thickness:1px; text-underline-offset:2px} a:hover{text-decoration-thickness:2px}
 code{font-family:var(--font-code); font-size:12.5px; background:var(--raised); padding:1px 5px; border-radius:4px}
 :focus-visible{outline:2px solid var(--focus); outline-offset:2px}
 .q{color:var(--quiet)}
@@ -154,7 +156,7 @@ td .yes,td .no{border:0; padding-left:0; color:var(--text)}
     <div class="rule"><strong>2. Category on the left, status on the right.</strong> Category colour appears only on a left rail, a mark or a badge. Status appears only in a chip, and every chip carries a word.</div>
     <div class="rule"><strong>3. Ink is a category too.</strong> Making, 3D printing, forks and the profile repo carry no accent. Absence of colour is information.</div>
     <div class="rule"><strong>4. Grain is the only texture.</strong> Banners, covers and empty states. Never behind text, tables or charts.</div>
-    <div class="rule"><strong>5. Twelve pixels between rows, minimum.</strong> No italics, no underlines, no emoji, no em dashes. Emphasis comes from weight and size.</div>
+    <div class="rule"><strong>5. Twelve pixels between rows, minimum.</strong> No italics, no emoji, no em dashes. Emphasis comes from weight and size. Underlines exist in exactly one place: persistently under inline text links, an accessibility requirement (2026-08-19), never as emphasis.</div>
     <div class="rule"><strong>When in doubt</strong>, use ink and one accent. A screen with two colours on it is always readable; a screen with six is a legend you have to decode.</div>
   </div>
 </section>
@@ -427,7 +429,7 @@ td .yes,td .no{border:0; padding-left:0; color:var(--text)}
 
   <div class="card" style="margin-top:12px">
     <h3>Beyond colour</h3>
-    <p style="margin-bottom:0">Twelve pixel minimum between rows. No type below 11px, and 11px only for tracked labels. Grain banned behind text, tables and charts. No italics or underlines, so emphasis is weight or size. Focus is a 2px Mist ring at 14.33 on dark and 2px #2D647F on light, always with 2px offset. Re-run <code>verify-palette.py</code> after any colour change; it exits non-zero if a required pair fails.</p>
+    <p style="margin-bottom:0">Twelve pixel minimum between rows. No type below 11px, and 11px only for tracked labels. Grain banned behind text, tables and charts. No italics; emphasis is weight or size. Inline text links carry a persistent underline and the dedicated link token, which clears 4.5:1 on page, card and raised in both themes (2026-08-19). Controls and states use controlBorder and stateIndicator, which clear 3:1 on all three surfaces; edge and edge-strong are decorative. Focus is a 2px Mist ring at 14.33 on dark and 2px #2D647F on light, always with 2px offset. Re-run <code>verify-palette.py</code> after any colour change; it exits non-zero if a required pair fails.</p>
   </div>
 </section>
 

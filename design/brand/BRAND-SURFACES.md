@@ -15,12 +15,17 @@ Written 2026-08-19. Update this file the moment a new surface appears
    `shashankkarpal/design/marks/generate_marks.py` (and brand-tokens.json).
    Private geometry lives ONLY in `design/marks/private_marks.py`
    (gitignored; see INCIDENT 2026-08-19). Run
-   `.venv/bin/python design/marks/generate_marks.py [project ...]`, then
-   `rollout.py` for multi-repo changes. Never hand-edit exports.
-   NOTE: the copies of generate_marks.py inside the nine consumer repos are
-   sanitized snapshots for reference; they cannot regenerate wordmarks
-   (fonts are not vendored there) and must never gain private entries. The
-   canonical pipeline is this repo only.
+   `.venv/bin/python design/marks/generate_marks.py [project ...]`.
+   Never hand-edit exports.
+   ROLLOUT (decision 2026-08-19): rollout.py is ARCHIVED as
+   rollout-v1-migration.py and must not be reused; it was the one-time v1
+   migration. Multi-repo distribution is manual until a manifest-driven
+   tool with dry-run and clean-tree guards exists: rebuild here, copy the
+   assets each consumer actually uses, update its PROVENANCE.md, commit.
+   CONSUMERS (decision 2026-08-19): consumer repos hold ONLY the assets
+   they use plus design/marks/PROVENANCE.md (canonical commit, token
+   version, file hashes). They do not carry the generator; the canonical
+   pipeline is this repo only.
 2. REPO SURFACES. Apply per-project sections below. Commit and push every
    touched repo. A change that is not pushed does not exist.
 3. INSTALLED SURFACES. Repos hold source; users see builds. Rebuild and
@@ -50,10 +55,12 @@ mirror); generate_marks.py now loads it as an optional overlay and fails
 closed without it; the two renders moved to design/marks/out/private/
 exploration/; sanitized generate_marks.py pushed to all nine consumers.
 
-STILL OPEN: the monogram remains in the git HISTORY of this repo and the
-nine consumers until histories are rewritten (git filter-repo plus force
-push, then M1 re-clone) or Shanky decides to treat the v1 monogram as
-disclosed and redesign it. His call, asked 2026-08-19.
+DECISION (Shanky, 2026-08-19, same day): the v1 monogram is treated as
+DISCLOSED and is RETIRED as a private identifier. No history rewrite. It
+stays archived in the private overlay and out/private. If a private
+monogram is needed again, a completely new v2 is designed inside the
+overlay, with no source, previews, contact sheets, or generator
+definitions ever copied into public repositories.
 
 - RULE (new): private geometry lives ONLY in private_marks.py and
   out/private/. Nothing derived from a private mark (renders, contact
@@ -281,6 +288,20 @@ change, and the easiest one to believe is done when it is not.
   2026-08-19 design session live in design/marks/exploration/, per the
   standing rule that all artwork produced for this brand lands in this
   repo, not in a chat scratchpad.
+
+## Accessibility tokens (decision 2026-08-19)
+
+- edge and edgeStrong are DECORATIVE. Anything that must be perceived to
+  operate the interface uses controlBorder (3:1 or better on page, card,
+  raised, both themes) or stateIndicator (stronger, for selected and
+  active states, always paired with a non-colour cue).
+- Inline text links carry a PERSISTENT underline and the link token (dark
+  #5E92DC, light #3A659D), which clears 4.5:1 on all three surfaces.
+  Underline-free treatment only where the navigation role is already
+  explicit (buttons, tabs, nav). "No underlines" as a blanket rule is
+  retired; underlines never appear as emphasis.
+- Values, ratios, and rationale: brand-tokens.json, brand-tokens.css, and
+  the amendment in accessibility-report.md.
 
 ## Fonts in the repo
 
