@@ -33,7 +33,8 @@ service-account*.json
 .env.*
 !.env.example
 
-# never publish the personal monogram
+# never publish the personal monogram: rendered assets AND source geometry
 design/marks/out/private/
+design/marks/private_marks.py
 design/brand/RUNBOOK-phase-e-finish.md
 .venv/

@@ -13,8 +13,14 @@ Written 2026-08-19. Update this file the moment a new surface appears
 
 1. GENERATE. Edit geometry or palette only in
    `shashankkarpal/design/marks/generate_marks.py` (and brand-tokens.json).
-   Run `python3 generate_marks.py [project ...]`, then `rollout.py` for
-   multi-repo changes. Never hand-edit exports.
+   Private geometry lives ONLY in `design/marks/private_marks.py`
+   (gitignored; see INCIDENT 2026-08-19). Run
+   `.venv/bin/python design/marks/generate_marks.py [project ...]`, then
+   `rollout.py` for multi-repo changes. Never hand-edit exports.
+   NOTE: the copies of generate_marks.py inside the nine consumer repos are
+   sanitized snapshots for reference; they cannot regenerate wordmarks
+   (fonts are not vendored there) and must never gain private entries. The
+   canonical pipeline is this repo only.
 2. REPO SURFACES. Apply per-project sections below. Commit and push every
    touched repo. A change that is not pushed does not exist.
 3. INSTALLED SURFACES. Repos hold source; users see builds. Rebuild and
@@ -22,6 +28,45 @@ Written 2026-08-19. Update this file the moment a new surface appears
 4. REMOTE MACHINES. The M1 does not update itself reliably. Verify.
 5. MIRROR. Refresh the ink-and-bone private backup repo.
 6. VERIFY. Every section has a verification step. Do them all, same session.
+
+## INCIDENT 2026-08-19: the monogram was public
+
+Found by the external-critique audit (design/brand/reviews/). The private
+sk monogram had leaked in two ways, both live on GitHub:
+
+1. Its full geometry sat in the MARKS registry inside generate_marks.py,
+   tracked in this PUBLIC repo since the initial rollout PR (d59f72f), and
+   copied byte-identically by rollout.py into all nine consumer repos, six
+   of which are public (ledge, content-digest-app, helios, zest,
+   switchdeck, claude-tokens).
+2. Two rendered images (round1-a-monogram.png and round1-contact-sheet.png)
+   were committed to design/marks/exploration/ in this public repo by the
+   avatar session (f473bb9), beside a README saying the concept must never
+   ship.
+
+Containment, done 2026-08-19: geometry moved to design/marks/
+private_marks.py (gitignored here, tracked only in the ink-and-bone
+mirror); generate_marks.py now loads it as an optional overlay and fails
+closed without it; the two renders moved to design/marks/out/private/
+exploration/; sanitized generate_marks.py pushed to all nine consumers.
+
+STILL OPEN: the monogram remains in the git HISTORY of this repo and the
+nine consumers until histories are rewritten (git filter-repo plus force
+push, then M1 re-clone) or Shanky decides to treat the v1 monogram as
+disclosed and redesign it. His call, asked 2026-08-19.
+
+- RULE (new): private geometry lives ONLY in private_marks.py and
+  out/private/. Nothing derived from a private mark (renders, contact
+  sheets, exploration drafts) may be committed outside out/private/, even
+  as a rejected concept. gitignore covers both paths.
+- RULE (new): after any rollout or archive commit, run the privacy check
+  in EVERY touched repo before pushing. Both commands must print nothing:
+
+      git ls-files design/marks/out/private design/marks/private_marks.py
+      git grep -n "PRIVATE_MARKS = " -- design/marks/generate_marks.py
+
+  and design/marks/generate_marks.py must not contain a "monogram" entry
+  in its MARKS registry (the geometry lives only in private_marks.py).
 
 ## Per-project surfaces
 
@@ -60,17 +105,51 @@ Written 2026-08-19. Update this file the moment a new surface appears
 
 ### helios
 - [ ] design/marks export tree
+- [ ] web/tailwind.config.js colour block. RESOLVED DRIFT (2026-08-19): it
+      still carried the ENTIRE pre-Ink-and-Bone palette (bg #0B0D0C, text
+      #E8ECE9, mint #7EE0B1, alert #F87171 and friends) a day after
+      rollout, because rollout.py only walked web/src and the src files use
+      Tailwind CLASSES, not hexes. The live UI therefore rendered the old
+      palette everywhere. Swapped to Ink and Bone values per the rollout
+      mapping (alert -> problem #CB5B45). Any future palette change MUST
+      touch this file and then npm run build.
+- [ ] design/brand/README.md and design/brand/tokens/ snippets still
+      describe the old mint system; README now carries a superseded header
+      (2026-08-19). Retire or rewrite when next touched.
 - [ ] design/brand: icon-composer layers (background, hub, line, mono),
       print letterhead, lockups
 - [ ] design/brand/sf-symbol: still carries meridian-named files; regenerate
       or retire when next touched (known open item, 2026-08-19)
 - [ ] ios-bridge/Assets.xcassets/AppIcon.appiconset (3x 1024 pngs) and the
       reference copies in design/brand/app-icons/ios-bridge
-- [ ] web/public/favicon.svg + favicon.ico AND web/dist copies (vite build
-      output; either npm run build or copy into dist directly)
+- [ ] web/public COMPLETE asset set, not just favicon.svg: favicon.svg,
+      favicon.ico, icon.svg, icon-maskable.svg, icons/icon-192.png,
+      icons/icon-512.png, icons/icon-512-maskable.png, apple-touch-icon.png,
+      splash/*.png (9 sizes). Safari tabs use apple-touch-icon, Chrome can
+      use manifest icons; fixing favicon.svg alone changes nothing visible.
+- [ ] web/public/sw.js: bump the CACHE version string, or every returning
+      browser keeps serving the old assets cache-first.
+- [ ] npm run build in helios/web. dist is what heliosd serves on :8420
+      and it is gitignored, so it MUST be rebuilt on the serving machine;
+      patching single files inside dist is a trap (2026-08-19: a stale
+      Aug 17 dist shipped the entire old bundle for a day).
 - [ ] REBUILD + INSTALL: xcodegen + xcodebuild for Helios Bridge to iPhone
-- [ ] VERIFY: https://helios.local:8420 tab icon (hard reload; Safari
-      favicon cache is stubborn), iPhone home screen icon.
+- [ ] VERIFY: curl the SERVED files on https://helios.local:8420 and
+      compare shasum against dist, then load the page in CHROME INCOGNITO
+      (the only clean client) and look at the tab icon and in-page branding.
+      iPhone home screen icon for the bridge app.
+- CLIENT CACHES after the server is verified (2026-08-19): Chrome normal
+  profile heals with two reloads (SW update then serve). Safari uses its
+  on-disk Favicon Cache even in PRIVATE windows; the fix is quit Safari,
+  rm -rf ~/Library/Safari/"Favicon Cache", reopen. That folder is
+  TCC-protected from automation; Shanky runs it in his own Terminal.
+- RESTORED (2026-08-19): the five detailed lines above were added by
+  c5b6d82 and ce8809c, then accidentally deleted hours later by 4775655
+  (the toolchain commit), which also reintroduced the copy-into-dist trap
+  as an instruction. Restored same day during the external-critique audit.
+- LESSON: before editing this SOP, read its CURRENT committed state and
+  diff your edit against it. Rewriting a section from memory or from an
+  earlier read is how same-day incident knowledge got deleted.
 
 ### content-digest-app
 - [ ] design/marks export tree
@@ -78,6 +157,13 @@ Written 2026-08-19. Update this file the moment a new surface appears
       favicon.ico, apple-touch-icon.png, icon-192, icon-512,
       icon-512-maskable, og-1200x630 (server.py serves these at /assets/)
 - [ ] extension/manifest.json icons if the extension ships artwork
+- [ ] server.py and extension/options.html inline style hexes. RESOLVED
+      DRIFT (2026-08-19): both still used the retired #ff6b35 accent a day
+      after rollout because that hex was never in rollout.py's mapping.
+      Swapped to copper #B17E51.
+- LESSON: after any palette rollout, grep every touched repo for the OLD
+  hexes (all of them, including pre-brand accents like #ff6b35), not just
+  the ones the mapping happened to know about.
 - [ ] M1 RUNTIME: repo must be pulled on the M1 (see Machines below);
       server reads assets from disk, no restart needed for icons
 - [ ] Safari web app on the Dock: icon is SNAPSHOTTED at add time. Delete
@@ -145,9 +231,15 @@ Written 2026-08-19. Update this file the moment a new surface appears
 - [ ] design/github/profile-banner-dark.svg + light (README uses these)
 - [ ] design/github/social-preview-1280x640.png (six marks, banner grammar)
 - [ ] design/github/avatar-dark.svg + avatar-light.svg, avatar-dark-460.png +
-      avatar-light-460.png. Generated by `generate_marks.py avatar`; the full
+      avatar-light-460.png. Generated by
+      `.venv/bin/python design/marks/generate_marks.py avatar`; the full
       size matrix (460, 400, 200, 80, 40, 20) lands in
       design/marks/out/github/avatar/. Never hand-edit either copy.
+- [ ] design/github/profile-banner-dark.svg + light are the ONLY banner
+      files; the stale -1400x400.png pair (pre-Ink-and-Bone palette) was
+      removed 2026-08-19. The README embeds the SVGs. If PNG banners are
+      ever needed again, generate them from the current SVGs, never revive
+      the deleted pair.
 - [ ] VERIFY: profile page renders both themes.
 
 ### GitHub account avatar (account-level, not a repo file)
@@ -156,7 +248,12 @@ change, and the easiest one to believe is done when it is not.
 - LIVE VARIANT: avatar-light-460.png, uploaded by Shanky 2026-08-19. The
   light ground was his call; if the avatar is ever regenerated, light is
   the file to re-upload unless he says otherwise.
-- [ ] Regenerate: `python3 design/marks/generate_marks.py avatar`
+- [ ] Regenerate: `.venv/bin/python design/marks/generate_marks.py avatar`
+- RESOLVED (2026-08-19): the generated out/github/avatar/README.md used to
+  say "upload avatar-dark-460.png", contradicting the LIVE VARIANT line
+  below. The generator text now names the light file. LESSON: when an owner
+  decision changes a generated file's instructions, regenerate the file in
+  the same session; a stale generated README is a regression path.
 - [ ] UPLOAD (MANUAL): github.com/settings/profile, upload
       design/github/avatar-light-460.png (see LIVE VARIANT above), then Set
       new profile picture and confirm the crop (GitHub offers a crop step
@@ -215,9 +312,15 @@ change, and the easiest one to believe is done when it is not.
 
       Setup that made it work: brew install cairo (1.18.4), then
       uv venv --python /opt/homebrew/bin/python3 .venv, then uv pip install
-      --python .venv/bin/python cairosvg pillow fonttools icnsutil. The
-      venv is gitignored; if it is ever missing (new machine, fresh clone),
-      those three lines recreate it.
+      --python .venv/bin/python -r requirements.lock. The venv is
+      gitignored; if it is ever missing (new machine, fresh clone), those
+      three lines recreate it EXACTLY.
+- PINNED (2026-08-19): .python-version (3.14) and requirements.lock at the
+  repo root record the working toolchain (cairosvg 2.9.0, pillow 12.3.0,
+  fonttools 4.63.0, icnsutil 1.1.0, python 3.14.7, native cairo 1.18.4 via
+  Homebrew). After any deliberate upgrade, regenerate the lock with
+  uv pip freeze --python .venv/bin/python > requirements.lock and rebuild
+  one project to confirm, in the same session.
 - KNOWN QUIRK (2026-08-19): rebuilt PNGs are never byte-identical to the
   committed ones even when nothing changed. Pillow's effect_noise (the
   grain) is not seedable, so every run lays fresh grain. Verified: SVGs
@@ -238,12 +341,21 @@ change, and the easiest one to believe is done when it is not.
 
 ## One-command audit
 
-Run on the M4 to catch unpushed work across the fleet:
+Run on the M4 to catch unpushed, unpulled, or missing work across the
+fleet. Unlike the earlier version, this one fetches first, fails loudly on
+a missing repo or missing upstream, and reports behind as well as ahead:
 
+    fail=0
     for r in ledge content-digest-app helios zest switchdeck claude-tokens \
              claude-bridge claude-burnrate claude-skills-workspace \
              shashankkarpal ink-and-bone; do
-      cd /Users/shashank.kk/Projects-with-Claude/$r 2>/dev/null || continue
-      s=$(git status --short | head -3); a=$(git log --oneline @{u}.. 2>/dev/null | wc -l)
-      echo "$r: dirty=$([ -n "$s" ] && echo YES || echo no) unpushed=$a"
-    done
+      d=/Users/shashank.kk/Projects-with-Claude/$r
+      if [ ! -d "$d/.git" ]; then echo "$r: MISSING REPO"; fail=1; continue; fi
+      cd "$d"; git fetch -q 2>/dev/null
+      if ! git rev-parse --abbrev-ref @{u} >/dev/null 2>&1; then
+        echo "$r: NO UPSTREAM"; fail=1; continue; fi
+      s=$(git status --short | wc -l | tr -d ' ')
+      a=$(git rev-list --count @{u}..HEAD); b=$(git rev-list --count HEAD..@{u})
+      [ "$s$a$b" != "000" ] && fail=1
+      echo "$r: dirty=$s ahead=$a behind=$b"
+    done; [ $fail = 0 ] && echo "FLEET CLEAN" || echo "FLEET INCOMPLETE"

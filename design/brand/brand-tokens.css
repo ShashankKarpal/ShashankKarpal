@@ -5,9 +5,9 @@
 
 @font-face {
   font-family: "Karpal Geometric";
-  src: url("KarpalGeometric-Regular.woff2") format("woff2"),
-       url("KarpalGeometric-Regular.otf") format("opentype"),
-       url("KarpalGeometric-Regular.ttf") format("truetype");
+  src: url("font/KarpalGeometric-Regular.woff2") format("woff2"),
+       url("font/KarpalGeometric-Regular.otf") format("opentype"),
+       url("font/KarpalGeometric-Regular.ttf") format("truetype");
   font-weight: 400;
   font-style: normal;
   font-display: block;
