@@ -36,3 +36,4 @@ service-account*.json
 # never publish the personal monogram
 design/marks/out/private/
 design/brand/RUNBOOK-phase-e-finish.md
+.venv/
