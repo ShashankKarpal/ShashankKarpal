@@ -191,7 +191,7 @@
       "colour": "text primary of the active theme, never a category colour"
     },
     "marks": {
-      "status": "open. The four locked shapes (battery cell, collapsing bars, fanned deck, rising bars) are still not drawn as production SVGs.",
+      "status": "shipped 2026-08-18. All nine project marks are drawn as production geometry in design/marks/generate_marks.py with master, s24 and s16 variants, exported to the full matrix under design/marks/out/.",
       "requiredSizes": [512, 24, 16],
       "requiredGrounds": ["dark", "light"],
       "minSize": "16px"

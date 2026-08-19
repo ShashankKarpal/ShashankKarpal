@@ -170,26 +170,24 @@ MARKS = {
         "s16": [R(20, 26, 26, 26, 8), R(20, 56, 26, 26, 8), R(54, 56, 26, 26, 8),
                 R(54, 16, 26, 26, 8, rot=(10, 67, 29))],
     },
-    "monogram": {
-        "cat": "copper", "private": True, "no_wordmark": True,
-        "story": "sk in Karpal Geometric with the copper period. never published",
-        "master": [G("M 32.8,51.1 A 11.5,11.5 0 1 0 24,70 A 11.5,11.5 0 1 1 15.2,88.9",
-                     "translate(10,5) scale(0.75)", sw=12),
-                   G("M 0,14 L 0,100 M 26,50 L 0,74 M 9,66 L 28,100",
-                     "translate(52,5) scale(0.75)", sw=12),
-                   C(84, 73, 7, role="acc")],
-        "s24": [G("M 32.8,51.1 A 11.5,11.5 0 1 0 24,70 A 11.5,11.5 0 1 1 15.2,88.9",
-                  "translate(10,5) scale(0.75)", sw=15),
-                G("M 0,14 L 0,100 M 26,50 L 0,74 M 9,66 L 28,100",
-                  "translate(52,5) scale(0.75)", sw=15),
-                C(85, 72, 9, role="acc")],
-        "s16": [G("M 32.8,51.1 A 11.5,11.5 0 1 0 24,70 A 11.5,11.5 0 1 1 15.2,88.9",
-                  "translate(8,5) scale(0.75)", sw=18),
-                G("M 0,14 L 0,100 M 26,50 L 0,74 M 9,66 L 28,100",
-                  "translate(52,5) scale(0.75)", sw=18),
-                C(86, 70, 11, role="acc")],
-    },
 }
+
+# private overlay ------------------------------------------------------------
+# Private marks (the monogram) are NEVER defined in this file. They live in
+# private_marks.py next to this script, which is gitignored in the public
+# repo and exists only on Shanky's machines and in the private ink-and-bone
+# mirror. Without the overlay, a public build simply cannot render them.
+# Incident record: BRAND-SURFACES.md, INCIDENT 2026-08-19.
+
+PRIVATE_OVERLAY = os.path.join(HERE, "private_marks.py")
+HAVE_PRIVATE = os.path.exists(PRIVATE_OVERLAY)
+if HAVE_PRIVATE:
+    _ns = {"R": R, "C": C, "P": P, "G": G}
+    with open(PRIVATE_OVERLAY) as _f:
+        exec(_f.read(), _ns)
+    for _k, _v in _ns.get("PRIVATE_MARKS", {}).items():
+        _v["private_overlay"] = True
+        MARKS[_k] = _v
 
 # svg emit ------------------------------------------------------------------
 
@@ -546,9 +544,11 @@ def build_avatar():
                 "Layout: contribution field behind a terminal card holding the\n"
                 "shanky.md print, the wordmark and three lines of copy. The card\n"
                 "exists so grain never sits under type below 14px.\n\n"
-                "Upload avatar-dark-460.png at github.com/settings/profile. The\n"
-                "upload is manual and GitHub caches avatars hard on its CDN, so\n"
-                "verify in a private window, not a normal reload.\n\n"
+                "Upload avatar-light-460.png at github.com/settings/profile.\n"
+                "LIGHT is the live variant, Shanky's recorded call in\n"
+                "BRAND-SURFACES.md; do not upload the dark file unless he says\n"
+                "otherwise. The upload is manual and GitHub caches avatars hard\n"
+                "on its CDN, so verify in a private window, not a normal reload.\n\n"
                 "Note: the contribution field is copper. brand-tokens says the\n"
                 "profile repo stays ink; carrying copper here is a deliberate\n"
                 "owner decision recorded in BRAND-SURFACES.md, not a drift.\n")
@@ -738,7 +738,7 @@ PNG_SIZES = [1024, 512, 256, 128, 64, 48, 32, 24, 16]
 
 def build(project):
     m = MARKS[project]
-    pdir = os.path.join(OUT, "private" if m["private"] and project == "monogram" else "",
+    pdir = os.path.join(OUT, "private" if m.get("private_overlay") else "",
                         project)
     for sub in ("svg", "pdf", "png", "jpeg", "wordmark", "macos", "ios",
                 "watchos", "web", "appstore"):
@@ -854,16 +854,20 @@ def build(project):
 def main():
     targets = sys.argv[1:] or list(MARKS.keys()) + ["avatar"]
     os.makedirs(OUT, exist_ok=True)
-    priv = os.path.join(OUT, "private")
-    os.makedirs(priv, exist_ok=True)
-    with open(os.path.join(priv, "README-PRIVATE.md"), "w") as f:
-        f.write("# PRIVATE. Do not publish.\n\nEverything in this folder is "
-                "personal and must never appear in a README, a repo, or any "
-                "public surface on GitHub. The monogram lives here by "
-                "Shanky's explicit instruction.\n")
+    if HAVE_PRIVATE:
+        priv = os.path.join(OUT, "private")
+        os.makedirs(priv, exist_ok=True)
+        with open(os.path.join(priv, "README-PRIVATE.md"), "w") as f:
+            f.write("# PRIVATE. Do not publish.\n\nEverything in this folder "
+                    "is personal and must never appear in a README, a repo, "
+                    "or any public surface on GitHub. The monogram lives "
+                    "here by Shanky's explicit instruction.\n")
     for p in targets:
         if p == "avatar":
             build_avatar()
+        elif p not in MARKS:
+            print("  unknown target %r (private overlay missing?)" % p)
+            sys.exit(1)
         else:
             build(p)
 
