@@ -48,10 +48,13 @@
   --card: #171614;
   --raised: #201E1B;
   --edge: #292826;
-  --edge-strong: #3A3833;
+  --edge-strong: #3A3833;      /* decorative separation only */
+  --control-border: #716D64;   /* controls: clears 3:1 on page, card, raised */
+  --state-indicator: #9A968C;  /* selected and active states */
 
   --text: #F3F1EB;
   --text-quiet: #8F8C85;
+  --link: #5E92DC;             /* inline links, always underlined; 4.5+ on raised */
 
   --cat-copper: #B17E51;   /* capture and keep: ledge, content-digest-app */
   --cat-brass:  #BFB287;   /* signal against a baseline: helios, zest */
@@ -67,8 +70,15 @@
   --focus: #CFDFE8;
   --grain-opacity: 0.16;
 
-  color-scheme: dark light;
+  color-scheme: dark;
 }
+
+/* native widgets follow the active theme, not the OS preference */
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) { color-scheme: light; }
+}
+[data-theme="light"] { color-scheme: light; }
+[data-theme="dark"] { color-scheme: dark; }
 
 @media (prefers-color-scheme: light) {
   :root:not([data-theme="dark"]) {
@@ -77,9 +87,12 @@
     --raised: #EDEBE6;
     --edge: #E2E0DA;
     --edge-strong: #CDCAC2;
+    --control-border: #85827B;
+    --state-indicator: #67645C;
 
     --text: #1A1917;
     --text-quiet: #5A5852;
+    --link: #3A659D;
 
     --cat-copper: #99612F;
     --cat-brass:  #4D4323;
@@ -103,8 +116,11 @@
   --raised: #EDEBE6;
   --edge: #E2E0DA;
   --edge-strong: #CDCAC2;
+  --control-border: #85827B;
+  --state-indicator: #67645C;
   --text: #1A1917;
   --text-quiet: #5A5852;
+  --link: #3A659D;
   --cat-copper: #99612F;
   --cat-brass:  #4D4323;
   --cat-mist:   #2D647F;
@@ -150,8 +166,16 @@ h1 { font-size: var(--size-h1); }
 h2 { font-size: var(--size-h2); }
 h3 { font-size: var(--size-h3); font-weight: 600; }
 em, i { font-style: normal; font-weight: 600; }        /* no italics, ever */
-a { color: var(--st-info); text-decoration: none; }    /* no underlines */
-a:hover { border-bottom: 1px solid currentColor; }
+/* inline links: persistent underline, own token (2026-08-19 accessibility decision).
+   Underline-free treatment is allowed only on controls whose navigation role
+   is already visually explicit (buttons, tabs, nav items). */
+a {
+  color: var(--link);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;
+}
+a:hover { text-decoration-thickness: 2px; }
 code, pre { font-family: var(--font-code); font-size: 13px; line-height: 1.55; }
 :focus-visible { outline: var(--border-emphasis) solid var(--focus); outline-offset: 2px; }
 
