@@ -66,11 +66,22 @@ Written 2026-08-19. Update this file the moment a new surface appears
       or retire when next touched (known open item, 2026-08-19)
 - [ ] ios-bridge/Assets.xcassets/AppIcon.appiconset (3x 1024 pngs) and the
       reference copies in design/brand/app-icons/ios-bridge
-- [ ] web/public/favicon.svg + favicon.ico AND web/dist copies (vite build
-      output; either npm run build or copy into dist directly)
+- [ ] web/public COMPLETE asset set, not just favicon.svg: favicon.svg,
+      favicon.ico, icon.svg, icon-maskable.svg, icons/icon-192.png,
+      icons/icon-512.png, icons/icon-512-maskable.png, apple-touch-icon.png,
+      splash/*.png (9 sizes). Safari tabs use apple-touch-icon, Chrome can
+      use manifest icons; fixing favicon.svg alone changes nothing visible.
+- [ ] web/public/sw.js: bump the CACHE version string, or every returning
+      browser keeps serving the old assets cache-first.
+- [ ] npm run build in helios/web. dist is what heliosd serves on :8420
+      and it is gitignored, so it MUST be rebuilt on the serving machine;
+      patching single files inside dist is a trap (2026-08-19: a stale
+      Aug 17 dist shipped the entire old bundle for a day).
 - [ ] REBUILD + INSTALL: xcodegen + xcodebuild for Helios Bridge to iPhone
-- [ ] VERIFY: https://helios.local:8420 tab icon (hard reload; Safari
-      favicon cache is stubborn), iPhone home screen icon.
+- [ ] VERIFY: curl the SERVED files on https://helios.local:8420 and
+      compare shasum against dist, then load the page in a fresh private
+      window and look at the tab icon and in-page branding. iPhone home
+      screen icon for the bridge app.
 
 ### content-digest-app
 - [ ] design/marks export tree
