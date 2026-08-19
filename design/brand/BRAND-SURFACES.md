@@ -48,6 +48,15 @@ Written 2026-08-19. Update this file the moment a new surface appears
   two state bugs (ignored startAccessingSecurityScopedResource result,
   refresh() never clearing isConnected on failure) kept it hidden while
   sync was dead. Fixed same day; do not regress the always-visible button.
+- KNOWN QUIRK (2026-08-19): even with the app healthy, iCloud Drive
+  transport itself can wedge. Symptoms: the iPhone holds inbox.md as a
+  grayed dataless placeholder in Files (app cannot show Mac notes), and
+  iPhone writes do not reach the Mac. Fix, in order: on the Mac run
+  killall bird fileproviderd (daemons restart and resync); on the iPhone
+  open the Ledge folder in Files and tap inbox to force-download; pull to
+  refresh in Ledge; then verify a fresh capture round-trips BOTH ways.
+  Note: brctl status is TCC-denied from automation; diagnose by reading
+  the shared file and comparing against what each device shows.
 
 ### helios
 - [ ] design/marks export tree
