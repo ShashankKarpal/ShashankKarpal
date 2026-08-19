@@ -129,6 +129,22 @@ Blue-yellow colour blindness is rare, roughly one in ten thousand, and it is the
 - An all-cool palette (Cold Steel, direction 4) cannot carry three separable categories on a dark page, because every cool hue collapses toward the same blue. It needed a warm anchor to work at all.
 - Eight project colours were dropped before they were designed. Past six, colour stops being recall and starts being a legend you have to decode.
 
+## Amendment, 2026-08-19, after the external-critique audit
+
+Full context: `reviews/2026-08-19-external-critique-audit.md`. Owner decisions applied:
+
+- EdgeStrong (`#3A3833` dark, `#CDCAC2` light) is reclassified as DECORATIVE. Its measured ratios (1.38 to 1.67 against page, card and raised) never met the 3:1 that WCAG 2.2 non-text contrast requires where a boundary identifies a control or state. Two tested tokens replace it in those roles:
+
+| Token | Dark | vs page | vs card | vs raised | Light | vs page | vs card | vs raised |
+|---|---|---:|---:|---:|---|---:|---:|---:|
+| controlBorder | `#716D64` | 3.80 | 3.51 | 3.23 | `#85827B` | 3.51 | 3.83 | 3.22 |
+| stateIndicator | `#9A968C` | 6.63 | 6.13 | 5.63 | `#67645C` | 5.41 | 5.91 | 4.96 |
+
+- Inline text links now carry a PERSISTENT underline plus a dedicated link token: dark `#5E92DC` (6.17 page, 5.70 card, 5.24 raised), light `#3A659D` (5.45, 5.95, 5.00). The old rule (Info colour, hover border only) failed twice: light Info differs from body text by only 2.95:1, and dark Info on raised is 4.21:1. Info remains for chips and notices. Underline-free links are allowed only in controls whose navigation role is already explicit (buttons, tabs, nav).
+- Selected and active states must pair stateIndicator with a non-colour cue (check, weight change, icon, or rail).
+- CAUTION on the colour-blindness tables above: the audit found the simulation mixes an LMS matrix with replacement coefficients derived for a different matrix, and attributes tritanopia to Vienot 1999, which covers protanopia and deuteranopia only. With the paper's own matrix, dark Copper/Brass separations land near 18, not 61.4 and 41.9, and light protan Good/Problem lands near 26. The dE figures in this report should be treated as advisory until verify-palette.py is rebuilt (open item in the audit). The WCAG contrast tables are unaffected; they recompute correctly.
+- Raised-surface gaps found by the audit, unchanged for now and to be respected in layouts: dark Problem 4.06 and dark Info 4.21 on raised; light Copper, Good and Problem about 4.29 to 4.31 on raised. Keep these as fills or large text on raised, or keep them off raised.
+
 ## How to re-run these checks
 
-The verification script lives with this report as `verify-palette.py`. Run `python3 verify-palette.py` after any colour change. It prints every ratio and every simulated pair, and exits non-zero if a required pair fails.
+The verification script lives with this report as `verify-palette.py`. Run `python3 verify-palette.py` after any colour change. It prints every ratio and every simulated pair, and exits non-zero if a required pair fails. Note the CVD caution in the amendment above; the contrast arithmetic is trustworthy, the simulation is pending a rebuild.

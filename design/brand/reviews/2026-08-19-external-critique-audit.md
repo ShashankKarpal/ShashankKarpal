@@ -203,7 +203,7 @@ L more. Status: DONE (this session, verified), WAITING-ON-SHANKY, or OPEN
 |---|---|---|---|---|---|---|
 | 1 | Monogram geometry in public generator | shashankkarpal + 9 consumers, design/marks/generate_marks.py | CRITICAL | M | No | DONE: moved to gitignored private_marks.py overlay, fail-closed build, all ten repos sanitized and pushed |
 | 2 | Monogram renders tracked publicly | design/marks/exploration/2026-08-19-github-avatar/ | CRITICAL | S | No | DONE: both files moved to design/marks/out/private/exploration/, git rm from public tree, README rewritten |
-| 3 | Monogram in git HISTORY of profile repo and nine consumers | all ten repos on GitHub | CRITICAL | L | YES | WAITING-ON-SHANKY: rewrite histories vs accept-and-redesign; recommendation below |
+| 3 | Monogram in git HISTORY of profile repo and nine consumers | all ten repos on GitHub | CRITICAL | L | Decided | DONE by decision (Shanky, 2026-08-19): v1 treated as disclosed and RETIRED as a private identifier; no history rewrite; any future private monogram is a new v2 living only in the overlay. Recorded in SOP, overlay header, and mirror README |
 | 4 | Mirror README false "nowhere else" claim | ink-and-bone/README.md | CRITICAL | S | No | DONE: reworded honestly, incident referenced |
 | 5 | Generated avatar README says upload dark | generate_marks.py build_avatar + out/github/avatar/README.md | CRITICAL (live-avatar regression path) | S | No | DONE: generator fixed, README regenerated, SVGs verified byte-identical, PNG churn reverted |
 | 6 | Helios PWA knowledge deleted from SOP | design/brand/BRAND-SURFACES.md | HIGH | S | No | DONE: restored from the ce8809c-era text, regression recorded with a lesson |
@@ -213,12 +213,12 @@ L more. Status: DONE (this session, verified), WAITING-ON-SHANKY, or OPEN
 | 10 | Unpinned toolchain | repo root | HIGH | S | No | DONE: .python-version and requirements.lock committed, SOP recovery lines updated |
 | 11 | brand-tokens.css Karpal font path wrong | design/brand/brand-tokens.css | HIGH | S | No | DONE: font/ prefix added |
 | 12 | Tokens not executable, palette duplicated in five places | tokens, generator, rollout, verifier, CSS, guide | HIGH | L | Partly | OPEN: structural; recommendation below. Not attempted in one session on purpose |
-| 13 | rollout.py cannot express future changes, no guards, weak log | design/marks/rollout.py | HIGH | M | YES (is it v1-only?) | WAITING-ON-SHANKY |
+| 13 | rollout.py cannot express future changes, no guards, weak log | design/marks/rollout.py | HIGH | M | Decided | DONE: archived as rollout-v1-migration.py (log too) with a do-not-reuse header; removed from the live SOP protocol. A future reusable tool must be manifest-driven with dry-run, clean-tree, expected-match, fail-closed, transactional install |
 | 14 | CVD verifier math incompatible, silent tritan relaxation | design/brand/verify-palette.py, accessibility-report.md, guide | HIGH | M | Partly | OPEN: numbers stand in shipped docs; flagged here and in SOP; rebuild of the verifier recommended before the next palette decision |
-| 15 | EdgeStrong below 3:1 for its declared control role | tokens | HIGH | M | YES (new token) | WAITING-ON-SHANKY |
-| 16 | Link style fails differentiation in light theme, no persistent underline | tokens, CSS | HIGH | S | YES (aesthetic rule) | WAITING-ON-SHANKY |
+| 15 | EdgeStrong below 3:1 for its declared control role | tokens | HIGH | M | Decided | DONE: edgeStrong reclassified decorative; controlBorder (dark #716D64, light #85827B) and stateIndicator (dark #9A968C, light #67645C) added, all clearing 3:1 on page, card, raised; states must pair with a non-colour cue. Tokens, CSS, guide, and accessibility report amended |
+| 16 | Link style fails differentiation in light theme, no persistent underline | tokens, CSS | HIGH | S | Decided | DONE: inline links get a persistent underline plus a link token (dark #5E92DC, light #3A659D) clearing 4.5:1 on all surfaces; blanket no-underline rule retired in tokens, CSS, and guide; consumer BRAND.md files updated |
 | 17 | Public SOP discloses infra details | BRAND-SURFACES.md | HIGH | M | YES (split decision) | WAITING-ON-SHANKY |
-| 18 | Consumer pipeline copies cannot regenerate | 9 consumer repos | MEDIUM | M | YES (distribution model) | WAITING-ON-SHANKY: copies are now sanitized snapshots; keep, strip, or package properly |
+| 18 | Consumer pipeline copies cannot regenerate | 9 consumer repos | MEDIUM | M | Decided | DONE: copied generators and pipeline READMEs deleted from all nine consumers; each now carries design/marks/PROVENANCE.md with the canonical repo, generator commit, token version, and sha256 hashes of every asset. No package unless independent regeneration becomes a real need |
 | 19 | Avatar has no optical variants at 80, 40, 20; rim invisible on matching hosts | generate_marks.py avatar | MEDIUM | M | YES (design) | WAITING-ON-SHANKY |
 | 20 | Weak or cropped 16 px marks (switchdeck, helios, skills-workspace; five marks touch the crop) | generate_marks.py | MEDIUM | M | YES (design) | WAITING-ON-SHANKY |
 | 21 | 96 px universal wordmark minimum | brand-tokens.json line 188 | MEDIUM | S | YES (rule change) | WAITING-ON-SHANKY: recommend a minimum x-height rule |
@@ -237,7 +237,7 @@ L more. Status: DONE (this session, verified), WAITING-ON-SHANKY, or OPEN
 | 34 | Dead code: if False in tile_svg, vacuous rollout condition, no-op replace, seed(96) | generator, rollout | LOW | S | No | OPEN: cosmetic; batch with the next real pipeline edit to keep this session's diffs reviewable |
 | 35 | marks README python3 vs SOP venv command | design/marks/README.md | LOW | S | No | DONE via SOP protocol line update; README run block left generic since consumers have no venv |
 | 36 | specimen2.png stray in font/ | design/brand/font/ | LOW | S | No | OPEN: ask before deleting an artifact I cannot identify |
-| 37 | color-scheme: dark light under forced themes | brand-tokens.css | MEDIUM | S | No | OPEN: one-line-per-theme fix, but it changes shipped CSS consumed by nothing yet; batch with item 12 |
+| 37 | color-scheme: dark light under forced themes | brand-tokens.css | MEDIUM | S | No | DONE with the token round: color-scheme now follows the active theme in every block |
 
 ## 6. What was executed this session, with verification
 
@@ -270,28 +270,29 @@ correct branches (master for claude-skills-workspace).
    fetch-aware fleet audit reports all eleven repos dirty=0 ahead=0
    behind=0, FLEET CLEAN.
 
-## 7. Open questions for Shanky, each with a recommendation
+## 7. Owner decisions and open questions
 
-1. History purge (item 3). The monogram sits in old commits of ten repos.
-   Options: (a) rewrite history with git filter-repo across the profile
-   repo and six public consumers, force-push, re-clone the M1, and accept
-   that forks, clones, and caches may retain it; (b) treat the v1 monogram
-   as disclosed, keep using it privately, and skip the rewrite; (c) treat
-   it as disclosed and design a v2 monogram in the private overlay.
-   Recommendation: (b) unless the monogram's privacy matters more than the
-   disruption; it is a personal aesthetic mark, not a credential, and a
-   rewrite cannot un-disclose it. If you want it truly private again, (c)
-   is the only honest path, with (a) as optional tidying.
-2. Is rollout.py v1-only (item 13)? Recommendation: yes; rename it
-   rollout-v1-migration.py, and future changes go through rebuild plus a
-   guarded install step.
-3. Consumer copies (item 18): keep sanitized snapshots, delete them, or
-   publish a real versioned package? Recommendation: delete the copies and
-   keep committed assets plus a small provenance note; the copies cannot
-   regenerate anything without fonts.
-4. EdgeStrong and links (items 15, 16): add a ControlBorder token that
-   clears 3:1 and allow persistent underlines for body links?
-   Recommendation: yes to both; they are the two real WCAG gaps.
+Decided by Shanky on 2026-08-19, executed same session:
+
+1. History purge (item 3): DECIDED. Accept the v1 monogram as disclosed,
+   no history rewrite, retire it as a private identifier; any future
+   private monogram is a wholly new v2 living only in the private overlay.
+2. rollout.py (item 13): DECIDED. Archived as the one-time v1 migration,
+   removed from the live SOP; a future rollout tool must be
+   manifest-driven with dry-run, clean-tree, expected-match, fail-closed,
+   and transactional installation.
+3. Consumer copies (item 18): DECIDED. Generators deleted from consumers;
+   assets plus a PROVENANCE.md (generator commit, token version, file
+   hashes) per repo; no versioned package unless independent regeneration
+   becomes a real requirement.
+4. EdgeStrong and links (items 15, 16): DECIDED. EdgeStrong kept for
+   decorative edges; dedicated controlBorder and stateIndicator tokens
+   added clearing 3:1 on page, card, and raised; inline text links get a
+   persistent underline and a semantic link token meeting normal-text
+   contrast on every allowed surface.
+
+Still open, each with a recommendation:
+
 5. Montserrat 600 (item 22): vendor SemiBold or drop 600 from the tokens?
    Recommendation: vendor it; 600 is used by h3.
 6. SOP split (item 17): move machine, tailnet, and daemon details to a

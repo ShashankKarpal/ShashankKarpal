@@ -1,5 +1,15 @@
 #!/usr/bin/env python3
-"""Ink and Bone Phase D rollout.
+"""Ink and Bone Phase D rollout. HISTORICAL, ARCHIVED 2026-08-19.
+
+Shanky's decision (2026-08-19 external-critique audit): this script was the
+one-time v1 migration and must not be reused or extended for future brand
+changes. Its mappings know only pre-v1 to v1 values, it has no clean-tree,
+branch, dry-run, or atomicity guards, and its copy step once distributed
+private material. If a reusable rollout is ever needed, build a new
+manifest-driven tool with dry-run, clean-tree, expected-match, fail-closed,
+and transactional installation safeguards. Kept for the record only.
+
+Original docstring follows.
 
 Applies the approved mark system to every personal repo working tree.
 Does NOT touch git: branching, committing, pushing and PRs happen
