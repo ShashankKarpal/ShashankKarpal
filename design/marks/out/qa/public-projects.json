@@ -1,0 +1,48 @@
+{
+  "projects": [
+    {
+      "id": "ibp-01",
+      "slug": "ledge",
+      "aliases": [],
+      "display": "ledge",
+      "category": "copper"
+    },
+    {
+      "id": "ibp-02",
+      "slug": "content-digest-app",
+      "aliases": [],
+      "display": "content-digest-app",
+      "category": "copper"
+    },
+    {
+      "id": "ibp-03",
+      "slug": "helios",
+      "aliases": [],
+      "display": "helios",
+      "category": "brass"
+    },
+    {
+      "id": "ibp-04",
+      "slug": "zest",
+      "aliases": [],
+      "display": "zest",
+      "category": "brass"
+    },
+    {
+      "id": "ibp-05",
+      "slug": "switchdeck",
+      "aliases": [],
+      "display": "switchdeck",
+      "category": "mist"
+    },
+    {
+      "id": "ibp-06",
+      "slug": "claude-tokens",
+      "aliases": [
+        "uebersicht-claude-tokens"
+      ],
+      "display": "claude-tokens",
+      "category": "mist"
+    }
+  ]
+}

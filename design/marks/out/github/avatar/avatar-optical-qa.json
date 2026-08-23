@@ -1,0 +1,25 @@
+{
+  "hostGrounds": {
+    "white": "#FFFFFF",
+    "github-dark": "#0D1117"
+  },
+  "threshold": 3.0,
+  "rim": {
+    "outer": "#F3F1EB",
+    "inner": "#67645C",
+    "outerContrast": {
+      "white": 1.129,
+      "github-dark": 16.755
+    },
+    "innerContrast": {
+      "white": 5.909,
+      "github-dark": 3.203
+    }
+  },
+  "variants": {
+    "460": "full",
+    "80": "compact",
+    "40": "micro",
+    "20": "micro"
+  }
+}
