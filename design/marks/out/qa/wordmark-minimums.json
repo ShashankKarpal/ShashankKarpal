@@ -1,0 +1,56 @@
+{
+  "policySource": "../brand/brand-tokens.json",
+  "screenStandardPx": 8.0,
+  "screenAbsoluteControlledPx": 7.0,
+  "printStandardMm": 2.0,
+  "records": [
+    {
+      "id": "ibp-01",
+      "lockup": "ledge",
+      "sourceRenderedWidthPx": 547.6,
+      "sourceRenderedXHeightPx": 43.2,
+      "standardMinimumWidthPx": 102,
+      "controlledMinimumWidthPx": 89
+    },
+    {
+      "id": "ibp-02",
+      "lockup": "content-digest-app",
+      "sourceRenderedWidthPx": 1345.9,
+      "sourceRenderedXHeightPx": 43.2,
+      "standardMinimumWidthPx": 250,
+      "controlledMinimumWidthPx": 219
+    },
+    {
+      "id": "ibp-03",
+      "lockup": "helios",
+      "sourceRenderedWidthPx": 560.0,
+      "sourceRenderedXHeightPx": 43.2,
+      "standardMinimumWidthPx": 104,
+      "controlledMinimumWidthPx": 91
+    },
+    {
+      "id": "ibp-04",
+      "lockup": "zest",
+      "sourceRenderedWidthPx": 474.4,
+      "sourceRenderedXHeightPx": 43.2,
+      "standardMinimumWidthPx": 88,
+      "controlledMinimumWidthPx": 77
+    },
+    {
+      "id": "ibp-05",
+      "lockup": "switchdeck",
+      "sourceRenderedWidthPx": 842.2,
+      "sourceRenderedXHeightPx": 43.2,
+      "standardMinimumWidthPx": 156,
+      "controlledMinimumWidthPx": 137
+    },
+    {
+      "id": "ibp-06",
+      "lockup": "claude-tokens",
+      "sourceRenderedWidthPx": 1028.7,
+      "sourceRenderedXHeightPx": 43.2,
+      "standardMinimumWidthPx": 191,
+      "controlledMinimumWidthPx": 167
+    }
+  ]
+}

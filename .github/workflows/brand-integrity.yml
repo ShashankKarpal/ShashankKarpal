@@ -1,0 +1,77 @@
+name: Brand integrity
+
+on:
+  push:
+    paths:
+      - ".github/workflows/brand-integrity.yml"
+      - ".python-version"
+      - "Brewfile"
+      - "requirements.in"
+      - "requirements.lock"
+      - "design/brand/**"
+      - "design/github/**"
+      - "design/marks/**"
+  pull_request:
+    paths:
+      - ".github/workflows/brand-integrity.yml"
+      - ".python-version"
+      - "Brewfile"
+      - "requirements.in"
+      - "requirements.lock"
+      - "design/brand/**"
+      - "design/github/**"
+      - "design/marks/**"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: brand-integrity-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    runs-on: macos-15
+    timeout-minutes: 30
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Install pinned uv
+        uses: astral-sh/setup-uv@20cfd1bf945f4377ade1205e4dbc17946fc9a30d # v10.0.1
+        with:
+          version: "0.12.5"
+          enable-cache: true
+          cache-dependency-glob: requirements.lock
+
+      - name: Install native Cairo
+        run: brew install cairo
+
+      - name: Recreate locked Python environment
+        run: |
+          uv python install "$(tr -d '[:space:]' < .python-version)"
+          uv venv --python "$(tr -d '[:space:]' < .python-version)" .venv
+          uv pip sync --python .venv/bin/python --require-hashes requirements.lock
+
+      - name: Verify toolchain and font round trip
+        run: bash design/brand/check-toolchain.sh
+
+      - name: Verify accessibility sources and calculations
+        run: |
+          .venv/bin/python design/brand/verify-palette.py --self-test
+          .venv/bin/python design/brand/verify-palette.py --no-cvd
+
+      - name: Verify the public privacy boundary
+        run: .venv/bin/python design/brand/check-public-boundary.py
+
+      - name: Run mark and distributor regressions
+        run: |
+          bash design/brand/run-with-brand-env.sh \
+            .venv/bin/python -m unittest discover -s design/marks -p 'test_*.py'
+
+      - name: Rebuild public marks
+        run: bash design/brand/run-mark-pipeline.sh
+
+      - name: Require tracked generated assets to be reproducible
+        run: git diff --exit-code -- design/github design/marks/out

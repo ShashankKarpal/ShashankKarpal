@@ -36,5 +36,6 @@ service-account*.json
 # never publish the personal monogram: rendered assets AND source geometry
 design/marks/out/private/
 design/marks/private_marks.py
+design/marks/private_projects.py
 design/brand/RUNBOOK-phase-e-finish.md
 .venv/

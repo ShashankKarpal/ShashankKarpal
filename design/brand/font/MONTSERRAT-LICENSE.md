@@ -1,9 +1,24 @@
 # Montserrat
 
-Montserrat-Regular.ttf and Montserrat-Medium.ttf in this folder are the UI
-font declared as font.ui in brand-tokens.json. They are vendored here so the
-mark pipeline renders identical output on any machine, rather than depending
-on what happens to be installed.
+The upright Regular 400, Medium 500, and SemiBold 600 faces in this folder are
+the UI font declared as `font.ui` in `brand-tokens.json`. Both TTF pipeline
+assets and WOFF2 web assets are vendored so generated and browser-rendered
+surfaces use the same official build instead of an installed-font fallback.
+
+Source: `https://github.com/JulietaUla/Montserrat`
+
+Pinned source commit: `555facfb2a18c72c3c0380f0d9c0f060453a9058`
+
+Retrieved: 2026-08-20
+
+SHA-256:
+
+- `Montserrat-Regular.ttf`: `3e8abe50c44c82e2242e97d1ec8c0d385c4890cdc50447bcdb8605c81a38cfb2`
+- `Montserrat-Regular.woff2`: `6cf3e021436786e7ac49a0fe3fd6d7ec575431b2dff0dd42f53a4bb82808e2aa`
+- `Montserrat-Medium.ttf`: `dae47428bb041f9716604e0e07b5b0c8585b3bdd8183362f75c69fe7bb3cfaf4`
+- `Montserrat-Medium.woff2`: `c9597cca58384db11de3f7149779ec9e07d9057db184f16eb2d6848f99d97059`
+- `Montserrat-SemiBold.ttf`: `b4e1563393d73fdff491a869441245aef31add2ec03d9c97a6dae4de07c52fd0`
+- `Montserrat-SemiBold.woff2`: `fc9002b9d04f81904c82d001b364eab985d00e4b29257fc7f4fdf8686d6692e6`
 
 Designed by Julieta Ulanovsky and contributors. Licensed under the SIL Open
 Font License, Version 1.1. The OFL permits use, study, modification and
