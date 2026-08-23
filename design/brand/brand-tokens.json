@@ -2,16 +2,17 @@
   "$meta": {
     "name": "Shanky personal brand tokens",
     "direction": "Ink and Bone",
-    "version": "1.0.0",
-    "date": "2026-08-18",
+    "version": "1.1.0",
+    "date": "2026-08-20",
     "owner": "Shashank Karpal",
     "defaultTheme": "dark",
     "scope": "personal repos, personal apps, dashboards, personal documents. KodeKloud client work keeps the KodeKloud system.",
-    "verification": "every text pair listed here clears WCAG AA 4.5:1. Category colours are at least 25 apart (dE76) under simulated deuteranopia and protanopia. See accessibility-report.md.",
+    "verification": "verify-palette.py reads this file and release-gates the WCAG role pairs declared here on page, card and raised surfaces. Its Machado et al. (2009) colour-vision-deficiency simulation is advisory only; no simulated dE threshold is a WCAG requirement or a release gate. See accessibility-report.md.",
     "rules": [
       "Category colour and status colour never occupy the same slot in one component. Category goes on the left edge, the mark, or the badge. Status goes in the right-hand chip and always carries a word.",
-      "Three category colours only. Making and 3D printing, forks, and the profile repo stay ink.",
-      "The mark identifies the project. The colour identifies the group.",
+      "Category colour is a secondary grouping cue, never the sole identifier. A visible project name or mark carries the identity in every context.",
+      "Three category colours only. Ink means the neutral, unaccented default, not a fourth functional category. An internal tooling workspace may remain ink as an explicit neutral exception without changing the taxonomy.",
+      "The name or mark identifies the project. Colour only reinforces its group.",
       "Grain is the only permitted texture. No gradients as a full-bleed wash.",
       "No italics, no emoji, no em dashes. Underlines appear in exactly one place: persistently under inline text links, which is an accessibility requirement (2026-08-19 decision), never as emphasis."
     ]
@@ -35,6 +36,16 @@
     "ui": {
       "family": "Montserrat",
       "weights": [400, 500, 600],
+      "files": {
+        "400": ["Montserrat-Regular.woff2", "Montserrat-Regular.ttf"],
+        "500": ["Montserrat-Medium.woff2", "Montserrat-Medium.ttf"],
+        "600": ["Montserrat-SemiBold.woff2", "Montserrat-SemiBold.ttf"]
+      },
+      "source": {
+        "repository": "https://github.com/JulietaUla/Montserrat",
+        "commit": "555facfb2a18c72c3c0380f0d9c0f060453a9058",
+        "license": "SIL Open Font License 1.1; see font/MONTSERRAT-LICENSE.md"
+      },
       "fallback": "ui-sans-serif, system-ui, -apple-system, sans-serif",
       "rules": "no italics; underlines only and always on inline text links"
     },
@@ -51,7 +62,8 @@
         "h3": {"size": "15px", "weight": 600, "lineHeight": 1.4},
         "body": {"size": "14px", "weight": 400, "lineHeight": 1.65},
         "small": {"size": "12px", "weight": 400, "lineHeight": 1.55},
-        "micro": {"size": "11px", "weight": 500, "lineHeight": 1.4, "tracking": "+0.04em"},
+        "micro": {"size": "11px", "weight": 500, "lineHeight": 1.4, "tracking": "+0.04em", "use": "uppercase tracked labels only, never values or status words"},
+        "statusChip": {"size": "12px", "weight": 500, "lineHeight": 1.4, "tracking": "+0.04em"},
         "heroNumber": {"size": "32px", "family": "display"}
       },
       "document": {
@@ -82,13 +94,13 @@
       "category": {
         "copper": {"hex": "#B17E51", "rgb": [177, 126, 81],  "contrastOnPage": 5.57,  "means": "capture and keep", "use": "ledge, content-digest-app"},
         "brass":  {"hex": "#BFB287", "rgb": [191, 178, 135], "contrastOnPage": 9.26,  "means": "read a signal against a baseline", "use": "helios, zest"},
-        "mist":   {"hex": "#CFDFE8", "rgb": [207, 223, 232], "contrastOnPage": 14.33, "means": "Claude and AI tooling", "use": "switchdeck, claude-tokens, claude-bridge, claude-burnrate"}
+        "mist":   {"hex": "#CFDFE8", "rgb": [207, 223, 232], "contrastOnPage": 14.33, "means": "Claude and AI tooling", "use": "AI tooling, agent workflows and model-facing utilities"}
       },
       "status": {
         "good":    {"hex": "#4FC4A6", "rgb": [79, 196, 166],  "contrastOnPage": 9.12,  "use": "healthy, passing, synced"},
         "watch":   {"hex": "#E0B93A", "rgb": [224, 185, 58],  "contrastOnPage": 10.41, "use": "degrading, near a limit, stale"},
         "problem": {"hex": "#CB5B45", "rgb": [203, 91, 69],   "contrastOnPage": 4.77,  "use": "failed, blocked, over the limit"},
-        "info":    {"hex": "#4681D0", "rgb": [70, 129, 208],  "contrastOnPage": 4.95,  "use": "neutral notice, a link, a hint"},
+        "info":    {"hex": "#4681D0", "rgb": [70, 129, 208],  "contrastOnPage": 4.95,  "use": "neutral notice or hint. Never an inline text link; links use utility.link"},
         "neutral": {"hex": "#7F8B85", "rgb": [127, 139, 133], "contrastOnPage": 5.53,  "use": "not applicable, disabled, no data"}
       },
       "utility": {
@@ -122,7 +134,7 @@
         "good":    {"hex": "#307A64", "rgb": [48, 122, 100], "contrastOnPage": 4.70},
         "watch":   {"hex": "#695725", "rgb": [105, 87, 37],  "contrastOnPage": 6.43},
         "problem": {"hex": "#C73C20", "rgb": [199, 60, 32],  "contrastOnPage": 4.70},
-        "info":    {"hex": "#3A659D", "rgb": [58, 101, 157], "contrastOnPage": 5.45},
+        "info":    {"hex": "#3A659D", "rgb": [58, 101, 157], "contrastOnPage": 5.45, "use": "neutral notice or hint. Never an inline text link; links use utility.link"},
         "neutral": {"hex": "#3B413E", "rgb": [59, 65, 62],   "contrastOnPage": 9.56}
       },
       "utility": {
@@ -189,15 +201,37 @@
     "wordmark": {
       "font": "Karpal Geometric",
       "case": "lowercase",
-      "tracking": "+0.02em",
+      "tracking": "+0.02em at display sizes, +0.04em below 20px",
       "accentDot": "at most one letter may carry a filled dot in the project's category colour",
-      "minWidth": "96px on screen, 28mm in print",
+      "minRenderedXHeight": {
+        "screenStandardPx": 8,
+        "screenAbsoluteControlledPx": 7,
+        "printStandardMm": 2,
+        "measurement": "measure the rendered lowercase x-height from visible ink, not the CSS line box or nominal font size",
+        "controlledUse": "7px is an absolute exception for a known static export only. Review the exact raster at 1x on both themes; use no grain, photograph or low-contrast ground; otherwise use the 8px standard.",
+        "qa": [
+          "measure every generated lockup independently because project-name widths differ",
+          "round generated minimum widths up to a whole CSS pixel",
+          "verify at 1x on every approved background and preserve the required clear space"
+        ]
+      },
+      "perLockupMinimum": {
+        "generated": true,
+        "formula": "minimumWidthPx = ceil(sourceRenderedWidthPx * targetXHeightPx / sourceRenderedXHeightPx)",
+        "recordShape": {
+          "lockup": "string",
+          "sourceRenderedWidthPx": "number",
+          "sourceRenderedXHeightPx": "number",
+          "standardMinimumWidthPx": "integer generated with targetXHeightPx 8",
+          "controlledMinimumWidthPx": "integer generated with targetXHeightPx 7"
+        }
+      },
       "clearSpace": "half the x-height of the wordmark on all four sides, measured from the ink",
       "approvedBackgrounds": ["#0B0C0D", "#171614", "#F5F5F3", "#FFFFFF"],
       "colour": "text primary of the active theme, never a category colour"
     },
     "marks": {
-      "status": "shipped 2026-08-18. All nine project marks are drawn as production geometry in design/marks/generate_marks.py with master, s24 and s16 variants, exported to the full matrix under design/marks/out/.",
+      "status": "shipped 2026-08-18. All public project marks are drawn as production geometry in design/marks/generate_marks.py with master, s24 and s16 variants, exported to the full public matrix under design/marks/out/. Private project definitions and outputs live only in the private extension.",
       "requiredSizes": [512, 24, 16],
       "requiredGrounds": ["dark", "light"],
       "minSize": "16px"

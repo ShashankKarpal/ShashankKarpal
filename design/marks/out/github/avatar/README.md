@@ -2,11 +2,12 @@
 
 Generated. Do not hand-edit. Rebuild with:
 
-    python3 design/marks/generate_marks.py avatar
+    bash design/brand/run-mark-pipeline.sh avatar
 
-Layout: contribution field behind a terminal card holding the
-shanky.md print, the wordmark and three lines of copy. The card
-exists so grain never sits under type below 14px.
+The 460, 400 and 200px files use the full plate. The 80, 40 and
+20px files use optically simplified mascot art with no field,
+copy or grain. Every size has a host-independent two-band rim.
+Review avatar-optical-qa.png at 1x before changing the live file.
 
 Upload avatar-light-460.png at github.com/settings/profile.
 LIGHT is the live variant, Shanky's recorded call in

@@ -1,0 +1,7 @@
+# Direct Python dependencies for the Ink and Bone mark pipeline.
+# Keep versions explicit; regenerate requirements.lock with the command in
+# design/brand/BRAND-SURFACES.md after a deliberate dependency change.
+cairosvg==2.9.0
+fonttools==4.63.0
+icnsutil==1.1.0
+pillow==12.3.0

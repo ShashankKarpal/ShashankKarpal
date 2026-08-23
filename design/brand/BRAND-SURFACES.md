@@ -3,82 +3,92 @@
 Whenever ANY mark, palette value, or brand asset changes, walk this entire
 file top to bottom. No surface is done until its verification step passes.
 This SOP exists because the 2026-08 Ink and Bone rollout missed surfaces
-four separate times: the M1, installed apps, served web icons, and the
+four separate times: a remote runtime, installed apps, served web icons, and the
 watch complication. Every one of those is now a line item here.
 
 Written 2026-08-19. Update this file the moment a new surface appears
 (new app, new widget, new machine, new served endpoint).
 
+This PUBLIC file is the normative checklist for public brand rules and
+surfaces. Machine addresses, service endpoints, daemon names, private-repo
+procedures, and backup operations belong only in the tracked private
+operations extension. Complete both documents for a real rollout; never
+copy the private extension into a public repository.
+
 ## The protocol
 
-1. GENERATE. Edit geometry or palette only in
-   `shashankkarpal/design/marks/generate_marks.py` (and brand-tokens.json).
-   Private geometry lives ONLY in `design/marks/private_marks.py`
-   (gitignored; see INCIDENT 2026-08-19). Run
-   `.venv/bin/python design/marks/generate_marks.py [project ...]`.
-   Never hand-edit exports.
-   ROLLOUT (decision 2026-08-19): rollout.py is ARCHIVED as
-   rollout-v1-migration.py and must not be reused; it was the one-time v1
-   migration. Multi-repo distribution is manual until a manifest-driven
-   tool with dry-run and clean-tree guards exists: rebuild here, copy the
-   assets each consumer actually uses, update its PROVENANCE.md, commit.
-   CONSUMERS (decision 2026-08-19): consumer repos hold ONLY the assets
-   they use plus design/marks/PROVENANCE.md (canonical commit, token
-   version, file hashes). They do not carry the generator; the canonical
-   pipeline is this repo only.
+1. GENERATE. Edit public geometry or palette only in
+   `design/marks/generate_marks.py` and `design/brand/brand-tokens.json`.
+   Run public builds without private flags:
+   `bash design/brand/run-mark-pipeline.sh [project ...]`. The wrapper exposes
+   Homebrew Cairo to the locked Python runtime, and the generator never loads
+   an adjacent private overlay implicitly. Private generation is governed by
+   the private operations extension. Never hand-edit exports.
+   DISTRIBUTE. `rollout-v1-migration.py` is a historical, hard-disabled
+   record of the one-time v1 migration; it cannot be run or adapted. Its
+   guarded replacement for asset copies is `distribute_assets.py`, driven by
+   the visibility-specific consumer manifest. It is non-writing by default:
+
+       .venv/bin/python design/marks/distribute_assets.py --check
+
+   Exit 0 means every declared public asset and provenance file matches;
+   exit 1 means updates are pending; exit 2 means a safety check failed.
+   Review every reported path. `--apply` is an explicit, separate action,
+   refuses a dirty canonical source by default, validates trusted predecessor
+   provenance, contains paths, reads every source before writing, guards
+   changed destinations, and rolls back a failed batch. The
+   `--allow-dirty-source` escape hatch must not be used in a normal release;
+   it requires explicit owner approval and records the dirty state. Before
+   applying, independently confirm affected consumer worktrees are clean.
+   The tool never commits, pushes, builds, deploys, or verifies a runtime.
+   CONSUMERS (decision 2026-08-20): consumer repos hold ONLY the declared
+   live assets they use plus `design/BRAND-ASSETS.json` and
+   `design/BRAND-ASSETS.md` (canonical source commit and dirty state, brand
+   version, input hashes, content-set hash, and exact destination hashes).
+   They do not carry `design/marks`, the generator, fonts, or canonical
+   output matrices; the canonical pipeline is this repo only.
 2. REPO SURFACES. Apply per-project sections below. Commit and push every
    touched repo. A change that is not pushed does not exist.
 3. INSTALLED SURFACES. Repos hold source; users see builds. Rebuild and
-   reinstall every app, widget, and daemon output listed below.
-4. REMOTE MACHINES. The M1 does not update itself reliably. Verify.
-5. MIRROR. Refresh the ink-and-bone private backup repo.
-6. VERIFY. Every section has a verification step. Do them all, same session.
+   reinstall each affected application or runtime surface.
+4. PRIVATE OPERATIONS. Use the tracked private extension for exact hosts,
+   deployed endpoints, installed-copy paths, mirror sync, and backup. Do
+   not infer those steps from this public document.
+5. VERIFY. Every relevant public and private verification must pass in the
+   same session.
 
-## INCIDENT 2026-08-19: the monogram was public
+## INCIDENT 2026-08-19: private identifier disclosure
 
-Found by the external-critique audit (design/brand/reviews/). The private
-sk monogram had leaked in two ways, both live on GitHub:
+The external-critique audit found private source and derived previews in
+public history. Containment removed them from every current public tree and
+placed the private source and derivatives under the private-only paths.
 
-1. Its full geometry sat in the MARKS registry inside generate_marks.py,
-   tracked in this PUBLIC repo since the initial rollout PR (d59f72f), and
-   copied byte-identically by rollout.py into all nine consumer repos, six
-   of which are public (ledge, content-digest-app, helios, zest,
-   switchdeck, claude-tokens).
-2. Two rendered images (round1-a-monogram.png and round1-contact-sheet.png)
-   were committed to design/marks/exploration/ in this public repo by the
-   avatar session (f473bb9), beside a README saying the concept must never
-   ship.
+DECISION (Shanky, 2026-08-19): no history rewrite. The disclosed v1 is
+retired permanently as a private identifier. Any future private identifier
+must be a wholly new design created and built only in the private system.
+Do not add a release tag or other durable reference to a contaminated
+historical commit. The detailed incident record remains in the audit; this
+SOP records only the durable operational rules. The public audit is a
+sanitized summary; the full forensic record is retained privately.
 
-Containment, done 2026-08-19: geometry moved to design/marks/
-private_marks.py (gitignored here, tracked only in the ink-and-bone
-mirror); generate_marks.py now loads it as an optional overlay and fails
-closed without it; the two renders moved to design/marks/out/private/
-exploration/; sanitized generate_marks.py pushed to all nine consumers.
+- RULE: private project source lives only in the private extension's
+  `design/marks/private_projects.py` and retired `private_marks.py`; derived
+  private work lives only under `design/marks/out/private/`. None of those
+  paths may be tracked in a public repository. No private-derived preview or
+  exploration draft may be committed elsewhere, even as a rejected concept.
+- RULE: after any rollout or archive commit, run the public boundary gate and
+  the private extension's cross-tree gate before pushing:
 
-DECISION (Shanky, 2026-08-19, same day): the v1 monogram is treated as
-DISCLOSED and is RETIRED as a private identifier. No history rewrite. It
-stays archived in the private overlay and out/private. If a private
-monogram is needed again, a completely new v2 is designed inside the
-overlay, with no source, previews, contact sheets, or generator
-definitions ever copied into public repositories.
+      python3 design/brand/check-public-boundary.py
 
-- RULE (new): private geometry lives ONLY in private_marks.py and
-  out/private/. Nothing derived from a private mark (renders, contact
-  sheets, exploration drafts) may be committed outside out/private/, even
-  as a rejected concept. gitignore covers both paths.
-- RULE (new): after any rollout or archive commit, run the privacy check
-  in EVERY touched repo before pushing. Both commands must print nothing:
-
-      git ls-files design/marks/out/private design/marks/private_marks.py
-      git grep -n "PRIVATE_MARKS = " -- design/marks/generate_marks.py
-
-  and design/marks/generate_marks.py must not contain a "monogram" entry
-  in its MARKS registry (the geometry lives only in private_marks.py).
+  Both must exit zero. Also inspect the public registry and staged diff for
+  private-derived entries or assets before every push.
 
 ## Per-project surfaces
 
 ### ledge
-- [ ] design/marks export tree (from pipeline)
+- [ ] Guarded distributor reports the declared live assets and both
+      `design/BRAND-ASSETS` files current; no consumer `design/marks` tree.
 - [ ] design/github banners + design/logo SVGs
 - [ ] apps/ios: iOS AppIcon.appiconset, watch AppIcon.appiconset
 - [ ] apps/ios/WatchWidgetSources LedgeStep.imageset (watch COMPLICATION glyph)
@@ -103,15 +113,15 @@ definitions ever copied into public repositories.
 - KNOWN QUIRK (2026-08-19): even with the app healthy, iCloud Drive
   transport itself can wedge. Symptoms: the iPhone holds inbox.md as a
   grayed dataless placeholder in Files (app cannot show Mac notes), and
-  iPhone writes do not reach the Mac. Fix, in order: on the Mac run
-  killall bird fileproviderd (daemons restart and resync); on the iPhone
-  open the Ledge folder in Files and tap inbox to force-download; pull to
-  refresh in Ledge; then verify a fresh capture round-trips BOTH ways.
+  iPhone writes do not reach the Mac. Use the private operations extension
+  for the local daemon recovery, force-download inbox from the Files app,
+  pull to refresh in Ledge, then verify a fresh capture round-trips BOTH ways.
   Note: brctl status is TCC-denied from automation; diagnose by reading
   the shared file and comparing against what each device shows.
 
 ### helios
-- [ ] design/marks export tree
+- [ ] Guarded distributor reports the declared live assets and both
+      `design/BRAND-ASSETS` files current; no consumer `design/marks` tree.
 - [ ] web/tailwind.config.js colour block. RESOLVED DRIFT (2026-08-19): it
       still carried the ENTIRE pre-Ink-and-Bone palette (bg #0B0D0C, text
       #E8ECE9, mint #7EE0B1, alert #F87171 and friends) a day after
@@ -136,20 +146,19 @@ definitions ever copied into public repositories.
       use manifest icons; fixing favicon.svg alone changes nothing visible.
 - [ ] web/public/sw.js: bump the CACHE version string, or every returning
       browser keeps serving the old assets cache-first.
-- [ ] npm run build in helios/web. dist is what heliosd serves on :8420
+- [ ] npm run build in helios/web. dist is what the deployed service serves
       and it is gitignored, so it MUST be rebuilt on the serving machine;
       patching single files inside dist is a trap (2026-08-19: a stale
       Aug 17 dist shipped the entire old bundle for a day).
 - [ ] REBUILD + INSTALL: xcodegen + xcodebuild for Helios Bridge to iPhone
-- [ ] VERIFY: curl the SERVED files on https://helios.local:8420 and
-      compare shasum against dist, then load the page in CHROME INCOGNITO
-      (the only clean client) and look at the tab icon and in-page branding.
-      iPhone home screen icon for the bridge app.
+- [ ] VERIFY: use the deployed origin recorded in the private operations
+      extension; compare served-file checksums against dist, then load the
+      page in a clean browser profile and inspect the tab icon, in-page
+      branding, and the iPhone home-screen icon for the bridge app.
 - CLIENT CACHES after the server is verified (2026-08-19): Chrome normal
-  profile heals with two reloads (SW update then serve). Safari uses its
-  on-disk Favicon Cache even in PRIVATE windows; the fix is quit Safari,
-  rm -rf ~/Library/Safari/"Favicon Cache", reopen. That folder is
-  TCC-protected from automation; Shanky runs it in his own Terminal.
+  profile heals with two reloads (SW update then serve). Safari can retain
+  its on-disk favicon cache even in private windows; use the private
+  operations extension for the TCC-protected local cleanup.
 - RESTORED (2026-08-19): the five detailed lines above were added by
   c5b6d82 and ce8809c, then accidentally deleted hours later by 4775655
   (the toolchain commit), which also reintroduced the copy-into-dist trap
@@ -159,7 +168,8 @@ definitions ever copied into public repositories.
   earlier read is how same-day incident knowledge got deleted.
 
 ### content-digest-app
-- [ ] design/marks export tree
+- [ ] Guarded distributor reports the declared live assets and both
+      `design/BRAND-ASSETS` files current; no consumer `design/marks` tree.
 - [ ] design/web SERVED icons: favicon.svg, favicon-16/32/48.png,
       favicon.ico, apple-touch-icon.png, icon-192, icon-512,
       icon-512-maskable, og-1200x630 (server.py serves these at /assets/)
@@ -171,26 +181,40 @@ definitions ever copied into public repositories.
 - LESSON: after any palette rollout, grep every touched repo for the OLD
   hexes (all of them, including pre-brand accents like #ff6b35), not just
   the ones the mapping happened to know about.
-- [ ] M1 RUNTIME: repo must be pulled on the M1 (see Machines below);
-      server reads assets from disk, no restart needed for icons
+- [ ] DEPLOYED RUNTIME: pull and verify the serving checkout using the
+      private operations extension; static assets are read from disk and
+      do not require a service restart.
 - [ ] Safari web app on the Dock: icon is SNAPSHOTTED at add time. Delete
       ~/Applications/Content Digest.app and re-add via File > Add to Dock
       (clears its site data; articles live on the server)
-- [ ] VERIFY: http://100.112.78.47:7778/assets/icon-512.png serves the new
-      file, tab favicon after hard reload, Dock icon after re-add.
+- [ ] VERIFY: the deployed asset URL recorded privately serves the expected
+      checksum; check the tab favicon after hard reload and Dock icon after
+      re-adding the web app.
 
 ### zest / switchdeck
-- [ ] design/marks export tree, design/tokens.json, knowledge.html hexes
-- [ ] If a built .app exists on this Mac, rebuild it; check its Dock icon
-- [ ] VERIFY: repo pushed, installed app icon if applicable.
+- [ ] Guarded distributor reports each repo's declared live assets and both
+      `design/BRAND-ASSETS` files current; neither repo has `design/marks`.
+- [ ] Zest: all ten PNGs in
+      `design/app-icons/macos/AppIcon.appiconset/`. `build.sh` compiles these
+      declared live sources into the ignored `Zest.app`; the removed
+      consumer `design/marks` snapshot was never a build input.
+- [ ] `design/tokens.json` records Ink and Bone v1.1.0 Brass semantics;
+      check `knowledge.html` hexes whenever the palette changes.
+- [ ] Zest rebuild/reinstall is manual: run `./build.sh`, replace the installed
+      application only after reviewing the ignored build, then verify its
+      Finder and Dock icon. Do not commit `Zest.app` or a release zip.
+- [ ] Switchdeck: if a built app exists on this Mac, rebuild it and check its
+      Dock icon.
+- [ ] VERIFY: repos pushed; installed app icons checked where applicable.
 
 ### claude-tokens
-- [ ] design/marks export tree, README banner svgs (this repo uses the
+- [ ] Guarded distributor reports the declared live assets and both
+      `design/BRAND-ASSETS` files current; no consumer `design/marks` tree.
+- [ ] README banner SVGs (this repo uses the
       readme-banner-dark.svg / -light.svg names)
 - [ ] claude-tokens.widget/index.coffee hexes
-- [ ] INSTALLED Uebersicht widget copy in
-      ~/Library/Application Support/Übersicht/widgets (repo is source, the
-      widget folder is the running copy)
+- [ ] INSTALLED WIDGET: refresh the running copy at the location recorded in
+      the private operations extension; the repo remains source of truth.
 - [ ] Gallery zip claude-tokens.widget.zip regenerated by CI on push to main
 - [ ] VERIFY: widget on the desktop after Uebersicht refresh.
 - RESOLVED DRIFT (2026-08-19): the repo was renamed uebersicht-claude-tokens
@@ -206,40 +230,19 @@ definitions ever copied into public repositories.
   The MARKS key, the folder, and the template filenames inside it must all
   agree before the rename is done.
 
-### claude-bridge
-- [ ] design/marks export tree
-- [ ] bin/bridge.py MENUBAR_ICON base64 constant (44 px, 144 dpi template
-      png; regenerate from design/marks/macos/claude-bridge-template@2x.png)
-- [ ] SwiftBar plugin reads bridge.py live, no reinstall; refresh with
-      open swiftbar://refreshallplugins
-- [ ] VERIFY: menu bar shows the span mark, not a text B.
-
-### claude-burnrate
-- [ ] design/marks export tree
-- [ ] burnrate-report.sh ICON base64 constant (same recipe as bridge)
-- [ ] INSTALLED COPY: cp burnrate-report.sh to
-      ~/.claude/statusline/burnrate-report.sh (the xbar plugin execs the
-      installed copy, NOT the repo)
-- [ ] Uebersicht burnrate widget if styled artwork is added later
-- [ ] VERIFY: menu bar shows the burn line mark.
-- RESOLVED (2026-08-19): xbar wedged into blank items twice in one day
-  (second time after a sleep/wake), so it is RETIRED. ccusage.30s.sh and
-  claude-burnrate.1m.sh now live in ~/SwiftBarPlugins next to
-  claude-bridge.2m.sh; SwiftBar is the ONLY menu bar plugin host. xbar was
-  quit and removed from login items; stale copies remain in
-  ~/Library/Application Support/xbar/plugins but nothing runs them.
-  Do not reintroduce xbar. Refresh plugins with
-  open swiftbar://refreshallplugins after any plugin edit.
-
-### claude-skills-workspace
-- [ ] design/marks export tree only. Branch is MASTER, not main.
+### Private consumer repositories
+- [ ] Complete each affected private-consumer checklist in the private
+      operations extension. That extension owns repository identities,
+      branch exceptions, installed-copy locations, and runtime verification.
+- [ ] Apply the same public asset/provenance/privacy rules to every private
+      consumer without copying its operational details back into this file.
 
 ### Profile repo (ShashankKarpal/ShashankKarpal)
 - [ ] design/github/profile-banner-dark.svg + light (README uses these)
 - [ ] design/github/social-preview-1280x640.png (six marks, banner grammar)
 - [ ] design/github/avatar-dark.svg + avatar-light.svg, avatar-dark-460.png +
       avatar-light-460.png. Generated by
-      `.venv/bin/python design/marks/generate_marks.py avatar`; the full
+      `bash design/brand/run-mark-pipeline.sh avatar`; the full
       size matrix (460, 400, 200, 80, 40, 20) lands in
       design/marks/out/github/avatar/. Never hand-edit either copy.
 - [ ] design/github/profile-banner-dark.svg + light are the ONLY banner
@@ -255,7 +258,7 @@ change, and the easiest one to believe is done when it is not.
 - LIVE VARIANT: avatar-light-460.png, uploaded by Shanky 2026-08-19. The
   light ground was his call; if the avatar is ever regenerated, light is
   the file to re-upload unless he says otherwise.
-- [ ] Regenerate: `.venv/bin/python design/marks/generate_marks.py avatar`
+- [ ] Regenerate: `bash design/brand/run-mark-pipeline.sh avatar`
 - RESOLVED (2026-08-19): the generated out/github/avatar/README.md used to
   say "upload avatar-dark-460.png", contradicting the LIVE VARIANT line
   below. The generator text now names the light file. LESSON: when an owner
@@ -282,12 +285,10 @@ change, and the easiest one to believe is done when it is not.
   lines are 10.5 to 15px and brand-tokens forbids grain under type below
   14px, so the card is what keeps the composition legal. If the card is ever
   removed, the copy has to grow or the grain has to go.
-- NOTE: the avatar deliberately does NOT use the sk monogram. The monogram
-  stays private per design/marks/out/private/README-PRIVATE.md.
-- EXPLORATION: the rejected concepts and both contact sheets from the
-  2026-08-19 design session live in design/marks/exploration/, per the
-  standing rule that all artwork produced for this brand lands in this
-  repo, not in a chat scratchpad.
+- NOTE: the avatar deliberately does not use the retired private identifier.
+- EXPLORATION: public-safe rejected concepts and the public review sheet from
+  the 2026-08-19 session live in design/marks/exploration/. Anything derived
+  from private source belongs only under the private output path.
 
 ## Accessibility tokens (decision 2026-08-19)
 
@@ -307,11 +308,11 @@ change, and the easiest one to believe is done when it is not.
 
 - design/brand/font/KarpalGeometric-Regular.{ttf,otf,woff2} - display font,
   wordmarks only, never body text.
-- design/brand/font/Montserrat-Regular.ttf, Montserrat-Medium.ttf - the UI
-  font declared as font.ui in brand-tokens. Vendored 2026-08-19 so the
-  avatar copy renders from the repo rather than from whatever happens to be
-  installed on the machine, which is the whole point of this system
-  surviving the M4. SIL OFL 1.1, see MONTSERRAT-LICENSE.md.
+- design/brand/font/Montserrat-{Regular,Medium,SemiBold}.{ttf,woff2} - the UI
+  family and weights declared in brand-tokens and used by the browser guide.
+  Vendored so generated assets and the guide resolve repository-owned fonts
+  rather than whatever happens to be installed on the machine. SIL OFL 1.1;
+  see MONTSERRAT-LICENSE.md.
 
 ## GitHub layer (all repos)
 
@@ -323,60 +324,57 @@ change, and the easiest one to believe is done when it is not.
 - [ ] VERIFY: repo page banner in dark AND light, social card via a link
       paste somewhere private.
 
-## Machines
+## Build toolchain and private-operations handoff
 
-- [ ] M4 TOOLCHAIN (resolved 2026-08-19): the pipeline runs on the M4 via
-      the repo venv. Rebuild any target with:
+- Python is pinned exactly in `.python-version`; direct dependencies live in
+  `requirements.in`; `requirements.lock` pins the full Python dependency
+  graph with distribution hashes. The lock was generated and verified with
+  uv 0.12.5. Bootstrap a clean environment from the repo root with:
 
-          cd ~/Projects-with-Claude/shashankkarpal
-          .venv/bin/python design/marks/generate_marks.py [project ...]
+      HOMEBREW_NO_AUTO_UPDATE=1 brew bundle --file Brewfile
+      uv python install "$(cat .python-version)"
+      uv venv --clear --python "$(cat .python-version)" .venv
+      uv pip sync --strict --require-hashes --python .venv/bin/python requirements.lock
+      bash design/brand/check-toolchain.sh
 
-      Setup that made it work: brew install cairo (1.18.4), then
-      uv venv --python /opt/homebrew/bin/python3 .venv, then uv pip install
-      --python .venv/bin/python -r requirements.lock. The venv is
-      gitignored; if it is ever missing (new machine, fresh clone), those
-      three lines recreate it EXACTLY.
-- PINNED (2026-08-19): .python-version (3.14) and requirements.lock at the
-  repo root record the working toolchain (cairosvg 2.9.0, pillow 12.3.0,
-  fonttools 4.63.0, icnsutil 1.1.0, python 3.14.7, native cairo 1.18.4 via
-  Homebrew). After any deliberate upgrade, regenerate the lock with
-  uv pip freeze --python .venv/bin/python > requirements.lock and rebuild
-  one project to confirm, in the same session.
-- KNOWN QUIRK (2026-08-19): rebuilt PNGs are never byte-identical to the
-  committed ones even when nothing changed. Pillow's effect_noise (the
-  grain) is not seedable, so every run lays fresh grain. Verified: SVGs
-  byte-identical, PNG mean pixel delta about 2.5/255, pure noise. So a
-  dirty git status full of PNGs after a rebuild does NOT mean the marks
-  changed. Diff an SVG to know the truth; git checkout the PNGs if the
-  SVGs are clean and you did not intend a change.
-- [ ] M4: every repo clean and pushed (git status loop, see below)
-- [ ] M1 (shashankkarpal@100.112.78.47): pull per repo. The
-      com.shashank.autodeploy launchd job has stalled before (2026-08-19);
-      never assume it ran. Never edit on the M1.
-      As of 2026-08-19 the M1 has ONE clone: ~/content-digest-app
-- [ ] M1: restart the affected service only if server code changed;
-      static assets are read from disk per request
-- [ ] ink-and-bone mirror: rsync shashankkarpal/design into the mirror,
-      commit, push (PRIVATE, holds the monogram)
-- [ ] VERIFY: ssh m1 git log -1 matches origin; mirror repo pushed.
+- `Brewfile` declares native Cairo, and the check enforces the validated
+  Cairo 1.18.4. Homebrew formula resolution is not an immutable native lock:
+  if that version is unavailable, stop and deliberately qualify a new
+  version or introduce a pinned container/bottle. Do not claim an arbitrary
+  current Homebrew install reproduces the validated environment exactly.
+- `run-mark-pipeline.sh` delegates to `run-with-brand-env.sh`, which exposes
+  Homebrew Cairo to the locked interpreter and suppresses source-tree bytecode.
+  Use that environment wrapper for every direct Python command or test that
+  can import CairoSVG; a bare `.venv/bin/python` invocation is not a complete
+  native runtime on macOS.
+- The toolchain check uses that wrapper for an in-memory CairoSVG render and
+  the complete generator/distributor regression suite, then rebuilds the
+  Karpal source in a temporary directory and verifies its round trip against
+  the golden master. A version-only check is not sufficient.
+- After a deliberate Python dependency change, update `requirements.in`,
+  regenerate the hashed lock, recreate the venv, and run the check:
+
+      uv pip compile requirements.in --generate-hashes \
+        --python-version "$(cat .python-version)" --output-file requirements.lock
+
+- DETERMINISM (amended 2026-08-20): raster grain uses the generator's stable
+  seeded PRNG and PDF metadata is normalized. Under the locked toolchain, an
+  unchanged full rebuild must be byte-identical across SVG, raster, PDF,
+  icon, avatar, and QA outputs. The regression suite gates grain and PDF
+  determinism. Any unexplained rebuild diff is a failure to investigate; do
+  not dismiss it as expected noise or discard it with a destructive checkout.
+- [ ] Run the public fleet audit below. Then complete the remote-host,
+      installed-copy, private-mirror, and backup checks in the private
+      operations extension.
 
 ## One-command audit
 
-Run on the M4 to catch unpushed, unpulled, or missing work across the
-fleet. Unlike the earlier version, this one fetches first, fails loudly on
-a missing repo or missing upstream, and reports behind as well as ahead:
+Run the tracked audit from the canonical repo. It fetches every public repo,
+fails nonzero on fetch/status/upstream errors or missing repos, and reports
+dirty, ahead, and behind counts:
 
-    fail=0
-    for r in ledge content-digest-app helios zest switchdeck claude-tokens \
-             claude-bridge claude-burnrate claude-skills-workspace \
-             shashankkarpal ink-and-bone; do
-      d=/Users/shashank.kk/Projects-with-Claude/$r
-      if [ ! -d "$d/.git" ]; then echo "$r: MISSING REPO"; fail=1; continue; fi
-      cd "$d"; git fetch -q 2>/dev/null
-      if ! git rev-parse --abbrev-ref @{u} >/dev/null 2>&1; then
-        echo "$r: NO UPSTREAM"; fail=1; continue; fi
-      s=$(git status --short | wc -l | tr -d ' ')
-      a=$(git rev-list --count @{u}..HEAD); b=$(git rev-list --count HEAD..@{u})
-      [ "$s$a$b" != "000" ] && fail=1
-      echo "$r: dirty=$s ahead=$a behind=$b"
-    done; [ $fail = 0 ] && echo "FLEET CLEAN" || echo "FLEET INCOMPLETE"
+    bash design/brand/audit-fleet.sh
+
+Pass `--root REPOSITORY_PARENT` when the repos are not siblings of the
+canonical checkout. The private operations extension adds the private repo
+to the same audit without publishing its identity or location.

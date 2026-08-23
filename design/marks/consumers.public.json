@@ -1,0 +1,733 @@
+{
+  "schemaVersion": 1,
+  "status": "authoritative consumer mapping for Ink and Bone v1.1.0",
+  "visibility": "public",
+  "consumers": [
+    {
+      "project": "claude-tokens",
+      "repository": "claude-tokens",
+      "outputRoot": "design/marks/out/claude-tokens",
+      "assets": [
+        {
+          "mode": "copy",
+          "source": "web/banner-dark-1400x400.svg",
+          "destination": "design/github/readme-banner-dark-1400x400.svg",
+          "expectedPreviousSha256": "529303e2edcec9ab2c6eac200091a18f3ea2580b35faa8846009691c253454ac"
+        },
+        {
+          "mode": "copy",
+          "source": "web/banner-dark-1400x400.svg",
+          "destination": "design/github/readme-banner-dark.svg",
+          "expectedPreviousSha256": "529303e2edcec9ab2c6eac200091a18f3ea2580b35faa8846009691c253454ac"
+        },
+        {
+          "mode": "copy",
+          "source": "web/banner-light-1400x400.svg",
+          "destination": "design/github/readme-banner-light-1400x400.svg",
+          "expectedPreviousSha256": "7af126d9eea2cb1ec516c9a8f26dab6fd518836f96e61fc7a35993e3b22c0aab"
+        },
+        {
+          "mode": "copy",
+          "source": "web/banner-light-1400x400.svg",
+          "destination": "design/github/readme-banner-light.svg",
+          "expectedPreviousSha256": "7af126d9eea2cb1ec516c9a8f26dab6fd518836f96e61fc7a35993e3b22c0aab"
+        },
+        {
+          "mode": "copy",
+          "source": "wordmark/wordmark-horizontal-dark.svg",
+          "destination": "design/logo/claude-tokens-lockup-horizontal-dark.svg",
+          "expectedPreviousSha256": "58faaa5c1a21f0d1af757a13181b80987d6eadc3889ffba4b622f1d13226cfc7"
+        },
+        {
+          "mode": "copy",
+          "source": "wordmark/wordmark-horizontal-light.svg",
+          "destination": "design/logo/claude-tokens-lockup-horizontal.svg",
+          "expectedPreviousSha256": "e26b856b0f3c3b40af7ca9315df48f4cf49375324f75067303971dff7e1377ee"
+        },
+        {
+          "mode": "copy",
+          "source": "svg/mark.svg",
+          "destination": "design/logo/claude-tokens-symbol-dark.svg",
+          "expectedPreviousSha256": "3c53bf3363104efe327dba0d95d70b6ffd22db3079f6f36d40c86c7c66ef26a0"
+        },
+        {
+          "mode": "copy",
+          "source": "svg/mark-mono.svg",
+          "destination": "design/logo/claude-tokens-symbol-mono-black.svg",
+          "expectedPreviousSha256": "cb172d6a123477312292eb3ef4d128045cf523d41e003f9016fd52fec8cf4161"
+        },
+        {
+          "mode": "copy",
+          "source": "svg/mark-light.svg",
+          "destination": "design/logo/claude-tokens-symbol.svg",
+          "expectedPreviousSha256": "a654606895ac0417b64e20b56863e422893eaa9e702ca2cf3e07285861695340"
+        }
+      ]
+    },
+    {
+      "project": "content-digest-app",
+      "repository": "content-digest-app",
+      "outputRoot": "design/marks/out/content-digest-app",
+      "assets": [
+        {
+          "mode": "copy",
+          "source": "web/banner-dark-1400x400.png",
+          "destination": "design/github/readme-banner-dark-1400x400.png",
+          "expectedPreviousSha256": "b2677d2dd99418f4b7425f503aeac36727fc197cb97989c1c8a70d8bf8d87f4d"
+        },
+        {
+          "mode": "copy",
+          "source": "web/banner-dark-1400x400.svg",
+          "destination": "design/github/readme-banner-dark-1400x400.svg",
+          "expectedPreviousSha256": "f610bba59ae9830b2e5032691ca49ed4839f52e7ed4a2f01f69e1e1f4b36339c"
+        },
+        {
+          "mode": "copy",
+          "source": "web/banner-light-1400x400.png",
+          "destination": "design/github/readme-banner-light-1400x400.png",
+          "expectedPreviousSha256": "546867cc69160c7d84fcbd884ac75fedb065bac31973916f1affd90bc03e3cf7"
+        },
+        {
+          "mode": "copy",
+          "source": "web/banner-light-1400x400.svg",
+          "destination": "design/github/readme-banner-light-1400x400.svg",
+          "expectedPreviousSha256": "9e8068bbe283a4e5b301f7b2443488e87ca5802e03a344a4bd63a2f65dd1421c"
+        },
+        {
+          "mode": "copy",
+          "source": "web/social-preview-1280x640.png",
+          "destination": "design/github/social-preview-1280x640.png",
+          "expectedPreviousSha256": "c2a36dee5beac68355f94afd7a426dd11b7a54c21bfca5f8ba50338b4d57ac3c"
+        },
+        {
+          "mode": "copy",
+          "source": "wordmark/wordmark-horizontal-dark.svg",
+          "destination": "design/logo/content-digest-lockup-horizontal-dark.svg",
+          "expectedPreviousSha256": "d8cde3d556aa67186717dc5f9a882fb5931eb7fa5b12be2ad6c51b9a6b6b1064"
+        },
+        {
+          "mode": "copy",
+          "source": "wordmark/wordmark-horizontal-light.svg",
+          "destination": "design/logo/content-digest-lockup-horizontal.svg",
+          "expectedPreviousSha256": "b44d06cc8f27351155e633dbd568199de8751e07665d4d4706326e42b79f7444"
+        },
+        {
+          "mode": "copy",
+          "source": "svg/mark.svg",
+          "destination": "design/logo/content-digest-symbol-dark.svg",
+          "expectedPreviousSha256": "207c62e0fd44655c44e6e98d96d55290cab4bd456c1dc044cfb786fa0ddc995c"
+        },
+        {
+          "mode": "copy",
+          "source": "svg/mark-mono.svg",
+          "destination": "design/logo/content-digest-symbol-mono-black.svg",
+          "expectedPreviousSha256": "f28ee49135847c8c7bec4fdde689066530013b909bf0eb2dfd2f9ed262c0e89e"
+        },
+        {
+          "mode": "copy",
+          "source": "svg/mark-light.svg",
+          "destination": "design/logo/content-digest-symbol.svg",
+          "expectedPreviousSha256": "4d57f11d0a9c46422d689dd6c1495df99f5d05c642bf0644e49895e9121f8c5e"
+        },
+        {
+          "mode": "copy",
+          "source": "macos/content-digest-app-template@2x.png",
+          "destination": "design/logo/menubar-template.png",
+          "expectedPreviousSha256": "f7a2b3e0a8b92d887f7d7813291cfd2f59ce7d96b664f78f6e0e0257242945de"
+        },
+        {
+          "mode": "copy",
+          "source": "watchos/AppIcon.appiconset/icon-24@2x.png",
+          "destination": "design/web/favicon-48.png",
+          "expectedPreviousSha256": "fae5472be623e6a42f829506989952410215799203d3c2e90f4559ab2af7de5b"
+        },
+        {
+          "mode": "copy",
+          "source": "web/favicon.svg",
+          "destination": "design/web/favicon.svg",
+          "expectedPreviousSha256": "5f885a05fa1e8338edf69b33c31cc4dc537326d43f199f11ae8f32f7069f8ef0"
+        }
+      ]
+    },
+    {
+      "project": "helios",
+      "repository": "helios",
+      "outputRoot": "design/marks/out/helios",
+      "assets": [
+        {
+          "mode": "copy",
+          "source": "ios/AppIcon.appiconset/icon-1024@1x.png",
+          "destination": "design/brand/app-icons/ios-bridge/AppIcon.appiconset/helios-1024-dark.png",
+          "expectedPreviousSha256": "fedbc2dc32cc151c5ac99c70343ece54d0aa0e65e351b18655cff4d72a309cad"
+        },
+        {
+          "mode": "copy",
+          "source": "ios/AppIcon.appiconset/icon-1024@1x.png",
+          "destination": "design/brand/app-icons/ios-bridge/AppIcon.appiconset/helios-1024-tinted.png",
+          "expectedPreviousSha256": "fedbc2dc32cc151c5ac99c70343ece54d0aa0e65e351b18655cff4d72a309cad"
+        },
+        {
+          "mode": "copy",
+          "source": "ios/AppIcon.appiconset/icon-1024@1x.png",
+          "destination": "design/brand/app-icons/ios-bridge/AppIcon.appiconset/helios-1024.png",
+          "expectedPreviousSha256": "fedbc2dc32cc151c5ac99c70343ece54d0aa0e65e351b18655cff4d72a309cad"
+        },
+        {
+          "mode": "copy",
+          "source": "wordmark/wordmark-horizontal-dark.svg",
+          "destination": "design/brand/lockup-horizontal-dark.svg",
+          "expectedPreviousSha256": "ae8302a2d38b7cd9d81589c247aee0699fe79b83a37d65ebb0bd62da4af9aaed"
+        },
+        {
+          "mode": "copy",
+          "source": "wordmark/wordmark-horizontal-light.svg",
+          "destination": "design/brand/lockup-horizontal-light.svg",
+          "expectedPreviousSha256": "1704ea6c863ce92d6285d97fb07f87bb304415b9aff0f1fdf1671232c8b4de72"
+        },
+        {
+          "mode": "copy",
+          "source": "wordmark/wordmark-horizontal-dark.svg",
+          "destination": "design/brand/lockup-integrated-dark.svg",
+          "expectedPreviousSha256": "ae8302a2d38b7cd9d81589c247aee0699fe79b83a37d65ebb0bd62da4af9aaed"
+        },
+        {
+          "mode": "copy",
+          "source": "wordmark/wordmark-horizontal-light.svg",
+          "destination": "design/brand/lockup-integrated-light.svg",
+          "expectedPreviousSha256": "1704ea6c863ce92d6285d97fb07f87bb304415b9aff0f1fdf1671232c8b4de72"
+        },
+        {
+          "mode": "copy",
+          "source": "wordmark/wordmark-stacked-dark.svg",
+          "destination": "design/brand/lockup-stacked-dark.svg",
+          "expectedPreviousSha256": "c1af9bfbafa2e92d1422a9cf79a43948c00ad363a49012cd3b9c90d355716bd6"
+        },
+        {
+          "mode": "copy",
+          "source": "wordmark/wordmark-stacked-light.svg",
+          "destination": "design/brand/lockup-stacked-light.svg",
+          "expectedPreviousSha256": "acb29e7de6e1ec0db9a3f9ae37372c4d2141f6a1e0a282657cca0c02e148d233"
+        },
+        {
+          "mode": "copy",
+          "source": "wordmark/wordmark-horizontal-light.svg",
+          "destination": "design/brand/print/letterhead-light.svg",
+          "expectedPreviousSha256": "1704ea6c863ce92d6285d97fb07f87bb304415b9aff0f1fdf1671232c8b4de72"
+        },
+        {
+          "mode": "copy",
+          "source": "svg/mark.svg",
+          "destination": "design/brand/symbol-bare-dark.svg",
+          "expectedPreviousSha256": "0ec313eccb2d0dab29f56f863cb685e1c014b62190f042bfe97d377b7a2a3a60"
+        },
+        {
+          "mode": "copy",
+          "source": "svg/mark.svg",
+          "destination": "design/brand/symbol-dark.svg",
+          "expectedPreviousSha256": "0ec313eccb2d0dab29f56f863cb685e1c014b62190f042bfe97d377b7a2a3a60"
+        },
+        {
+          "mode": "copy",
+          "source": "svg/mark-light.svg",
+          "destination": "design/brand/symbol-light.svg",
+          "expectedPreviousSha256": "c3c53a0780bf00b700881c1a8a78492e478f0f31c31cc7c0a8e334d361bf9d88"
+        },
+        {
+          "mode": "copy",
+          "source": "svg/mark-mono.svg",
+          "destination": "design/brand/symbol-mono-black.svg",
+          "expectedPreviousSha256": "3b0945fe58983d0caf03ea7739445023a032b4831c678a0afbcb382155847ab7"
+        },
+        {
+          "mode": "copy",
+          "source": "svg/mark-mono.svg",
+          "destination": "design/brand/wordmark-mono-black.svg",
+          "expectedPreviousSha256": "3b0945fe58983d0caf03ea7739445023a032b4831c678a0afbcb382155847ab7"
+        },
+        {
+          "mode": "copy",
+          "source": "web/banner-dark-1400x400.png",
+          "destination": "design/github/readme-banner-dark-1400x400.png",
+          "expectedPreviousSha256": "cbd13b636346185623463bba5da82c24fa25e6e7643bef5c58f120292cff85f1"
+        },
+        {
+          "mode": "copy",
+          "source": "web/banner-dark-1400x400.svg",
+          "destination": "design/github/readme-banner-dark-1400x400.svg",
+          "expectedPreviousSha256": "5c0793f81deb154ef28cf0a3b1c2821ce6d397c1b4107687d236fb8c551320f4"
+        },
+        {
+          "mode": "copy",
+          "source": "web/banner-light-1400x400.png",
+          "destination": "design/github/readme-banner-light-1400x400.png",
+          "expectedPreviousSha256": "8394188e012ae60c1ec7c0fcf2d0f10136f02660ff3b08cc909902dbef736516"
+        },
+        {
+          "mode": "copy",
+          "source": "web/banner-light-1400x400.svg",
+          "destination": "design/github/readme-banner-light-1400x400.svg",
+          "expectedPreviousSha256": "c94aeaecf30dec758f764eac7d4e4e2b0a7e59200ccd13a522b8bdf171a1e478"
+        },
+        {
+          "mode": "copy",
+          "source": "web/social-preview-1280x640.png",
+          "destination": "design/github/social-preview-1280x640.png",
+          "expectedPreviousSha256": "a10013538ce9fb4130be6956ea044b6717dff9c35ad0db562a98348f7eb3cd5c"
+        },
+        {
+          "mode": "copy",
+          "source": "ios/AppIcon.appiconset/icon-1024@1x.png",
+          "destination": "ios-bridge/Assets.xcassets/AppIcon.appiconset/helios-1024-dark.png",
+          "expectedPreviousSha256": "fedbc2dc32cc151c5ac99c70343ece54d0aa0e65e351b18655cff4d72a309cad"
+        },
+        {
+          "mode": "copy",
+          "source": "ios/AppIcon.appiconset/icon-1024@1x.png",
+          "destination": "ios-bridge/Assets.xcassets/AppIcon.appiconset/helios-1024-tinted.png",
+          "expectedPreviousSha256": "fedbc2dc32cc151c5ac99c70343ece54d0aa0e65e351b18655cff4d72a309cad"
+        },
+        {
+          "mode": "copy",
+          "source": "ios/AppIcon.appiconset/icon-1024@1x.png",
+          "destination": "ios-bridge/Assets.xcassets/AppIcon.appiconset/helios-1024.png",
+          "expectedPreviousSha256": "fedbc2dc32cc151c5ac99c70343ece54d0aa0e65e351b18655cff4d72a309cad"
+        },
+        {
+          "mode": "copy",
+          "source": "web/favicon.svg",
+          "destination": "web/public/favicon.svg",
+          "expectedPreviousSha256": "20590a5589aeeb1eeb5f11dbc779fce154c16bfd9bac6c8d799bd3ed8d940919"
+        }
+      ]
+    },
+    {
+      "project": "ledge",
+      "repository": "ledge",
+      "outputRoot": "design/marks/out/ledge",
+      "assets": [
+        {
+          "mode": "copy",
+          "source": "ios/AppIcon.appiconset/icon-1024@1x.png",
+          "destination": "apps/ios/Sources/Assets.xcassets/AppIcon.appiconset/AppIcon-dark.png",
+          "expectedPreviousSha256": "d7eefa82115084e7c2e4fff4c2c34da8a9c62657fb50ac6662f0819a1dde9d44"
+        },
+        {
+          "mode": "copy",
+          "source": "ios/AppIcon.appiconset/icon-1024@1x.png",
+          "destination": "apps/ios/Sources/Assets.xcassets/AppIcon.appiconset/AppIcon-light.png",
+          "expectedPreviousSha256": "d7eefa82115084e7c2e4fff4c2c34da8a9c62657fb50ac6662f0819a1dde9d44"
+        },
+        {
+          "mode": "copy",
+          "source": "ios/AppIcon.appiconset/icon-1024@1x.png",
+          "destination": "apps/ios/Sources/Assets.xcassets/AppIcon.appiconset/AppIcon-tinted.png",
+          "expectedPreviousSha256": "d7eefa82115084e7c2e4fff4c2c34da8a9c62657fb50ac6662f0819a1dde9d44"
+        },
+        {
+          "mode": "copy",
+          "source": "watchos/AppIcon.appiconset/icon-40@2x.png",
+          "destination": "apps/ios/WatchSources/Assets.xcassets/AppIcon.appiconset/AppIcon-appLauncher-38mm-80.png",
+          "expectedPreviousSha256": "52e056c2baf81b4e91a1820bf882d106514c040d376e8fe5401604a170ad0835"
+        },
+        {
+          "mode": "copy",
+          "source": "watchos/AppIcon.appiconset/icon-44@2x.png",
+          "destination": "apps/ios/WatchSources/Assets.xcassets/AppIcon.appiconset/AppIcon-appLauncher-40mm-88.png",
+          "expectedPreviousSha256": "6e6454a609251ea6b1d7124d4c0f04b026ee8f3a0968e8050def9d6cfb84f204"
+        },
+        {
+          "mode": "copy",
+          "source": "watchos/AppIcon.appiconset/icon-50@2x.png",
+          "destination": "apps/ios/WatchSources/Assets.xcassets/AppIcon.appiconset/AppIcon-appLauncher-44mm-100.png",
+          "expectedPreviousSha256": "6e1f47dd1a94c9fa7e0fcc06e44e5f80fcf6fe1ec6342c35a2298f4198966cfe"
+        },
+        {
+          "mode": "copy",
+          "source": "watchos/AppIcon.appiconset/icon-29@2x.png",
+          "destination": "apps/ios/WatchSources/Assets.xcassets/AppIcon.appiconset/AppIcon-companionSettings-any-58.png",
+          "expectedPreviousSha256": "ce80a49c68707bd2ce69b789e86f41676a1c656cd9f240b7cebf067a6f745b24"
+        },
+        {
+          "mode": "copy",
+          "source": "watchos/AppIcon.appiconset/icon-29@3x.png",
+          "destination": "apps/ios/WatchSources/Assets.xcassets/AppIcon.appiconset/AppIcon-companionSettings-any-87.png",
+          "expectedPreviousSha256": "deae97e9d6a54ab456373635dd5f51f4ea0fe90f8f0487a14dbe11390d9248f2"
+        },
+        {
+          "mode": "copy",
+          "source": "watchos/AppIcon.appiconset/icon-1024@1x.png",
+          "destination": "apps/ios/WatchSources/Assets.xcassets/AppIcon.appiconset/AppIcon-marketing-1024.png",
+          "expectedPreviousSha256": "d7eefa82115084e7c2e4fff4c2c34da8a9c62657fb50ac6662f0819a1dde9d44"
+        },
+        {
+          "mode": "copy",
+          "source": "watchos/AppIcon.appiconset/icon-24@2x.png",
+          "destination": "apps/ios/WatchSources/Assets.xcassets/AppIcon.appiconset/AppIcon-notificationCenter-38mm-48.png",
+          "expectedPreviousSha256": "67f4a51e020c12d2d69f4510eca3801c1fd108270d0fa579057a876563f6941d"
+        },
+        {
+          "mode": "copy",
+          "source": "watchos/AppIcon.appiconset/icon-86@2x.png",
+          "destination": "apps/ios/WatchSources/Assets.xcassets/AppIcon.appiconset/AppIcon-quickLook-38mm-172.png",
+          "expectedPreviousSha256": "55e4a5b7698680bacfdc72705bf8a2215a5467f6f0ae30c932b10f9a39255931"
+        },
+        {
+          "mode": "copy",
+          "source": "watchos/AppIcon.appiconset/icon-98@2x.png",
+          "destination": "apps/ios/WatchSources/Assets.xcassets/AppIcon.appiconset/AppIcon-quickLook-42mm-196.png",
+          "expectedPreviousSha256": "0a0cdf6f9c29f3f86f015d48307cb1506df00865d0a2c9be163372be031cd58c"
+        },
+        {
+          "mode": "copy",
+          "source": "watchos/AppIcon.appiconset/icon-108@2x.png",
+          "destination": "apps/ios/WatchSources/Assets.xcassets/AppIcon.appiconset/AppIcon-quickLook-44mm-216.png",
+          "expectedPreviousSha256": "833e11aa4f9705fcfac394c22ed82bea5ead4fb125206f2583685473baad073a"
+        },
+        {
+          "mode": "copy",
+          "source": "macos/AppIcon.iconset/icon_128x128.png",
+          "destination": "apps/mac/Resources/Ledge.iconset/icon_128x128.png",
+          "expectedPreviousSha256": "c706d97a2c9d3564c23bc737744f2f206625e3946c35d64006c1c3b0d41ceb1f"
+        },
+        {
+          "mode": "copy",
+          "source": "macos/AppIcon.iconset/icon_128x128@2x.png",
+          "destination": "apps/mac/Resources/Ledge.iconset/icon_128x128@2x.png",
+          "expectedPreviousSha256": "a4642841739f8b7d10b37fca4bb02b2c7e36c1d2844d60436370005a7d63d728"
+        },
+        {
+          "mode": "copy",
+          "source": "macos/AppIcon.iconset/icon_16x16.png",
+          "destination": "apps/mac/Resources/Ledge.iconset/icon_16x16.png",
+          "expectedPreviousSha256": "500cc92e94e5edcc4a2853ba6670281d5a46ed246217dbb60286ed15ff096fb7"
+        },
+        {
+          "mode": "copy",
+          "source": "macos/AppIcon.iconset/icon_16x16@2x.png",
+          "destination": "apps/mac/Resources/Ledge.iconset/icon_16x16@2x.png",
+          "expectedPreviousSha256": "6a686eaf5f7e5d185cd287ca9e5eb60e955d997f2d8381739f997a8653356413"
+        },
+        {
+          "mode": "copy",
+          "source": "macos/AppIcon.iconset/icon_256x256.png",
+          "destination": "apps/mac/Resources/Ledge.iconset/icon_256x256.png",
+          "expectedPreviousSha256": "a4642841739f8b7d10b37fca4bb02b2c7e36c1d2844d60436370005a7d63d728"
+        },
+        {
+          "mode": "copy",
+          "source": "macos/AppIcon.iconset/icon_256x256@2x.png",
+          "destination": "apps/mac/Resources/Ledge.iconset/icon_256x256@2x.png",
+          "expectedPreviousSha256": "07d61e35d3fa07dc799816248be0f1cc3f74bb7736cfe741c5fb07685c76edaf"
+        },
+        {
+          "mode": "copy",
+          "source": "macos/AppIcon.iconset/icon_32x32.png",
+          "destination": "apps/mac/Resources/Ledge.iconset/icon_32x32.png",
+          "expectedPreviousSha256": "6a686eaf5f7e5d185cd287ca9e5eb60e955d997f2d8381739f997a8653356413"
+        },
+        {
+          "mode": "copy",
+          "source": "macos/AppIcon.iconset/icon_32x32@2x.png",
+          "destination": "apps/mac/Resources/Ledge.iconset/icon_32x32@2x.png",
+          "expectedPreviousSha256": "a7b56ddecfdffee1be707bcae400a37cbbc1ccf8a25f868233a1693e515eea3e"
+        },
+        {
+          "mode": "copy",
+          "source": "macos/AppIcon.iconset/icon_512x512.png",
+          "destination": "apps/mac/Resources/Ledge.iconset/icon_512x512.png",
+          "expectedPreviousSha256": "07d61e35d3fa07dc799816248be0f1cc3f74bb7736cfe741c5fb07685c76edaf"
+        },
+        {
+          "mode": "copy",
+          "source": "macos/AppIcon.iconset/icon_512x512@2x.png",
+          "destination": "apps/mac/Resources/Ledge.iconset/icon_512x512@2x.png",
+          "expectedPreviousSha256": "a95f3e5bf8f5d86a8709469058d51d2e8c1b2ddf70744fdf7da24ec9b26bbd61"
+        },
+        {
+          "mode": "copy",
+          "source": "web/banner-dark-1400x400.png",
+          "destination": "design/github/readme-banner-dark-1400x400.png",
+          "expectedPreviousSha256": "548949bc57ab1a0605f74ea30660d75c5f09edf3aa134f8c247b89901898a4fc"
+        },
+        {
+          "mode": "copy",
+          "source": "web/banner-dark-1400x400.svg",
+          "destination": "design/github/readme-banner-dark-1400x400.svg",
+          "expectedPreviousSha256": "4d587840c02c3e1225ed374dbd7a571a7ded33d3cad8999fa8ba8582668906c4"
+        },
+        {
+          "mode": "copy",
+          "source": "web/banner-light-1400x400.png",
+          "destination": "design/github/readme-banner-light-1400x400.png",
+          "expectedPreviousSha256": "2cf9ea775e8a3c6bb8b366e4177a56f24287820f5b8d0c841a8bd5bf9688345b"
+        },
+        {
+          "mode": "copy",
+          "source": "web/banner-light-1400x400.svg",
+          "destination": "design/github/readme-banner-light-1400x400.svg",
+          "expectedPreviousSha256": "9a709c078a39dcbce65cf98d197a8c1f6603d17f5789c440bc2bff671a016905"
+        },
+        {
+          "mode": "copy",
+          "source": "web/social-preview-1280x640.png",
+          "destination": "design/github/social-preview-1280x640.png",
+          "expectedPreviousSha256": "927ad5543a8580cce56d08c7467bf619025f8d5e0b09133aa5a007ded7f34d2b"
+        },
+        {
+          "mode": "copy",
+          "source": "wordmark/wordmark-horizontal-dark.svg",
+          "destination": "design/logo/ledge-lockup-horizontal-dark.svg",
+          "expectedPreviousSha256": "e43619ada85ef4c70ac8c6715fe2aad3a27b859af3668e4b78e4b6238443c208"
+        },
+        {
+          "mode": "copy",
+          "source": "wordmark/wordmark-horizontal-light.svg",
+          "destination": "design/logo/ledge-lockup-horizontal.svg",
+          "expectedPreviousSha256": "0adbcc297f8d48fa27d2d4474e249d16ada67608453712d06fd89c3628b8cffb"
+        },
+        {
+          "mode": "copy",
+          "source": "wordmark/wordmark-stacked-dark.svg",
+          "destination": "design/logo/ledge-lockup-stacked-dark.svg",
+          "expectedPreviousSha256": "b347f160368de5bbfb66fb723cb2dca812d8ee06d88ef1306de494ee4164e78b"
+        },
+        {
+          "mode": "copy",
+          "source": "wordmark/wordmark-stacked-light.svg",
+          "destination": "design/logo/ledge-lockup-stacked.svg",
+          "expectedPreviousSha256": "c69ed251d32f7ad7f08b15fd1db2d0f7c04e84992a9523a462442b157e7f020a"
+        },
+        {
+          "mode": "copy",
+          "source": "svg/mark.svg",
+          "destination": "design/logo/ledge-symbol-dark.svg",
+          "expectedPreviousSha256": "b00757d9441a4c0c5a9d4c46b917cd28ee681812d8909b228522e8647acf2c99"
+        },
+        {
+          "mode": "copy",
+          "source": "svg/mark-mono.svg",
+          "destination": "design/logo/ledge-symbol-mono-black.svg",
+          "expectedPreviousSha256": "c447563d5a3da556a78fe47c73c8e7e9da9673cdf2c2b29ae6ab8e79a37e32ac"
+        },
+        {
+          "mode": "copy",
+          "source": "svg/mark-light.svg",
+          "destination": "design/logo/ledge-symbol.svg",
+          "expectedPreviousSha256": "0c87c7a0369b03ff73e4d361bbc21a106f77eb3e46081099929506745bb08080"
+        },
+        {
+          "mode": "copy",
+          "source": "web/favicon.svg",
+          "destination": "design/web/favicon.svg",
+          "expectedPreviousSha256": "b56fffba8d541c323000eceb4eff9a8cdf0637be8ee53271e09684ad96e54d49"
+        }
+      ]
+    },
+    {
+      "project": "switchdeck",
+      "repository": "switchdeck",
+      "outputRoot": "design/marks/out/switchdeck",
+      "assets": [
+        {
+          "mode": "copy",
+          "source": "web/banner-dark-1400x400.png",
+          "destination": "design/github/readme-banner-dark-1400x400.png",
+          "expectedPreviousSha256": "c99583623bf616e7221431e17cd760c6a64aefe3329c2da2d241fb1f915ef025"
+        },
+        {
+          "mode": "copy",
+          "source": "web/banner-dark-1400x400.svg",
+          "destination": "design/github/readme-banner-dark-1400x400.svg",
+          "expectedPreviousSha256": "5820c80774fc02c56907cab37488f600438fb06916e2b8c563d77002967dce1d"
+        },
+        {
+          "mode": "copy",
+          "source": "web/banner-light-1400x400.png",
+          "destination": "design/github/readme-banner-light-1400x400.png",
+          "expectedPreviousSha256": "0856051fac32beecc2b2ed78afe0eaf7663c2dbadf451eae3e8a4405b57c7e3b"
+        },
+        {
+          "mode": "copy",
+          "source": "web/banner-light-1400x400.svg",
+          "destination": "design/github/readme-banner-light-1400x400.svg",
+          "expectedPreviousSha256": "024bee9d3cc4afce94e343ee689265d2eb00df5a9c71bc42b140fe8205e8c932"
+        },
+        {
+          "mode": "copy",
+          "source": "web/social-preview-1280x640.png",
+          "destination": "design/github/social-preview-1280x640.png",
+          "expectedPreviousSha256": "030c4dfe171ab71196918b80885b3d185cd75b5c311c5187f8ae8e0063e6e4d6"
+        },
+        {
+          "mode": "copy",
+          "source": "wordmark/wordmark-horizontal-dark.svg",
+          "destination": "design/logo/switchdeck-lockup-horizontal-dark.svg",
+          "expectedPreviousSha256": "797df49f77c52bfa80df9c38650c29869fcbe134073df6882be954fbef3a1ff6"
+        },
+        {
+          "mode": "copy",
+          "source": "wordmark/wordmark-horizontal-light.svg",
+          "destination": "design/logo/switchdeck-lockup-horizontal.svg",
+          "expectedPreviousSha256": "2e4b1a1e3afc639d009d5b24351fac4bc8f8b93efff97f24feaeeb793d7910af"
+        },
+        {
+          "mode": "copy",
+          "source": "svg/mark.svg",
+          "destination": "design/logo/switchdeck-symbol-dark.svg",
+          "expectedPreviousSha256": "7af02d157406b2cff23fdc3a7e239be55a4927d41d6ce3e8343b5cf2a89783af"
+        },
+        {
+          "mode": "copy",
+          "source": "svg/mark-mono.svg",
+          "destination": "design/logo/switchdeck-symbol-mono-black.svg",
+          "expectedPreviousSha256": "0c6f237b9a3db0ccf2bb38885b0789372f1a039cd8f021005714c52494bff5ac"
+        },
+        {
+          "mode": "copy",
+          "source": "svg/mark-light.svg",
+          "destination": "design/logo/switchdeck-symbol.svg",
+          "expectedPreviousSha256": "722771fb0613e43ad2723857d06e3175ad70d83f258483928b6e019056fe3e76"
+        },
+        {
+          "mode": "copy",
+          "source": "web/favicon.svg",
+          "destination": "design/web/favicon.svg",
+          "expectedPreviousSha256": "5d38331d54f7558869e61028440af1f397322f4548d766c6db2dfb1f422a69e6"
+        }
+      ]
+    },
+    {
+      "project": "zest",
+      "repository": "zest",
+      "outputRoot": "design/marks/out/zest",
+      "assets": [
+        {
+          "mode": "copy",
+          "source": "web/banner-dark-1400x400.png",
+          "destination": "design/github/readme-banner-dark-1400x400.png",
+          "expectedPreviousSha256": "ba15d2eefce5f64fc79290aadfe8a560b67b217df4a0d3f2842d02fa800e40eb"
+        },
+        {
+          "mode": "copy",
+          "source": "web/banner-dark-1400x400.svg",
+          "destination": "design/github/readme-banner-dark-1400x400.svg",
+          "expectedPreviousSha256": "ad011038576b98a98a7ece11137495fec2be4490f1a950d69f99b04effe7fe8d"
+        },
+        {
+          "mode": "copy",
+          "source": "web/banner-light-1400x400.png",
+          "destination": "design/github/readme-banner-light-1400x400.png",
+          "expectedPreviousSha256": "579d8c253d13ecce417c773b9f48aa4424e45581d75bdf8a00477dc30fb9c468"
+        },
+        {
+          "mode": "copy",
+          "source": "web/banner-light-1400x400.svg",
+          "destination": "design/github/readme-banner-light-1400x400.svg",
+          "expectedPreviousSha256": "9d7d9d7fd1302bca17c8a51931303cb73973911006af9440d491d532321ec9cd"
+        },
+        {
+          "mode": "copy",
+          "source": "web/social-preview-1280x640.png",
+          "destination": "design/github/social-preview-1280x640.png",
+          "expectedPreviousSha256": "e69f29412a2cba8278b2ac9e95bb6eb5d9d8e59105acb230027f7cca643b82a4"
+        },
+        {
+          "mode": "copy",
+          "source": "wordmark/wordmark-horizontal-dark.svg",
+          "destination": "design/logo/zest-lockup-horizontal-dark.svg",
+          "expectedPreviousSha256": "5534d317b016061bcdd327178d705b06831ce865d0fadc313efd64528e186d0e"
+        },
+        {
+          "mode": "copy",
+          "source": "wordmark/wordmark-horizontal-light.svg",
+          "destination": "design/logo/zest-lockup-horizontal.svg",
+          "expectedPreviousSha256": "1b6247956db759ae64a1f160defda53201b45b96150c3b6e57afb7c3b078d9f7"
+        },
+        {
+          "mode": "copy",
+          "source": "svg/mark.svg",
+          "destination": "design/logo/zest-symbol-dark.svg",
+          "expectedPreviousSha256": "6daf3de0068a0fa6a6df0029e18596254a49bfad5d01a06bfa9b72649a440504"
+        },
+        {
+          "mode": "copy",
+          "source": "svg/mark-mono.svg",
+          "destination": "design/logo/zest-symbol-mono-black.svg",
+          "expectedPreviousSha256": "c81314e197ad09f2069af7b4a84de4e161ba150fd429a567be66e1b5e3aeca68"
+        },
+        {
+          "mode": "copy",
+          "source": "svg/mark-light.svg",
+          "destination": "design/logo/zest-symbol.svg",
+          "expectedPreviousSha256": "c2bbcf6abee96993fa85654508e1868b4ab61f387baafcd6c804dd4f6a0b2cde"
+        },
+        {
+          "mode": "copy",
+          "source": "web/favicon.svg",
+          "destination": "design/web/favicon.svg",
+          "expectedPreviousSha256": "0fe342f0a310975681e66dea7265b69a3faf009403683707834e6d88a259441e"
+        },
+        {
+          "mode": "copy",
+          "source": "macos/AppIcon.iconset/icon_16x16.png",
+          "destination": "design/app-icons/macos/AppIcon.appiconset/icon_16x16.png",
+          "expectedPreviousSha256": "b0f522ebcf314bb48737edddac1da020914ff4cc3ea2759ea17a69647c47f9b3"
+        },
+        {
+          "mode": "copy",
+          "source": "macos/AppIcon.iconset/icon_16x16@2x.png",
+          "destination": "design/app-icons/macos/AppIcon.appiconset/icon_16x16@2x.png",
+          "expectedPreviousSha256": "1bdf8e57b9d7673ab945fd0d428a72fe68eea0b563af84dec936f9f6a8a61b68"
+        },
+        {
+          "mode": "copy",
+          "source": "macos/AppIcon.iconset/icon_32x32.png",
+          "destination": "design/app-icons/macos/AppIcon.appiconset/icon_32x32.png",
+          "expectedPreviousSha256": "1bdf8e57b9d7673ab945fd0d428a72fe68eea0b563af84dec936f9f6a8a61b68"
+        },
+        {
+          "mode": "copy",
+          "source": "macos/AppIcon.iconset/icon_32x32@2x.png",
+          "destination": "design/app-icons/macos/AppIcon.appiconset/icon_32x32@2x.png",
+          "expectedPreviousSha256": "97e62d7323ef8f30680594e465c01f0634ab83e72fce52004c89c36270192ac1"
+        },
+        {
+          "mode": "copy",
+          "source": "macos/AppIcon.iconset/icon_128x128.png",
+          "destination": "design/app-icons/macos/AppIcon.appiconset/icon_128x128.png",
+          "expectedPreviousSha256": "3441501de9829aa58b00f3da4c0b361da15571dcf1a378290bc5341342966294"
+        },
+        {
+          "mode": "copy",
+          "source": "macos/AppIcon.iconset/icon_128x128@2x.png",
+          "destination": "design/app-icons/macos/AppIcon.appiconset/icon_128x128@2x.png",
+          "expectedPreviousSha256": "bde9a8f4f4d4112c541a247835941d2df38227fc34a6a7b12bc1ce0552d688c0"
+        },
+        {
+          "mode": "copy",
+          "source": "macos/AppIcon.iconset/icon_256x256.png",
+          "destination": "design/app-icons/macos/AppIcon.appiconset/icon_256x256.png",
+          "expectedPreviousSha256": "bde9a8f4f4d4112c541a247835941d2df38227fc34a6a7b12bc1ce0552d688c0"
+        },
+        {
+          "mode": "copy",
+          "source": "macos/AppIcon.iconset/icon_256x256@2x.png",
+          "destination": "design/app-icons/macos/AppIcon.appiconset/icon_256x256@2x.png",
+          "expectedPreviousSha256": "7632bfff303874e01aa6038fe43e96ba288e1cd18ecd83cfe59d8c58aed2eb59"
+        },
+        {
+          "mode": "copy",
+          "source": "macos/AppIcon.iconset/icon_512x512.png",
+          "destination": "design/app-icons/macos/AppIcon.appiconset/icon_512x512.png",
+          "expectedPreviousSha256": "7632bfff303874e01aa6038fe43e96ba288e1cd18ecd83cfe59d8c58aed2eb59"
+        },
+        {
+          "mode": "copy",
+          "source": "macos/AppIcon.iconset/icon_512x512@2x.png",
+          "destination": "design/app-icons/macos/AppIcon.appiconset/icon_512x512@2x.png",
+          "expectedPreviousSha256": "11e0e6e7ace9f75540a552e711209588191f3d2545c7f00ebba13ea5a5a2394a"
+        }
+      ]
+    }
+  ]
+}
