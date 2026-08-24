@@ -206,16 +206,20 @@ sanitized summary; the full forensic record is retained privately.
 - [ ] Switchdeck: if a built app exists on this Mac, rebuild it and check its
       Dock icon.
 - [ ] VERIFY: repos pushed; installed app icons checked where applicable.
-- DECISION (switchdeck audit 2026-08-17, confirmed 2026-08-24): the
+- DECISION (switchdeck audit 2026-08-17, amended 2026-08-24): the
   switchdeck menu bar item is TEXT on purpose. switchdeck.py sets its rumps
   title to an arrow glyph plus the active slot label. The declared live
   assets in design/menubar/SwitchdeckTemplate (png, @2x, @3x, pdf, svg) are
-  loaded by nothing, and stay that way: wiring a template icon needs a real
-  .app bundle, and that audit moved all bundling to the planned Swift
-  MenuBarExtra rewrite rather than spend it on an interim Python surface.
-  So this is a declared-live asset with no consumer, by decision. Do not
-  diagnose a missing menu bar glyph as a brand asset problem, and do not
-  "fix" it by wiring the icon into the Python app.
+  loaded by nothing and stay that way; the Swift MenuBarExtra rewrite still
+  owns wiring a template icon into the bar. AMENDED: a minimal
+  SwitchDeck.app bundle now exists anyway (see the notification ruling in
+  the quirks above), and it DOES consume brand assets: install.sh compiles
+  design/app-icons/macos/AppIcon.appiconset into the bundle's AppIcon.icns,
+  which is what notification banners and Finder show. So the appiconset is
+  a live consumed surface now; the menubar template set remains declared
+  but unconsumed, by decision. Do not diagnose a missing menu bar glyph as
+  a brand asset problem, and do not "fix" it by wiring the icon into the
+  Python app.
 - SURFACE RENAME (2026-08-24): the LaunchAgent label is now
   com.shashank.switchdeck, the app file is switchdeck.py, and the class,
   notification titles, and notification bundle identifier all say
@@ -242,22 +246,36 @@ sanitized summary; the full forensic record is retained privately.
   any Python version change, check LaunchAgent exit codes and every
   environment under ~/.local/share/uv/tools, not only the repo in hand.
 
-- KNOWN QUIRK (2026-08-24, corrected same day): a rumps menu bar app run
-  from a VENV cannot post notifications. rumps resolves
-  NSUserNotificationCenter through an Info.plist beside sys.executable and
-  needs CFBundleIdentifier in it; a venv has none, so the centre is nil and
-  every notification raises. Verified on macOS 26.6.2 as a bare script and
-  inside a live rumps run loop. A Homebrew FRAMEWORK Python is different:
-  it runs inside Python.app, so the centre exists and notifications deliver,
-  but under the identity "Python" (org.python.python). So a fleet rumps app
-  either runs from a venv carrying the two-key Info.plist beside its
-  interpreter (written at startup, because a venv rebuild silently removes
-  it), or it notifies as "Python". The first SOP entry today wrongly said
-  content-digest had the same silent-failure exposure; it actually had the
-  wrong-identity exposure. Both apps now use the venv-plus-plist pattern:
-  switchdeck as com.shashank.switchdeck, content-digest as
-  com.shashank.contentdigest (own uv venv at ~/.contentdigest-venv since
-  2026-08-24, decision logged in that repo).
+- RULING (2026-08-24, corrected twice the same day, final): a menu bar
+  Python app that must show NOTIFICATION BANNERS needs a real,
+  LaunchServices-registered .app bundle. Nothing less works. The morning's
+  two partial theories, an Info.plist beside the venv interpreter and the
+  framework Python's Python.app identity, both produce an API that accepts
+  notifications while macOS files them into Notification Center without
+  presenting a banner or sound, and without creating any entry in System
+  Settings to flip. The objective test is deliveredNotifications (the
+  system kept it) versus modern UNUserNotificationCenter
+  authorizationStatus (2 means banners can actually present); "the call
+  returned cleanly" proves nothing, and even "the system kept it" does not
+  mean anyone saw it.
+- PATTERN (2026-08-24): both fleet rumps apps now run from minimal
+  ad-hoc-signed bundles in ~/Applications, holding exactly a copy of the uv
+  static CPython as the executable, Info.plist, and the brand icon
+  (codesign rejects data files outside Resources). Stdlib and packages are
+  wired via PYTHONHOME/PYTHONPATH in each LaunchAgent; the venvs still own
+  packages. Any child process must have both variables scrubbed from its
+  environment or they poison the child's own Python (switchdeck's
+  _child_env is the reference). Identities: SwitchDeck.app as
+  com.shashankkarpal.switchdeck (moved once from com.shashank.switchdeck,
+  which carried a stale unremovable denial from the unbundled era) and
+  Content Digest.app as com.shashank.contentdigest. Both verified
+  granted=True on 2026-08-24 with the grant logged, and the grant survives
+  bundle rebuilds because it keys on the bundle id.
+- QUIRK (2026-08-24): a copied interpreter inside a bundle diverges from uv
+  upgrades until the installer reruns. switchdeck's scripts/install.sh
+  rebuilds the bundle every run and is the repair for any interpreter or
+  bundle drift; Content Digest has no installer yet, so a uv Python removal
+  requires rebuilding its bundle by hand (see its decision log).
 - COLLATERAL (2026-08-24): the same Homebrew python@3.14 removal also took
   down com.shashank.contentdigest.client, which ran on
   /opt/homebrew/bin/python3 and failed with the same exit 78. python@3.14
@@ -277,17 +295,21 @@ sanitized summary; the full forensic record is retained privately.
   project roots (the first sweep used -maxdepth 5 and missed repo venvs one
   level deeper). And write the removal down in the session log when it
   happens, not when it bites.
-- MENU BAR INVENTORY (2026-08-24), so nobody re-diagnoses this layout:
-  four owner surfaces live in the bar. switchdeck (venv python3, text glyph
-  by decision), content-digest client (venv python3, its own brand template
-  icon, wired at client.py), Zest (Swift .app), and SwiftBar hosting the
-  ccusage, claude-burnrate, and claude-bridge plugins from
-  ~/SwiftBarPlugins. xbar is INSTALLED BUT RETIRED: /Applications/xbar.app
-  is not running and its plugin folder still holds stale June/August copies
-  of ccusage.30s.sh and claude-burnrate.1m.sh. SwiftBar is canonical since
-  2026-08-16. If xbar is ever launched, those stale copies will draw
-  duplicate menu items with outdated logic; delete the app or its plugin
-  copies before using it again.
+- MENU BAR INVENTORY (2026-08-24, final), so nobody re-diagnoses this
+  layout: four owner surfaces live in the bar. SwitchDeck.app (text glyph
+  title by decision, brand icns on the bundle), Content Digest.app (brand
+  template icon wired in client.py), Zest (Swift .app), and SwiftBar
+  hosting the ccusage, claude-burnrate, and claude-bridge plugins from
+  ~/SwiftBarPlugins. Both Python apps now show their real names in menu
+  bar tools such as Thaw instead of python3, because they run from real
+  bundles. xbar was REMOVED on 2026-08-24 (brew cask uninstalled, plugin
+  folder deleted; its plugin copies were byte-identical to SwiftBar's live
+  ones). Downstream edits made with it: the weekly
+  resync-widget-source-backup scheduled task now mirrors the real files in
+  ~/SwiftBarPlugins instead of the deleted xbar folder (its xbar-mirror
+  backup folder is retained as history), and menu-bar-swag's
+  Restart SwitchBar.command was replaced by Restart SwitchDeck.command
+  pointing at the current label.
 ### claude-tokens
 - [ ] Guarded distributor reports the declared live assets and both
       `design/BRAND-ASSETS` files current; no consumer `design/marks` tree.
