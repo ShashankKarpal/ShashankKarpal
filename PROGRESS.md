@@ -69,7 +69,11 @@ consumers" or "the private ops extension".
   pending updates. Five public consumers pend only their two provenance
   files; zest additionally pends its ten macOS iconset PNGs, which is the
   interrupted run's known unfinished manifest fix. --apply is an
-  owner-approved action and was not run.
+  owner-approved action and was not run. RESOLVED 2026-08-24: apply
+  approved in the delta round and run from a clean canonical source; 22
+  files updated, check now exit 0, both gates green, all six consumers
+  committed. Zest's installed app rebuild (./build.sh plus manual replace)
+  remains a manual SOP step for the owner.
 - The parallel session finalized the moved menu bar inventory in the
   private ops extension and recorded follow-on procedure changes there;
   nothing further needed from this session on that block.
@@ -89,8 +93,8 @@ to push. The approved fix list and its results:
 | 3 | Correct the commit record: exhaustive same-day table from git log --all, correct authorship of the private-repo inventory-move commit | DONE, table below |
 | 4 | Evidence-bounded sync root-cause wording here and in the sync script's comment | DONE, see the corrected item-10 entry |
 | 5 | Post-extension sweep and a negative probe outside the profile repo | DONE. Fleet gate exit 0; a transient probe file in zest tripped exit 1 naming zest/probe-nonprofile.txt; removal restored exit 0 |
-| 6 | Native rerun of the ledge unsigned generic iOS build with the actual xcodebuild exit code | PENDING |
-| 7 | Distributor --apply (owner approved), then --check to exit 0, both gates from correct cwds | PENDING |
+| 6 | Native rerun of the ledge unsigned generic iOS build with the actual xcodebuild exit code | DONE. xcodegen exit 0, xcodebuild exit 0 on a fresh derived-data path, zero error lines, BUILD SUCCEEDED, tree clean |
+| 7 | Distributor --apply (owner approved), then --check to exit 0, both gates from correct cwds | DONE. Apply exit 0, exactly 22 files updated; check exit 0; public gate exit 0 (849 paths); private gate exit 0 (7 public repos). Provenance records the clean canonical commit with canonicalSourceDirty false, brand 1.1.0 |
 
 ### Exhaustive same-day commit table (2026-08-24, from git log --all --since, not narration)
 
@@ -122,6 +126,14 @@ Delta-fix commits made after this table land below it as they are created.
 | 10:54 | ink-and-bone | 354a6c1 | Mirror: sync public design state through the completed final rebuild (recovery session) |
 | 10:56 | shashankkarpal | e67c041 | PROGRESS: all eleven approved recovery items done and verified (recovery session) |
 | 12:03 | ink-and-bone | 3ef2f6d | (subject withheld: names a private identifier; see its log). Recovery session's boundary registration |
+
+Delta-fix commits after the table (all this recovery session): ink-and-bone
+4c58ecd (fleet-scope gate, disclosure record, evidence-bounded sync
+comment); ledge a672a36 and switchdeck 63d6877 (identifier genericization);
+shashankkarpal 605cdbc (this file's delta round); distribution commits
+claude-tokens 06c9d11, content-digest-app 5a166d7, helios 655b65f, ledge
+997c08c, switchdeck 1d1c1de, zest 20d36b0; plus the final PROGRESS commit
+carrying this sentence, whose hash necessarily postdates the text.
 
 ## Live verification log
 
