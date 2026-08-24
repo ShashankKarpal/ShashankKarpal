@@ -74,6 +74,14 @@ consumers" or "the private ops extension".
   files updated, check now exit 0, both gates green, all six consumers
   committed. Zest's installed app rebuild (./build.sh plus manual replace)
   remains a manual SOP step for the owner.
+- Distributor design quirk (recorded 2026-08-24, delta re-audit): provenance
+  stamps the canonical HEAD at apply time, so ANY later canonical commit,
+  including a documentation-only one, invalidates every consumer provenance
+  file and turns --check red. Candidate improvement: stamp the last commit
+  that touched design/ (for example git log -1 --format=%H -- design)
+  instead of HEAD, so documentation commits cannot invalidate asset
+  provenance. Deliberately not implemented today; it changes recorded
+  provenance semantics and deserves its own reviewed change.
 - The parallel session finalized the moved menu bar inventory in the
   private ops extension and recorded follow-on procedure changes there;
   nothing further needed from this session on that block.
@@ -94,7 +102,7 @@ to push. The approved fix list and its results:
 | 4 | Evidence-bounded sync root-cause wording here and in the sync script's comment | DONE, see the corrected item-10 entry |
 | 5 | Post-extension sweep and a negative probe outside the profile repo | DONE. Fleet gate exit 0; a transient probe file in zest tripped exit 1 naming zest/probe-nonprofile.txt; removal restored exit 0 |
 | 6 | Native rerun of the ledge unsigned generic iOS build with the actual xcodebuild exit code | DONE. xcodegen exit 0, xcodebuild exit 0 on a fresh derived-data path, zero error lines, BUILD SUCCEEDED, tree clean |
-| 7 | Distributor --apply (owner approved), then --check to exit 0, both gates from correct cwds | DONE. Apply exit 0, exactly 22 files updated; check exit 0; public gate exit 0 (849 paths); private gate exit 0 (7 public repos). Provenance records the clean canonical commit with canonicalSourceDirty false, brand 1.1.0 |
+| 7 | Distributor --apply (owner approved), then --check to exit 0, both gates from correct cwds | DONE AT EXECUTION TIME, then invalidated 36 seconds later: apply exit 0, exactly 22 files updated, check exit 0, both gates exit 0, provenance recorded the clean canonical commit. The delta re-audit found the later PROGRESS commit moved canonical HEAD and so invalidated all 12 provenance files; corrected in the re-audit round below |
 
 ### Exhaustive same-day commit table (2026-08-24, from git log --all --since, not narration)
 
@@ -132,8 +140,35 @@ Delta-fix commits after the table (all this recovery session): ink-and-bone
 comment); ledge a672a36 and switchdeck 63d6877 (identifier genericization);
 shashankkarpal 605cdbc (this file's delta round); distribution commits
 claude-tokens 06c9d11, content-digest-app 5a166d7, helios 655b65f, ledge
-997c08c, switchdeck 1d1c1de, zest 20d36b0; plus the final PROGRESS commit
-carrying this sentence, whose hash necessarily postdates the text.
+997c08c, switchdeck 1d1c1de, zest 20d36b0; plus the delta round's closing
+PROGRESS commit, cbc0be0, whose landing 36 seconds after the distribution
+commits is what invalidated the provenance stamps (see the re-audit round).
+
+## Delta re-audit round (2026-08-24)
+
+Codex delta re-audit verdict: 8 confirmed, 1 overclaim, 0 wrong, 1
+unverifiable. The one real issue is chronological: the distributor stamps
+canonical HEAD into every provenance file, and cbc0be0 (a
+documentation-only PROGRESS commit) landed 36 seconds after the six
+distribution commits, invalidating all 12 provenance files, while this file
+carried the by-then-stale claim that --check exits 0.
+
+Owner-ordered fix so the loop cannot repeat, executed in exactly this
+order:
+
+1. This PROGRESS correction commits FIRST and is the final shashankkarpal
+   commit of the day. Its own hash cannot appear in this text; steps 2 to 4
+   necessarily report their results in the session report and the six
+   consumer commit messages, not here, because writing them here would move
+   canonical HEAD again and re-invalidate the stamps.
+2. Guarded distributor --apply at that final HEAD, then --check to exit 0.
+3. Commit exactly the 12 provenance-file changes across the six consumers,
+   nothing else.
+4. Both gates from their correct cwds, twelve clean trees, exit codes in
+   the report.
+
+If any later commit lands in this repository today, the distributor check
+goes red again by design and steps 2 to 4 must be repeated at the new HEAD.
 
 ## Live verification log
 
