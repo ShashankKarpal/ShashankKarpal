@@ -24,8 +24,8 @@ consumers" or "the private ops extension".
 | 2 | Boundary regression: move the menu bar inventory block from the public SOP into the private ops extension, leave one generic pointer line; mark the moved block in-flux | DONE |
 | 3 | Private boundary gate green (pre-edit state at bbe7b93 re-confirmed: exit 1, BRAND-SURFACES.md) | DONE, exit 0 |
 | 4 | Correct the retired-overlay header (both copies, byte-identical): it still describes the removed implicit-load behavior | DONE |
-| 5 | Full check-toolchain.sh run on the existing 3.14.7 venv (includes the unittest suite); handoff's python3.11/pytest instructions ignored as approved | PENDING |
-| 6 | Execute .github/workflows/brand-integrity.yml locally, step by step | PENDING |
+| 5 | Full check-toolchain.sh run on the existing 3.14.7 venv (includes the unittest suite); handoff's python3.11/pytest instructions ignored as approved | DONE, TOOLCHAIN OK, 20 tests pass, Karpal round-trip OK |
+| 6 | Execute .github/workflows/brand-integrity.yml locally, step by step | DONE, see log; reproducibility gate caught the interrupted run's missing final rebuild, resolved below |
 | 7 | Verify ledge iOS build (build only, no device install) | PENDING |
 | 8 | Verify ledge watchOS build (build only) | PENDING |
 | 9 | Verify helios web build | PENDING |
@@ -78,3 +78,25 @@ consumers" or "the private ops extension".
 - 2026-08-24, after items 2 and 4: overlay copies byte-identical (cmp 0),
   overlay parses; public boundary gate pass (795 paths, this file included);
   private boundary gate PASS exit 0. Regression closed.
+- 2026-08-24, item 5: check-toolchain.sh exit 0. uv 0.12.5, python 3.14.7,
+  exact lock match (11 packages), cairo 1.18.4, native CairoSVG render OK,
+  20/20 unittest regressions OK, Karpal source round-trip matches the v1
+  golden master. The handoff's "tests never run / blocked on interpreter"
+  item is closed.
+- 2026-08-24, item 6, brand-integrity.yml executed locally step by step.
+  Deviation from CI recorded: the existing .venv was used instead of a
+  recreate, justified by the exact requirements.lock match above.
+  verify-palette --self-test exit 0; --no-cvd exit 0; public boundary exit 0;
+  regressions 20/20 (inside the toolchain check); full public rebuild exit 0.
+  The final reproducibility gate (git diff on design/github, design/marks/out)
+  failed on first run, and the diff is fully explained: the committed
+  generator (snapshot 70d0406) carries a corrected, extended watchOS icon
+  table (22pt slot removed, modern 24/27.5/33 notification, 46/51/54
+  launcher, 117/129 quickLook slots added) and per-project web icons, but the
+  committed out/ tree predates those generator edits; the interrupted
+  2026-08-20 run died before its final rebuild. Evidence of intent: the
+  table is in the committed generator; a second rebuild reproduces the
+  identical 72-path state (stable status fingerprint), so the new output is
+  deterministic; all six regenerated Contents.json parse with 17 slots and
+  no 22pt entry; zero pixel churn in any pre-existing PNG (grain determinism
+  held). Resolution: regenerated outputs committed; gate then exits 0.
