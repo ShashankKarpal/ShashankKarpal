@@ -206,6 +206,30 @@ sanitized summary; the full forensic record is retained privately.
 - [ ] Switchdeck: if a built app exists on this Mac, rebuild it and check its
       Dock icon.
 - [ ] VERIFY: repos pushed; installed app icons checked where applicable.
+- KNOWN QUIRK (2026-08-24): the switchdeck menu bar item is TEXT, not an
+  image. switchbar.py sets its rumps title to an arrow glyph plus the active
+  slot label. The declared live assets in design/menubar/SwitchdeckTemplate
+  (png, @2x, @3x, pdf, svg) are not loaded by anything. Do not diagnose a
+  missing menu bar glyph as a brand asset problem until switchbar.py is
+  actually wired to a template image.
+- INCIDENT 2026-08-24: the switchdeck menu bar item was absent. Root cause
+  was the Python toolchain, not the brand. Homebrew python@3.14 (3.14.6) was
+  removed on or around 2026-08-16 during the uv migration; only python@3.13
+  remains in the Cellar. That left two environments whose pyvenv.cfg home
+  pointed at the now dangling /opt/homebrew/opt/python@3.14:
+  ~/.switchdeck-venv, which is the LaunchAgent program, so
+  com.shashank.switchbar failed to spawn with last exit code 78 EX_CONFIG
+  and no item ever drew; and the claude-swap uv tool environment, which
+  left cswap with a bad interpreter shebang, so even a running switchbar
+  would have shown the cswap unavailable row. Fix: rebuild both against the
+  uv-managed CPython at ~/.local/bin/python3.14 (uv venv for the switchdeck
+  venv plus rumps 0.4.0, uv tool install claude-swap --reinstall), then
+  launchctl kickstart -k gui/501/com.shashank.switchbar.
+- LESSON: removing or replacing a Homebrew Python silently breaks every venv
+  and every uv tool environment whose pyvenv.cfg home points at it, and a
+  LaunchAgent failure is invisible because there is no window to miss. After
+  any Python version change, check LaunchAgent exit codes and every
+  environment under ~/.local/share/uv/tools, not only the repo in hand.
 
 ### claude-tokens
 - [ ] Guarded distributor reports the declared live assets and both
