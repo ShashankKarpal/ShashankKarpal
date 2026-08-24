@@ -77,6 +77,52 @@ consumers" or "the private ops extension".
   the boundary gate was green at commit time; it was not (exit 1 re-confirmed
   at that HEAD). History is not rewritten; recorded here for the audit trail.
 
+## Delta fixes (Codex audit of the recovery, approved 2026-08-24)
+
+Audit verdict: 9 confirmed, 4 overclaims, 1 wrong, 2 unverifiable, not ready
+to push. The approved fix list and its results:
+
+| # | Fix | Result |
+|---|---|---|
+| 1 | Fleet-scope private gate: derive the public repo list from the public consumer registry, fail closed if underivable, scan every public repo | DONE. Gate now scans 7 public repositories; with the registry unreadable or a repo missing it errors instead of shrinking scope |
+| 2 | The three tracked identifier hits in two consumer repos | DONE. Genericized in place preserving operational meaning; the cross-reference in the first file now routes through the fleet root CLAUDE.md as a neutral pointer; disclosure of the names in pushed history recorded, dated, in the private ops extension; no history rewrite |
+| 3 | Correct the commit record: exhaustive same-day table from git log --all, correct authorship of the private-repo inventory-move commit | DONE, table below |
+| 4 | Evidence-bounded sync root-cause wording here and in the sync script's comment | DONE, see the corrected item-10 entry |
+| 5 | Post-extension sweep and a negative probe outside the profile repo | DONE. Fleet gate exit 0; a transient probe file in zest tripped exit 1 naming zest/probe-nonprofile.txt; removal restored exit 0 |
+| 6 | Native rerun of the ledge unsigned generic iOS build with the actual xcodebuild exit code | PENDING |
+| 7 | Distributor --apply (owner approved), then --check to exit 0, both gates from correct cwds | PENDING |
+
+### Exhaustive same-day commit table (2026-08-24, from git log --all --since, not narration)
+
+Twenty commits existed across the fleet when the delta audit ran; this table
+is the corrected record. Hashes are exact everywhere. Rows whose repository
+or subject would place a private identifier in this public file are
+redacted by rule and fully recorded in the private repositories' own logs.
+Delta-fix commits made after this table land below it as they are created.
+
+| Time | Repo | Hash | Subject |
+|---|---|---|---|
+| 08:26 | shashankkarpal | f6f8dab | SOP: record the 2026-08-24 switchdeck menu bar incident (interpreter root cause) |
+| 08:50 | switchdeck | 53e3088 | v1.9: notifications actually deliver, resume card, rename completed |
+| 08:52 | shashankkarpal | c444ba1 | SOP: switchdeck menu bar resolution |
+| 09:05 | content-digest-app | 1401cb8 | decision-log: client runtime moved to its own uv venv with a real notification identity |
+| 09:07 | shashankkarpal | 8cc3f4d | SOP: red-team corrections to the 2026-08-24 entries |
+| 10:00 | switchdeck | ed721cb | v1.9.1: minimal .app bundle, modern notification path, identity move |
+| 10:01 | content-digest-app | 0c5302f | client: real .app bundle identity and modern notification path |
+| 10:02 | shashankkarpal | bbe7b93 | SOP: final notification ruling and menu bar inventory |
+| 10:20 | (private repo) | 81b7b01 | (subject withheld: names private identifiers; see its log) |
+| 10:29 | (private repo) | 70e0803 | (subject withheld: names private identifiers; see its log) |
+| 10:29 | (private consumer repo) | 7f0b8e4 | (subject withheld: names private identifiers; see its log) |
+| 10:31 | (private repo) | 4aa764a | (subject withheld: names private identifiers; see its log) |
+| 10:35 | shashankkarpal | 1dbd118 | SOP: move the menu bar inventory to the private operations extension; add the recovery PROGRESS tracker (recovery session) |
+| 10:35 | ink-and-bone | bd4d0f4 | Ops extension: take over the menu bar inventory from the public SOP (in flux); correct the retired-overlay header. AUTHORSHIP CORRECTED: this recovery session's commit, previously misattributed to the parallel session |
+| 10:39 | ink-and-bone | a83afd9 | (subject withheld: names private identifiers; see its log). Parallel session's inventory finalization |
+| 10:41 | shashankkarpal | 11d5650 | Marks: complete the interrupted run's final rebuild (recovery session) |
+| 10:53 | ink-and-bone | e1563a2 | sync-public-design: deterministic comparison, classify formerly-public deletions (recovery session) |
+| 10:54 | ink-and-bone | 354a6c1 | Mirror: sync public design state through the completed final rebuild (recovery session) |
+| 10:56 | shashankkarpal | e67c041 | PROGRESS: all eleven approved recovery items done and verified (recovery session) |
+| 12:03 | ink-and-bone | 3ef2f6d | (subject withheld: names a private identifier; see its log). Recovery session's boundary registration |
+
 ## Live verification log
 
 - 2026-08-24: pre-edit gate run at bbe7b93: private boundary exit 1, only
@@ -120,9 +166,15 @@ consumers" or "the private ops extension".
   alert hex in the built CSS is closed against a fresh build.
 - 2026-08-24, item 10: the mirror sync script refused with nondeterministic
   refusal lists on identical trees (25 flags, then 32, files that exist in
-  both trees). Root cause class: the mirror-only comparison ran comm over
-  process-substitution FIFOs, and one stream lost a variable-length chunk;
-  the flagged names were a contiguous C-sorted range. Separately the guard
+  both trees), the flagged names forming a contiguous C-sorted range each
+  time. CORRECTED WORDING (2026-08-24 delta audit): the established facts
+  are the observed nondeterminism of the old process-substitution comparison
+  and the determinism of the temp-file rewrite (consecutive byte-identical
+  dry runs, independently reconfirmed). A variable-length loss of one comm
+  input stream fits the signature but was never reproduced under
+  instrumentation (the delta audit ran the old construction ten times
+  without failure), so that mechanism is an inference, not an established
+  root cause. Separately the guard
   had no classification for formerly-public files legitimately deleted by
   the completed rebuild (the six 22pt watch icons), so any public deletion
   wedged the sync. Fixed in the private repo's script: listings and the
