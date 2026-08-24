@@ -26,11 +26,11 @@ consumers" or "the private ops extension".
 | 4 | Correct the retired-overlay header (both copies, byte-identical): it still describes the removed implicit-load behavior | DONE |
 | 5 | Full check-toolchain.sh run on the existing 3.14.7 venv (includes the unittest suite); handoff's python3.11/pytest instructions ignored as approved | DONE, TOOLCHAIN OK, 20 tests pass, Karpal round-trip OK |
 | 6 | Execute .github/workflows/brand-integrity.yml locally, step by step | DONE, see log; reproducibility gate caught the interrupted run's missing final rebuild, resolved below |
-| 7 | Verify ledge iOS build (build only, no device install) | PENDING |
-| 8 | Verify ledge watchOS build (build only) | PENDING |
-| 9 | Verify helios web build | PENDING |
-| 10 | Sync the SOP mirror via the private repo's sync script (dry-run, review, apply), re-run both boundary gates after | PENDING |
-| 11 | Handoff doc on the Desktop: correct swapped document authorship labels, point the Section 10 prompt at the full audit file | PENDING |
+| 7 | Verify ledge iOS build (build only, no device install) | DONE, BUILD SUCCEEDED, 0 errors |
+| 8 | Verify ledge watchOS build (build only) | DONE, LedgeWatch.app built (arm64_32 + arm64) with its widget extension, embedded in Ledge.app/Watch |
+| 9 | Verify helios web build | DONE, tsc + vite exit 0, verify:brand exit 0 |
+| 10 | Sync the SOP mirror via the private repo's sync script (dry-run, review, apply), re-run both boundary gates after | DONE, both SOP copies byte-identical, gates green; required a sync-script fix, see log |
+| 11 | Handoff doc on the Desktop: correct swapped document authorship labels, point the Section 10 prompt at the full audit file | DONE, four surgical corrections marked LABEL CORRECTED 2026-08-24 |
 
 ## Closed in the first turn (2026-08-24, verification only)
 
@@ -65,6 +65,14 @@ consumers" or "the private ops extension".
   drill are owner actions (private ops extension records the policy; drill
   table still pending).
 - Release tags (v1.1.0) after everything verifies; merge and push decisions.
+- Distributor state after the completed rebuild: --check exits 1 with
+  pending updates. Five public consumers pend only their two provenance
+  files; zest additionally pends its ten macOS iconset PNGs, which is the
+  interrupted run's known unfinished manifest fix. --apply is an
+  owner-approved action and was not run.
+- The parallel session finalized the moved menu bar inventory in the
+  private ops extension and recorded follow-on procedure changes there;
+  nothing further needed from this session on that block.
 - Two stray hits of a retired commit-message claim: bbe7b93's message says
   the boundary gate was green at commit time; it was not (exit 1 re-confirmed
   at that HEAD). History is not rewritten; recorded here for the audit trail.
@@ -100,3 +108,32 @@ consumers" or "the private ops extension".
   deterministic; all six regenerated Contents.json parse with 17 slots and
   no 22pt entry; zero pixel churn in any pre-existing PNG (grain determinism
   held). Resolution: regenerated outputs committed; gate then exits 0.
+- 2026-08-24, items 7 and 8: ledge project regenerated with xcodegen, built
+  unsigned for generic iOS with a scratch derived-data path. BUILD
+  SUCCEEDED, zero error lines. Products verified on disk: Ledge.app with
+  LedgeWidgets.appex, and Debug-watchos/LedgeWatch.app with a universal
+  arm64_32 plus arm64 binary and LedgeWatchWidgets.appex, embedded at
+  Ledge.app/Watch/. No device install attempted.
+- 2026-08-24, item 9: helios web, npm run build exit 0 (tsc plus vite),
+  then npm run verify:brand exit 0: active sources and the fresh bundle
+  carry only the current palette. The old reopen item about a retired
+  alert hex in the built CSS is closed against a fresh build.
+- 2026-08-24, item 10: the mirror sync script refused with nondeterministic
+  refusal lists on identical trees (25 flags, then 32, files that exist in
+  both trees). Root cause class: the mirror-only comparison ran comm over
+  process-substitution FIFOs, and one stream lost a variable-length chunk;
+  the flagged names were a contiguous C-sorted range. Separately the guard
+  had no classification for formerly-public files legitimately deleted by
+  the completed rebuild (the six 22pt watch icons), so any public deletion
+  wedged the sync. Fixed in the private repo's script: listings and the
+  comm result go through temp files under C collation, and a mirror-only
+  path with public git history is announced as a carried deletion while
+  unknown paths still refuse. Two consecutive dry-runs byte-identical,
+  exit 0; review showed exactly the six known deletions and 78 updates and
+  no private path in the transfer; apply exit 0 with the script's own
+  sentinel, protected-hash, and private-output digests passing; both SOP
+  copies byte-identical afterward; both boundary gates green; synced state
+  committed in the private repo.
+- 2026-08-24, item 11: handoff corrected in place: 1.2 and 1.3 authorship,
+  the 8.1 reading-list labels, and the Section 10 prompt now points at the
+  full 31K audit on the Desktop instead of the 1.7K sanitized repo stub.
