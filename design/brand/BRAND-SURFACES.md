@@ -242,24 +242,52 @@ sanitized summary; the full forensic record is retained privately.
   any Python version change, check LaunchAgent exit codes and every
   environment under ~/.local/share/uv/tools, not only the repo in hand.
 
-- KNOWN QUIRK (2026-08-24): a rumps menu bar app run from a venv CANNOT
-  post notifications. rumps resolves NSUserNotificationCenter through an
-  Info.plist beside sys.executable and needs CFBundleIdentifier in it; a
-  venv has none, so the centre is nil and every notification raises. Verified
-  on macOS 26.6.2 as a bare script and inside a live rumps run loop. Any
-  fleet app that notifies from rumps needs that two-key plist written next
-  to its interpreter at startup, because the file lives in the venv and a
-  venv rebuild silently removes it. content-digest-app's client.py is the
-  other rumps app in the fleet and has the same exposure.
+- KNOWN QUIRK (2026-08-24, corrected same day): a rumps menu bar app run
+  from a VENV cannot post notifications. rumps resolves
+  NSUserNotificationCenter through an Info.plist beside sys.executable and
+  needs CFBundleIdentifier in it; a venv has none, so the centre is nil and
+  every notification raises. Verified on macOS 26.6.2 as a bare script and
+  inside a live rumps run loop. A Homebrew FRAMEWORK Python is different:
+  it runs inside Python.app, so the centre exists and notifications deliver,
+  but under the identity "Python" (org.python.python). So a fleet rumps app
+  either runs from a venv carrying the two-key Info.plist beside its
+  interpreter (written at startup, because a venv rebuild silently removes
+  it), or it notifies as "Python". The first SOP entry today wrongly said
+  content-digest had the same silent-failure exposure; it actually had the
+  wrong-identity exposure. Both apps now use the venv-plus-plist pattern:
+  switchdeck as com.shashank.switchdeck, content-digest as
+  com.shashank.contentdigest (own uv venv at ~/.contentdigest-venv since
+  2026-08-24, decision logged in that repo).
 - COLLATERAL (2026-08-24): the same Homebrew python@3.14 removal also took
-  down com.shashank.contentdigest.client, which runs on
-  /opt/homebrew/bin/python3 and failed with the same exit 78. Reinstalling
-  python@3.14 restored that agent, the gcloud virtenv, and the AI Centric
-  Catalog venv. Two stale venvs on the removed python@3.11 remain and depend
-  on nothing live (the BigQuery MCP runs through npx, not that venv).
-  LESSON: after any Python change, sweep the whole fleet, not one app: check
-  every LaunchAgent exit code and every pyvenv.cfg home that no longer
-  resolves.
+  down com.shashank.contentdigest.client, which ran on
+  /opt/homebrew/bin/python3 and failed with the same exit 78. python@3.14
+  was reinstalled (3.14.7) for the gcloud virtenv and the AI Centric Catalog
+  venv, but neither menu bar app depends on any Homebrew Python any more.
+  Still at risk on Homebrew interpreters: speaker-hunter/.venv (python@3.13),
+  the gcloud virtenv, and the AI Centric Catalog venv. Dead and orphaned:
+  ~/dev/myproject/.venv and ~/mcp-servers/bigquery-mcp/venv (python@3.11,
+  removed; nothing live uses them, the BigQuery MCP runs through npx).
+  FORENSICS: the removal happened around 2026-08-16 18:05 (the formula's
+  emptied Homebrew log directory is the only trace); no shell history line,
+  no session log, and no bridge handoff records it. Deliberate uv-migration
+  cleanup, not A/B testing, but unrecorded, which is its own failure: the
+  cost of the missing one-line log entry was three agents down for days.
+  LESSON: after any Python change, sweep the whole fleet, not one app: every
+  LaunchAgent exit code, and every pyvenv.cfg home under BOTH $HOME and the
+  project roots (the first sweep used -maxdepth 5 and missed repo venvs one
+  level deeper). And write the removal down in the session log when it
+  happens, not when it bites.
+- MENU BAR INVENTORY (2026-08-24), so nobody re-diagnoses this layout:
+  four owner surfaces live in the bar. switchdeck (venv python3, text glyph
+  by decision), content-digest client (venv python3, its own brand template
+  icon, wired at client.py), Zest (Swift .app), and SwiftBar hosting the
+  ccusage, claude-burnrate, and claude-bridge plugins from
+  ~/SwiftBarPlugins. xbar is INSTALLED BUT RETIRED: /Applications/xbar.app
+  is not running and its plugin folder still holds stale June/August copies
+  of ccusage.30s.sh and claude-burnrate.1m.sh. SwiftBar is canonical since
+  2026-08-16. If xbar is ever launched, those stale copies will draw
+  duplicate menu items with outdated logic; delete the app or its plugin
+  copies before using it again.
 ### claude-tokens
 - [ ] Guarded distributor reports the declared live assets and both
       `design/BRAND-ASSETS` files current; no consumer `design/marks` tree.
