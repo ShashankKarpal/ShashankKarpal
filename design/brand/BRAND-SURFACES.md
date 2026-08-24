@@ -295,21 +295,8 @@ sanitized summary; the full forensic record is retained privately.
   project roots (the first sweep used -maxdepth 5 and missed repo venvs one
   level deeper). And write the removal down in the session log when it
   happens, not when it bites.
-- MENU BAR INVENTORY (2026-08-24, final), so nobody re-diagnoses this
-  layout: four owner surfaces live in the bar. SwitchDeck.app (text glyph
-  title by decision, brand icns on the bundle), Content Digest.app (brand
-  template icon wired in client.py), Zest (Swift .app), and SwiftBar
-  hosting the ccusage, claude-burnrate, and claude-bridge plugins from
-  ~/SwiftBarPlugins. Both Python apps now show their real names in menu
-  bar tools such as Thaw instead of python3, because they run from real
-  bundles. xbar was REMOVED on 2026-08-24 (brew cask uninstalled, plugin
-  folder deleted; its plugin copies were byte-identical to SwiftBar's live
-  ones). Downstream edits made with it: the weekly
-  resync-widget-source-backup scheduled task now mirrors the real files in
-  ~/SwiftBarPlugins instead of the deleted xbar folder (its xbar-mirror
-  backup folder is retained as history), and menu-bar-swag's
-  Restart SwitchBar.command was replaced by Restart SwitchDeck.command
-  pointing at the current label.
+- MENU BAR INVENTORY: lives in the private operations extension (moved
+  2026-08-24; it names private consumers, which this public file must not).
 ### claude-tokens
 - [ ] Guarded distributor reports the declared live assets and both
       `design/BRAND-ASSETS` files current; no consumer `design/marks` tree.
