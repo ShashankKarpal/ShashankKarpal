@@ -206,12 +206,23 @@ sanitized summary; the full forensic record is retained privately.
 - [ ] Switchdeck: if a built app exists on this Mac, rebuild it and check its
       Dock icon.
 - [ ] VERIFY: repos pushed; installed app icons checked where applicable.
-- KNOWN QUIRK (2026-08-24): the switchdeck menu bar item is TEXT, not an
-  image. switchbar.py sets its rumps title to an arrow glyph plus the active
-  slot label. The declared live assets in design/menubar/SwitchdeckTemplate
-  (png, @2x, @3x, pdf, svg) are not loaded by anything. Do not diagnose a
-  missing menu bar glyph as a brand asset problem until switchbar.py is
-  actually wired to a template image.
+- DECISION (switchdeck audit 2026-08-17, confirmed 2026-08-24): the
+  switchdeck menu bar item is TEXT on purpose. switchdeck.py sets its rumps
+  title to an arrow glyph plus the active slot label. The declared live
+  assets in design/menubar/SwitchdeckTemplate (png, @2x, @3x, pdf, svg) are
+  loaded by nothing, and stay that way: wiring a template icon needs a real
+  .app bundle, and that audit moved all bundling to the planned Swift
+  MenuBarExtra rewrite rather than spend it on an interim Python surface.
+  So this is a declared-live asset with no consumer, by decision. Do not
+  diagnose a missing menu bar glyph as a brand asset problem, and do not
+  "fix" it by wiring the icon into the Python app.
+- SURFACE RENAME (2026-08-24): the LaunchAgent label is now
+  com.shashank.switchdeck, the app file is switchdeck.py, and the class,
+  notification titles, and notification bundle identifier all say
+  SwitchDeck. The old com.shashank.switchbar label is booted out and its
+  plist retired by scripts/install.sh. macOS keys notification permissions
+  and grouping to the bundle identifier, so that string is now a surface:
+  changing it again resets the user's notification choices for this app.
 - INCIDENT 2026-08-24: the switchdeck menu bar item was absent. Root cause
   was the Python toolchain, not the brand. Homebrew python@3.14 (3.14.6) was
   removed on or around 2026-08-16 during the uv migration; only python@3.13
@@ -231,6 +242,24 @@ sanitized summary; the full forensic record is retained privately.
   any Python version change, check LaunchAgent exit codes and every
   environment under ~/.local/share/uv/tools, not only the repo in hand.
 
+- KNOWN QUIRK (2026-08-24): a rumps menu bar app run from a venv CANNOT
+  post notifications. rumps resolves NSUserNotificationCenter through an
+  Info.plist beside sys.executable and needs CFBundleIdentifier in it; a
+  venv has none, so the centre is nil and every notification raises. Verified
+  on macOS 26.6.2 as a bare script and inside a live rumps run loop. Any
+  fleet app that notifies from rumps needs that two-key plist written next
+  to its interpreter at startup, because the file lives in the venv and a
+  venv rebuild silently removes it. content-digest-app's client.py is the
+  other rumps app in the fleet and has the same exposure.
+- COLLATERAL (2026-08-24): the same Homebrew python@3.14 removal also took
+  down com.shashank.contentdigest.client, which runs on
+  /opt/homebrew/bin/python3 and failed with the same exit 78. Reinstalling
+  python@3.14 restored that agent, the gcloud virtenv, and the AI Centric
+  Catalog venv. Two stale venvs on the removed python@3.11 remain and depend
+  on nothing live (the BigQuery MCP runs through npx, not that venv).
+  LESSON: after any Python change, sweep the whole fleet, not one app: check
+  every LaunchAgent exit code and every pyvenv.cfg home that no longer
+  resolves.
 ### claude-tokens
 - [ ] Guarded distributor reports the declared live assets and both
       `design/BRAND-ASSETS` files current; no consumer `design/marks` tree.
