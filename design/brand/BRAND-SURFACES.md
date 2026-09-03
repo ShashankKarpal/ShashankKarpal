@@ -203,6 +203,13 @@ sanitized summary; the full forensic record is retained privately.
 - [ ] Zest rebuild/reinstall is manual: run `./build.sh`, replace the installed
       application only after reviewing the ignored build, then verify its
       Finder and Dock icon. Do not commit `Zest.app` or a release zip.
+- QUIRK (2026-09-02): launchd pins code identity, so replacing a LaunchAgent's
+  program in place makes `launchctl kickstart -k` fail with
+  `OS_REASON_CODESIGNING` and an AMFI Launch Constraint Violation, even though
+  the same binary launches by hand and passes `codesign --verify --strict`.
+  Fix: `launchctl bootout` the label, then `launchctl bootstrap` its plist.
+  Build with the Developer ID identity so the running copy keeps its
+  hardened-runtime signature. Expect this for any in-place agent rebuild.
 - [ ] Switchdeck: if a built app exists on this Mac, rebuild it and check its
       Dock icon.
 - [ ] VERIFY: repos pushed; installed app icons checked where applicable.
