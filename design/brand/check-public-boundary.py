@@ -26,6 +26,16 @@ REQUIRED_IGNORES = {
     "design/marks/private_marks.py",
     "design/marks/private_projects.py",
 }
+# Private-capable paths must not EXIST in the public checkout, tracked or
+# not. Ignored bytes are one .gitignore edit or one `git add -f` away from a
+# public commit (rule added 2026-09-04 after the monogram source and 103
+# private renders were found sitting ignored in the public worktree).
+# Private generation runs only from the private operations repository.
+FORBIDDEN_PRESENT = (
+    "design/marks/out/private",
+    "design/marks/private_marks.py",
+    "design/marks/private_projects.py",
+)
 
 
 def fail(message: str) -> None:
@@ -112,6 +122,10 @@ def main() -> int:
             parts = Path(path).parts
             if len(parts) > 3 and parts[3] not in projects | {"github", "qa"}:
                 errors.append(f"unapproved generated output root is tracked: {parts[3]}")
+
+    for relative in FORBIDDEN_PRESENT:
+        if (ROOT / relative).exists() or (ROOT / relative).is_symlink():
+            errors.append(f"private-capable path exists in the public checkout: {relative}")
 
     ignore_lines = {
         line.strip()
