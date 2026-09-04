@@ -84,6 +84,58 @@ sanitized summary; the full forensic record is retained privately.
   Both must exit zero. Also inspect the public registry and staged diff for
   private-derived entries or assets before every push.
 
+## HARDENING 2026-09-04: prose rules converted into checks
+
+A full review of this SOP against the fleet found every prose rule that had
+no executable check behind it, and closed each one. Durable rules:
+
+- RULE: private-capable paths (`design/marks/private_marks.py`,
+  `design/marks/private_projects.py`, `design/marks/out/private/`) must not
+  EXIST in the public checkout, tracked or ignored. The public boundary gate
+  fails on presence. Found 2026-09-04: the private source and 103 private
+  renders sat ignored in the public worktree, one `.gitignore` edit away from
+  a repeat of the 2026-08 disclosure. Private generation runs only from the
+  private operations repository.
+- RULE: the private operations repository's own name is a protected
+  identifier, exactly like the private consumer names. The public brand
+  system name in prose ("Ink and Bone", "pre-Ink-and-Bone") stays public;
+  the hyphenated repository form does not. The gate blanks an explicit
+  allowed-phrase list and honours a per-line allowlist keyed by (repo, path,
+  line hash) for the one generator seed literal that cannot change without
+  altering every raster byte. Found 2026-09-04: PROGRESS.md in this repo
+  named that repository seven times while stating it named no private
+  repository; genericized in place, no history rewrite.
+- RULE: the cross-tree gate scans every sibling repository that has a
+  remote, not only registered consumers. A repository that is neither a
+  brand consumer nor classified in the private registry fails the gate as
+  unclassified. It also scans UNPUSHED commit messages in public
+  repositories; pushed history is a disclosure record, not a gate matter.
+- RULE: enforcement is layered, not remembered. A global pre-push hook
+  (core.hooksPath) refuses a push from any public fleet repository whose
+  outgoing commit messages name a private identifier, then runs the
+  cross-tree gate and refuses on nonzero. The global pre-commit hook runs
+  gitleaks on the staged set when installed. Hook sources are tracked in
+  the private operations repository and installed by its installer; an
+  installed hook without tracked source fails the installer's `--check`.
+- RULE: every fleet default branch carries a GitHub ruleset that blocks
+  force pushes, blocks deletion, and requires linear history (the
+  fast-forward-only rule, enforced server-side). No required status checks:
+  the fleet is pushed directly and a check cannot pass before its commit
+  exists. Verified through the API on every post-push audit, never by
+  memory.
+- RULE: the post-push audit enumerates ALL public repositories on the
+  account and fails on any outside the expected set, so an accidental
+  visibility flip or an unknown public repository is caught even when no
+  gate ever scanned it. It also fails if the CLI token carries a scope the
+  SOP never needs (`delete_repo`).
+- RULE: the verdict line of every check counts what was READ, not what was
+  enumerated (files, binaries skipped, allowlisted lines, unclassified
+  repositories). An audit that silently skips inputs and prints PASS is the
+  2026-08 failure in a new costume.
+- RULE (environment): in a sandboxed session, one host command call times
+  out at roughly 30 seconds. Long sweeps run as a background script writing
+  to a file, then the file is read; do not shorten a sweep to fit a call.
+
 ## Per-project surfaces
 
 ### ledge
@@ -118,6 +170,55 @@ sanitized summary; the full forensic record is retained privately.
   pull to refresh in Ledge, then verify a fresh capture round-trips BOTH ways.
   Note: brctl status is TCC-denied from automation; diagnose by reading
   the shared file and comparing against what each device shows.
+- QUIRK (2026-09-03, 0.4.2): a damaged day header hides notes on the phone
+  while the Mac shows them. The Mac panel is a raw text editor over the whole
+  file; one stray keystroke on a machine-written `## yyyy-MM-dd` line (a
+  backtick, the key beside Esc) made the strict header regex fail, so every
+  entry under it parsed as preamble, which iOS did not render and the Mac
+  rendered as normal text. Same bytes on both devices, "sync broken" for a
+  morning, re-pick and daemon restarts irrelevant. DIAGNOSE FIRST with
+  `head -3` on the Mac's inbox.md. Fixed in 0.4.2: both apps repair on read,
+  merge duplicate same-day sections, name the repair; iOS renders leftover
+  preamble under "Unfiled text". Full record: ledge/docs/SYNC-RELIABILITY-BRIEF.md
+  (failure mode M) and ledge/CHANGELOG.md.
+- RULE: before blaming the bookmark or the transport, prove which leg is
+  broken. `log show --predicate 'process == "bird"'` correlated with Ledge's
+  coordinated writes shows uploads within about 2 s when the Mac leg is
+  healthy; Files app Get Info (mtime, size) against `stat` on the Mac shows
+  whether bytes arrived. Only then pick a fix.
+- VERIFY (0.4.2 onward): `./scripts/deploy.sh` ends with a verification
+  stage and prints "Done" only after both devices agree (recent heartbeat
+  from each, matching inbox digest `shasum -a 256 inbox.md | cut -c1-16`);
+  otherwise VERIFY SYNC, exit 2. Run from a Terminal with Full Disk Access;
+  TCC denies the folder to automation, so the verify stage cannot be driven
+  from a sandboxed session.
+- SYNC HEALTH (0.4.2, cadence amended 0.5.0): each device writes
+  `.ledge/heartbeat-<device>.json` (device, ISO time, version, platform,
+  inboxDigest) on launch, activation, capture, and whenever its inbox bytes
+  change; idle cadence is adaptive (10 min while a peer is active, hourly
+  otherwise) because a fixed 5 min heartbeat from a resident Mac app roughly
+  doubled the folder's iCloud upload traffic. Both apps show "last seen from
+  <device>: N hours ago" only when another device's heartbeat is older than
+  6 h. `log stream --process Ledge` shows "folder changed (event N)".
+- CAPTURE DURABILITY (0.5.0, 2026-09-04): `drainSpool` used to empty
+  `capture/drop.md` and record delivery ids BEFORE the caller saved
+  `inbox.md`, and `saveInbox` throws by design when iCloud changed the file
+  underneath it. A Watch capture could end in neither file with its retry
+  dropped. Fixed: drain returns a batch the caller must `commit()` after a
+  successful save. RULE: never destroy the durable copy before the
+  replacement is on disk.
+- VERIFIER RULES (0.5.0): verify state, not events. iOS relaunches a
+  foregrounded app on install, so the new build's first heartbeat can
+  PRECEDE the script's own launch call; the clock for the iPhone assertion is
+  the install start. Heartbeats are matched by device label, not platform (a
+  healthy iPad could otherwise certify a dead iPhone). The Mac's drain timer
+  can fold the probe itself, so "probe in inbox.md" alone is not
+  Mac-to-phone proof; the digest match is. Deploy refuses to install while
+  captures sit in the spool (exit 4), soaks 5 min then re-proves, and
+  `deploy.sh verify` proves sync without installing anything.
+- INCIDENT LOG: `.ledge/incidents.log`, bounded at 200 lines, content-free,
+  records stall start, end, observer, peer, version, and seconds after the
+  last install.
 
 ### helios
 - [ ] Guarded distributor reports the declared live assets and both

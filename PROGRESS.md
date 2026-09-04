@@ -37,7 +37,7 @@ consumers" or "the private ops extension".
 - Q3 and Q4 recovered verbatim from the parent rollout; both were decided and
   executed on 2026-08-19 (audit items 18 and 13, commit 31d19c5), then
   extended on 2026-08-20. No decision is pending on them.
-- ink-and-bone confirmed PRIVATE on GitHub via gh.
+- The private operations repository confirmed PRIVATE on GitHub via gh.
 - The two private overlay files are two intentional files with distinct
   roles, not a rename.
 - Montserrat TTF changes are deliberate re-vendoring from the pinned
@@ -127,15 +127,15 @@ Delta-fix commits made after this table land below it as they are created.
 | 10:29 | (private consumer repo) | 7f0b8e4 | (subject withheld: names private identifiers; see its log) |
 | 10:31 | (private repo) | 4aa764a | (subject withheld: names private identifiers; see its log) |
 | 10:35 | shashankkarpal | 1dbd118 | SOP: move the menu bar inventory to the private operations extension; add the recovery PROGRESS tracker (recovery session) |
-| 10:35 | ink-and-bone | bd4d0f4 | Ops extension: take over the menu bar inventory from the public SOP (in flux); correct the retired-overlay header. AUTHORSHIP CORRECTED: this recovery session's commit, previously misattributed to the parallel session |
-| 10:39 | ink-and-bone | a83afd9 | (subject withheld: names private identifiers; see its log). Parallel session's inventory finalization |
+| 10:35 | (private repo) | bd4d0f4 | Ops extension: take over the menu bar inventory from the public SOP (in flux); correct the retired-overlay header. AUTHORSHIP CORRECTED: this recovery session's commit, previously misattributed to the parallel session |
+| 10:39 | (private repo) | a83afd9 | (subject withheld: names private identifiers; see its log). Parallel session's inventory finalization |
 | 10:41 | shashankkarpal | 11d5650 | Marks: complete the interrupted run's final rebuild (recovery session) |
-| 10:53 | ink-and-bone | e1563a2 | sync-public-design: deterministic comparison, classify formerly-public deletions (recovery session) |
-| 10:54 | ink-and-bone | 354a6c1 | Mirror: sync public design state through the completed final rebuild (recovery session) |
+| 10:53 | (private repo) | e1563a2 | sync-public-design: deterministic comparison, classify formerly-public deletions (recovery session) |
+| 10:54 | (private repo) | 354a6c1 | Mirror: sync public design state through the completed final rebuild (recovery session) |
 | 10:56 | shashankkarpal | e67c041 | PROGRESS: all eleven approved recovery items done and verified (recovery session) |
-| 12:03 | ink-and-bone | 3ef2f6d | (subject withheld: names a private identifier; see its log). Recovery session's boundary registration |
+| 12:03 | (private repo) | 3ef2f6d | (subject withheld: names a private identifier; see its log). Recovery session's boundary registration |
 
-Delta-fix commits after the table (all this recovery session): ink-and-bone
+Delta-fix commits after the table (all this recovery session): private repo
 4c58ecd (fleet-scope gate, disclosure record, evidence-bounded sync
 comment); ledge a672a36 and switchdeck 63d6877 (identifier genericization);
 shashankkarpal 605cdbc (this file's delta round); distribution commits
@@ -236,3 +236,9 @@ goes red again by design and steps 2 to 4 must be repeated at the new HEAD.
 - 2026-08-24, item 11: handoff corrected in place: 1.2 and 1.3 authorship,
   the 8.1 reading-list labels, and the Section 10 prompt now points at the
   full 31K audit on the Desktop instead of the 1.7K sanitized repo stub.
+- 2026-09-04: this file named the private operations repository seven times
+  (line 40 and the commit table), contradicting its own boundary note above,
+  because that repository's name was not in the gate's identifier set. The
+  name is now a protected identifier, these lines are genericized in place,
+  and the disclosure in pushed history is recorded in the private ops
+  extension. No history rewrite, per the standing owner decision.
