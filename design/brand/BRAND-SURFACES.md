@@ -526,8 +526,17 @@ change, and the easiest one to believe is done when it is not.
 
 - Python is pinned exactly in `.python-version`; direct dependencies live in
   `requirements.in`; `requirements.lock` pins the full Python dependency
-  graph with distribution hashes. The lock was generated and verified with
-  uv 0.12.5. Bootstrap a clean environment from the repo root with:
+  graph with distribution hashes. The lock was generated with uv 0.12.5 and
+  is verified against the pinned uv in `check-toolchain.sh` (0.12.9 since
+  2026-09-04). QUALIFIED 2026-09-04: Homebrew moved uv to 0.12.9 on
+  2026-09-01 and the local toolchain check went red unnoticed for three days
+  because the boundary gates do not run it and CI pins its own uv. 0.12.9
+  was qualified by a full check-toolchain run (exact lock match, native
+  render, 20 regressions, Karpal round trip) inside a restic restore drill,
+  then `EXPECTED_UV` and the CI setup-uv pin were moved together. RULE: the
+  two pins move together, and `check-toolchain.sh` is part of every
+  pre-push round, not only CI. Bootstrap a clean environment from the repo
+  root with:
 
       HOMEBREW_NO_AUTO_UPDATE=1 brew bundle --file Brewfile
       uv python install "$(cat .python-version)"
