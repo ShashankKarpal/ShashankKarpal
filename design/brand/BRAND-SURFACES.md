@@ -403,6 +403,18 @@ no executable check behind it, and closed each one. Durable rules:
   project roots (the first sweep used -maxdepth 5 and missed repo venvs one
   level deeper). And write the removal down in the session log when it
   happens, not when it bites.
+- ENGINE CONTRACT (2026-09-05): switchdeck pins the cswap release it was
+  validated against and shows one warning row on drift. The engine was
+  upgraded to 0.26.0 on 2026-09-03 by a session working on a sibling menu
+  bar tile, and the row sat in the menu for two days before the switchdeck
+  session revalidated (round trip, distinct org identities, MCP config
+  unchanged) and moved the pin. RULE: any session that upgrades the shared
+  engine on this Mac revalidates every consumer of it in the same session,
+  or records the open row in that consumer's handoff. The row is the
+  tripwire, not the fix. switchdeck now carries unit tests (`tests/`,
+  run with the package venv); the agent restart after a code-only change is
+  `launchctl kickstart -k`, because the bundle binary is unchanged;
+  bootout plus bootstrap is for a rebuilt bundle.
 - MENU BAR INVENTORY: lives in the private operations extension (moved
   2026-08-24; it names private consumers, which this public file must not).
 ### claude-tokens
@@ -527,16 +539,27 @@ change, and the easiest one to believe is done when it is not.
 - Python is pinned exactly in `.python-version`; direct dependencies live in
   `requirements.in`; `requirements.lock` pins the full Python dependency
   graph with distribution hashes. The lock was generated with uv 0.12.5 and
-  is verified against the pinned uv in `check-toolchain.sh` (0.12.9 since
-  2026-09-04). QUALIFIED 2026-09-04: Homebrew moved uv to 0.12.9 on
+  is verified against the pinned uv in `check-toolchain.sh` (0.12.10 since
+  2026-09-05). QUALIFIED 2026-09-04: Homebrew moved uv to 0.12.9 on
   2026-09-01 and the local toolchain check went red unnoticed for three days
   because the boundary gates do not run it and CI pins its own uv. 0.12.9
   was qualified by a full check-toolchain run (exact lock match, native
   render, 20 regressions, Karpal round trip) inside a restic restore drill,
   then `EXPECTED_UV` and the CI setup-uv pin were moved together. RULE: the
   two pins move together, and `check-toolchain.sh` is part of every
-  pre-push round, not only CI. Bootstrap a clean environment from the repo
-  root with:
+  pre-push round, not only CI.
+  RECURRENCE 2026-09-05: Homebrew moved uv to 0.12.10 at 08:00, one day
+  after the previous qualification, and the first `--pre-push` round of the
+  day caught it at the toolchain step, as designed: every functional check
+  passed (exact lock match, native render, 20 regressions, Karpal round trip)
+  and only the pin differed. Qualified the same morning by owner decision,
+  both pins moved together in this commit. Note the cost model: a Homebrew
+  uv bump now blocks every fleet push until someone qualifies it and runs
+  the full restamp round, because the pin lives in the canonical repo.
+  Candidate control, owner decision pending: pin the formula in Homebrew
+  (recorded in the Homebrew operations repository per its rule) so the
+  toolchain moves only when a person chooses.
+  Bootstrap a clean environment from the repo root with:
 
       HOMEBREW_NO_AUTO_UPDATE=1 brew bundle --file Brewfile
       uv python install "$(cat .python-version)"
