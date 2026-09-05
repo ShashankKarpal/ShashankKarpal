@@ -9,7 +9,7 @@ REPO_ROOT=$(git -C "$SCRIPT_DIR" rev-parse --show-toplevel 2>/dev/null) || {
 }
 
 EXPECTED_PYTHON=$(tr -d '[:space:]' < "$REPO_ROOT/.python-version")
-EXPECTED_UV="0.12.9"
+EXPECTED_UV="0.12.10"
 EXPECTED_CAIRO="1.18.4"
 fail=0
 
