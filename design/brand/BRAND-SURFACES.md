@@ -539,8 +539,9 @@ change, and the easiest one to believe is done when it is not.
 - Python is pinned exactly in `.python-version`; direct dependencies live in
   `requirements.in`; `requirements.lock` pins the full Python dependency
   graph with distribution hashes. The lock was generated with uv 0.12.5 and
-  is verified against the pinned uv in `check-toolchain.sh` (0.12.10 since
-  2026-09-05). QUALIFIED 2026-09-04: Homebrew moved uv to 0.12.9 on
+  is verified against the uv BASELINE in `check-toolchain.sh` (0.12.10 since
+  2026-09-05; baseline semantics since the same day, see the RULE below).
+  QUALIFIED 2026-09-04: Homebrew moved uv to 0.12.9 on
   2026-09-01 and the local toolchain check went red unnoticed for three days
   because the boundary gates do not run it and CI pins its own uv. 0.12.9
   was qualified by a full check-toolchain run (exact lock match, native
@@ -553,12 +554,30 @@ change, and the easiest one to believe is done when it is not.
   day caught it at the toolchain step, as designed: every functional check
   passed (exact lock match, native render, 20 regressions, Karpal round trip)
   and only the pin differed. Qualified the same morning by owner decision,
-  both pins moved together in this commit. Note the cost model: a Homebrew
-  uv bump now blocks every fleet push until someone qualifies it and runs
-  the full restamp round, because the pin lives in the canonical repo.
-  Candidate control, owner decision pending: pin the formula in Homebrew
-  (recorded in the Homebrew operations repository per its rule) so the
-  toolchain moves only when a person chooses.
+  both pins moved together in canonical b68d82e. That made the cost model
+  visible: with an exact pin living in the canonical repo, every Homebrew
+  uv patch blocked every fleet push until a person qualified it and ran the
+  full restamp round (one canonical commit, six public and three private
+  provenance commits, mirror sync). Two patches in five days, two rounds.
+  RULE (owner decision 2026-09-05, replaces the exact pin): `EXPECTED_UV`
+  is a qualified BASELINE, not an exact match. `check-toolchain.sh` accepts
+  any newer PATCH release of the same major.minor (0.12.x at or above
+  0.12.10) and prints the drift on its uv line, so drift is visible, never
+  silent; every functional check (exact lock match, native render, the
+  regression suite, Karpal round trip) still runs against the installed
+  binary, so a bad patch fails on substance rather than on a version
+  string. Anything older than the baseline, any minor or major change
+  (0.13.0, 1.0.0), or an unparseable version fails and requires a
+  deliberate qualification: run the full check with the new version, then
+  move `EXPECTED_UV` and the CI setup-uv pin together. CI keeps installing
+  the exact baseline so a fresh runner reproduces the qualified
+  environment; the two pins still move together, only the local tolerance
+  changed. The comparison rule carries an executable selftest
+  (`check-toolchain.sh --selftest`, eleven cases, also run inside every
+  normal check) so the policy cannot drift from this prose. Freezing uv in
+  Homebrew (`brew pin uv`) was considered and rejected the same day by
+  owner policy: the machine stays current; the check adapts, the tool does
+  not stall.
   Bootstrap a clean environment from the repo root with:
 
       HOMEBREW_NO_AUTO_UPDATE=1 brew bundle --file Brewfile

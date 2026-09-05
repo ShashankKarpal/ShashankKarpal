@@ -3,27 +3,109 @@
 set -u
 
 SCRIPT_DIR=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
+
+# uv version policy (owner decision 2026-09-05, replaces the exact pin).
+# EXPECTED_UV is the qualified BASELINE and the exact version CI installs.
+# Locally, a newer PATCH release of the same major.minor is accepted and
+# printed as drift, because Homebrew ships uv patches within days and every
+# functional check below still runs against the installed binary. Anything
+# older than the baseline, any minor or major change, or a non-numeric
+# version fails: qualify deliberately, then move EXPECTED_UV and the CI
+# setup-uv pin together. The rule has an executable selftest so it cannot
+# drift from its prose: `check-toolchain.sh --selftest`, also run below.
+EXPECTED_UV="0.12.10"
+
+# uv_drift BASELINE ACTUAL -> prints exact | patch | reject
+uv_drift() {
+  base_major=""; base_minor=""; base_patch=""
+  act_major=""; act_minor=""; act_patch=""
+  IFS=. read -r base_major base_minor base_patch <<EOF
+$1
+EOF
+  IFS=. read -r act_major act_minor act_patch <<EOF
+$2
+EOF
+  case "$act_major.$act_minor.$act_patch" in
+    *[!0-9.]*|.*|*..*|*.) echo reject; return 0 ;;
+  esac
+  [ -n "$act_major" ] && [ -n "$act_minor" ] && [ -n "$act_patch" ] || { echo reject; return 0; }
+  if [ "$act_major" -eq "$base_major" ] && [ "$act_minor" -eq "$base_minor" ]; then
+    if [ "$act_patch" -eq "$base_patch" ]; then echo exact
+    elif [ "$act_patch" -gt "$base_patch" ]; then echo patch
+    else echo reject
+    fi
+  else
+    echo reject
+  fi
+}
+
+# uv_drift_selftest -> exit 0 when every case matches, 1 otherwise
+uv_drift_selftest() {
+  cases="0.12.10:0.12.10:exact
+0.12.10:0.12.11:patch
+0.12.10:0.12.100:patch
+0.12.10:0.12.9:reject
+0.12.10:0.12.1:reject
+0.12.10:0.13.0:reject
+0.12.10:0.11.99:reject
+0.12.10:1.0.0:reject
+0.12.10:0.12.10rc1:reject
+0.12.10:0.12:reject
+0.12.10::reject"
+  selftest_fail=0; selftest_n=0
+  while IFS=: read -r c_base c_actual c_want; do
+    [ -n "$c_base" ] || continue
+    selftest_n=$((selftest_n + 1))
+    c_got=$(uv_drift "$c_base" "$c_actual")
+    if [ "$c_got" != "$c_want" ]; then
+      echo "uv drift rule: selftest case '$c_actual' vs '$c_base' got $c_got, want $c_want" >&2
+      selftest_fail=1
+    fi
+  done <<EOF
+$cases
+EOF
+  if [ "$selftest_fail" -eq 0 ]; then
+    echo "uv drift rule: selftest OK ($selftest_n cases)"
+    return 0
+  fi
+  return 1
+}
+
+if [ "${1:-}" = "--selftest" ]; then
+  uv_drift_selftest
+  exit $?
+fi
+
 REPO_ROOT=$(git -C "$SCRIPT_DIR" rev-parse --show-toplevel 2>/dev/null) || {
   echo "TOOLCHAIN INVALID: cannot resolve repository root" >&2
   exit 1
 }
 
 EXPECTED_PYTHON=$(tr -d '[:space:]' < "$REPO_ROOT/.python-version")
-EXPECTED_UV="0.12.10"
 EXPECTED_CAIRO="1.18.4"
 fail=0
 
+if ! uv_drift_selftest; then
+  fail=1
+fi
+
 if ! command -v uv >/dev/null 2>&1; then
-  echo "uv: MISSING (expected $EXPECTED_UV)" >&2
+  echo "uv: MISSING (baseline $EXPECTED_UV)" >&2
   fail=1
 else
   uv_version=$(uv --version | awk '{print $2}')
-  if [ "$uv_version" = "$EXPECTED_UV" ]; then
-    echo "uv: $uv_version"
-  else
-    echo "uv: $uv_version (expected $EXPECTED_UV)" >&2
-    fail=1
-  fi
+  case "$(uv_drift "$EXPECTED_UV" "$uv_version")" in
+    exact)
+      echo "uv: $uv_version"
+      ;;
+    patch)
+      echo "uv: $uv_version (baseline $EXPECTED_UV, patch drift accepted; CI pins the baseline)"
+      ;;
+    *)
+      echo "uv: $uv_version (baseline $EXPECTED_UV: downgrade, minor or major change, or unparseable; qualify and move both pins)" >&2
+      fail=1
+      ;;
+  esac
 fi
 
 if [ ! -x "$REPO_ROOT/.venv/bin/python" ]; then
