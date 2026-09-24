@@ -614,7 +614,15 @@ change, and the easiest one to believe is done when it is not.
       bash design/brand/check-toolchain.sh
 
 - `Brewfile` declares native Cairo, and the check enforces the validated
-  Cairo 1.18.4. Homebrew formula resolution is not an immutable native lock:
+  Cairo 1.18.6. QUALIFIED 2026-09-24: Homebrew moved Cairo from 1.18.4 to
+  1.18.6 at the 2026-09-23 08:00 maintenance window, and the toolchain check
+  blocked every push from then on. A full public rebuild on 1.18.6 changed
+  only the 36 tracked PDFs; their content streams are encoded differently.
+  Rendered at 2048 px, all 36 are pixel-identical to the 1.18.4 output, and
+  every raster and SVG is byte-identical. The regenerated PDFs are committed
+  with the pin move. RULE: a native renderer bump is qualified by rebuild
+  plus a rendered comparison, not by version string alone.
+  Homebrew formula resolution is not an immutable native lock:
   if that version is unavailable, stop and deliberately qualify a new
   version or introduce a pinned container/bottle. Do not claim an arbitrary
   current Homebrew install reproduces the validated environment exactly.
