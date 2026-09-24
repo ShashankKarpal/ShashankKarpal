@@ -22,7 +22,7 @@ consumers" or "the private ops extension".
 |---|---|---|
 | 1 | Write PROGRESS.md before any edit | DONE |
 | 2 | Boundary regression: move the menu bar inventory block from the public SOP into the private ops extension, leave one generic pointer line; mark the moved block in-flux | DONE |
-| 3 | Private boundary gate green (pre-edit state at bbe7b93 re-confirmed: exit 1, BRAND-SURFACES.md) | DONE, exit 0 |
+| 3 | Private boundary gate green (pre-edit state at 3f0a7c7 re-confirmed: exit 1, BRAND-SURFACES.md) | DONE, exit 0 |
 | 4 | Correct the retired-overlay header (both copies, byte-identical): it still describes the removed implicit-load behavior | DONE |
 | 5 | Full check-toolchain.sh run on the existing 3.14.7 venv (includes the unittest suite); handoff's python3.11/pytest instructions ignored as approved | DONE, TOOLCHAIN OK, 20 tests pass, Karpal round-trip OK |
 | 6 | Execute .github/workflows/brand-integrity.yml locally, step by step | DONE, see log; reproducibility gate caught the interrupted run's missing final rebuild, resolved below |
@@ -35,7 +35,7 @@ consumers" or "the private ops extension".
 ## Closed in the first turn (2026-08-24, verification only)
 
 - Q3 and Q4 recovered verbatim from the parent rollout; both were decided and
-  executed on 2026-08-19 (audit items 18 and 13, commit 31d19c5), then
+  executed on 2026-08-19 (audit items 18 and 13, commit b9f21e6), then
   extended on 2026-08-20. No decision is pending on them.
 - The private operations repository confirmed PRIVATE on GitHub via gh.
 - The two private overlay files are two intentional files with distinct
@@ -43,7 +43,7 @@ consumers" or "the private ops extension".
 - Montserrat TTF changes are deliberate re-vendoring from the pinned
   upstream commit; all six recorded SHA-256 hashes match the bytes.
 - Parse checks, public boundary gate, WCAG gate: pass. Private boundary
-  gate: fail (introduced 2026-08-24 by 8cc3f4d, extended by bbe7b93), fixed
+  gate: fail (introduced 2026-08-24 by 930b52a, extended by 3f0a7c7), fixed
   by item 2 above.
 
 ## Deferred (not worked in this session)
@@ -85,7 +85,7 @@ consumers" or "the private ops extension".
 - The parallel session finalized the moved menu bar inventory in the
   private ops extension and recorded follow-on procedure changes there;
   nothing further needed from this session on that block.
-- Two stray hits of a retired commit-message claim: bbe7b93's message says
+- Two stray hits of a retired commit-message claim: 3f0a7c7's message says
   the boundary gate was green at commit time; it was not (exit 1 re-confirmed
   at that HEAD). History is not rewritten; recorded here for the audit trail.
 
@@ -114,41 +114,41 @@ Delta-fix commits made after this table land below it as they are created.
 
 | Time | Repo | Hash | Subject |
 |---|---|---|---|
-| 08:26 | shashankkarpal | f6f8dab | SOP: record the 2026-08-24 switchdeck menu bar incident (interpreter root cause) |
+| 08:26 | shashankkarpal | 21e6dd3 | SOP: record the 2026-08-24 switchdeck menu bar incident (interpreter root cause) |
 | 08:50 | switchdeck | 53e3088 | v1.9: notifications actually deliver, resume card, rename completed |
-| 08:52 | shashankkarpal | c444ba1 | SOP: switchdeck menu bar resolution |
+| 08:52 | shashankkarpal | 49e6189 | SOP: switchdeck menu bar resolution |
 | 09:05 | content-digest-app | 1401cb8 | decision-log: client runtime moved to its own uv venv with a real notification identity |
-| 09:07 | shashankkarpal | 8cc3f4d | SOP: red-team corrections to the 2026-08-24 entries |
+| 09:07 | shashankkarpal | 930b52a | SOP: red-team corrections to the 2026-08-24 entries |
 | 10:00 | switchdeck | ed721cb | v1.9.1: minimal .app bundle, modern notification path, identity move |
 | 10:01 | content-digest-app | 0c5302f | client: real .app bundle identity and modern notification path |
-| 10:02 | shashankkarpal | bbe7b93 | SOP: final notification ruling and menu bar inventory |
+| 10:02 | shashankkarpal | 3f0a7c7 | SOP: final notification ruling and menu bar inventory |
 | 10:20 | (private repo) | 81b7b01 | (subject withheld: names private identifiers; see its log) |
 | 10:29 | (private repo) | 70e0803 | (subject withheld: names private identifiers; see its log) |
 | 10:29 | (private consumer repo) | 7f0b8e4 | (subject withheld: names private identifiers; see its log) |
 | 10:31 | (private repo) | 4aa764a | (subject withheld: names private identifiers; see its log) |
-| 10:35 | shashankkarpal | 1dbd118 | SOP: move the menu bar inventory to the private operations extension; add the recovery PROGRESS tracker (recovery session) |
+| 10:35 | shashankkarpal | ae46d1b | SOP: move the menu bar inventory to the private operations extension; add the recovery PROGRESS tracker (recovery session) |
 | 10:35 | (private repo) | bd4d0f4 | Ops extension: take over the menu bar inventory from the public SOP (in flux); correct the retired-overlay header. AUTHORSHIP CORRECTED: this recovery session's commit, previously misattributed to the parallel session |
 | 10:39 | (private repo) | a83afd9 | (subject withheld: names private identifiers; see its log). Parallel session's inventory finalization |
-| 10:41 | shashankkarpal | 11d5650 | Marks: complete the interrupted run's final rebuild (recovery session) |
+| 10:41 | shashankkarpal | 48a57b0 | Marks: complete the interrupted run's final rebuild (recovery session) |
 | 10:53 | (private repo) | e1563a2 | sync-public-design: deterministic comparison, classify formerly-public deletions (recovery session) |
 | 10:54 | (private repo) | 354a6c1 | Mirror: sync public design state through the completed final rebuild (recovery session) |
-| 10:56 | shashankkarpal | e67c041 | PROGRESS: all eleven approved recovery items done and verified (recovery session) |
+| 10:56 | shashankkarpal | 69a7cbf | PROGRESS: all eleven approved recovery items done and verified (recovery session) |
 | 12:03 | (private repo) | 3ef2f6d | (subject withheld: names a private identifier; see its log). Recovery session's boundary registration |
 
 Delta-fix commits after the table (all this recovery session): private repo
 4c58ecd (fleet-scope gate, disclosure record, evidence-bounded sync
 comment); ledge a672a36 and switchdeck 63d6877 (identifier genericization);
-shashankkarpal 605cdbc (this file's delta round); distribution commits
+shashankkarpal 2e877c9 (this file's delta round); distribution commits
 claude-tokens 06c9d11, content-digest-app 5a166d7, helios 655b65f, ledge
 997c08c, switchdeck 1d1c1de, zest 20d36b0; plus the delta round's closing
-PROGRESS commit, cbc0be0, whose landing 36 seconds after the distribution
+PROGRESS commit, 17bf516, whose landing 36 seconds after the distribution
 commits is what invalidated the provenance stamps (see the re-audit round).
 
 ## Delta re-audit round (2026-08-24)
 
 Codex delta re-audit verdict: 8 confirmed, 1 overclaim, 0 wrong, 1
 unverifiable. The one real issue is chronological: the distributor stamps
-canonical HEAD into every provenance file, and cbc0be0 (a
+canonical HEAD into every provenance file, and 17bf516 (a
 documentation-only PROGRESS commit) landed 36 seconds after the six
 distribution commits, invalidating all 12 provenance files, while this file
 carried the by-then-stale claim that --check exits 0.
@@ -172,9 +172,9 @@ goes red again by design and steps 2 to 4 must be repeated at the new HEAD.
 
 ## Live verification log
 
-- 2026-08-24: pre-edit gate run at bbe7b93: private boundary exit 1, only
+- 2026-08-24: pre-edit gate run at 3f0a7c7: private boundary exit 1, only
   design/brand/BRAND-SURFACES.md flagged. Public gate, WCAG gate, parse
-  checks: pass (first-turn run at 8cc3f4d; public tree unchanged since except
+  checks: pass (first-turn run at 930b52a; public tree unchanged since except
   the SOP file).
 - 2026-08-24, after items 2 and 4: overlay copies byte-identical (cmp 0),
   overlay parses; public boundary gate pass (795 paths, this file included);
@@ -191,7 +191,7 @@ goes red again by design and steps 2 to 4 must be repeated at the new HEAD.
   regressions 20/20 (inside the toolchain check); full public rebuild exit 0.
   The final reproducibility gate (git diff on design/github, design/marks/out)
   failed on first run, and the diff is fully explained: the committed
-  generator (snapshot 70d0406) carries a corrected, extended watchOS icon
+  generator (snapshot 8f6aed0) carries a corrected, extended watchOS icon
   table (22pt slot removed, modern 24/27.5/33 notification, 46/51/54
   launcher, 117/129 quickLook slots added) and per-project web icons, but the
   committed out/ tree predates those generator edits; the interrupted
