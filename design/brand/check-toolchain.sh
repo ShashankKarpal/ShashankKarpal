@@ -82,7 +82,7 @@ REPO_ROOT=$(git -C "$SCRIPT_DIR" rev-parse --show-toplevel 2>/dev/null) || {
 }
 
 EXPECTED_PYTHON=$(tr -d '[:space:]' < "$REPO_ROOT/.python-version")
-EXPECTED_CAIRO="1.18.4"
+EXPECTED_CAIRO="1.18.6"  # qualified 2026-09-24: PDFs re-encoded, 36/36 pixel-identical; rasters and SVGs byte-identical
 fail=0
 
 if ! uv_drift_selftest; then
