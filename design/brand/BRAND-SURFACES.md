@@ -639,7 +639,10 @@ change, and the easiest one to believe is done when it is not.
   20 regressions, Karpal round trip); by owner decision `EXPECTED_UV` and
   the CI setup-uv pin moved to 0.13.0 together, followed by the restamp
   round. The selftest cases keep their fixed 0.12.10 base; they test the
-  comparison rule, not the current pin.
+  comparison rule, not the current pin. The first CI run after it failed on
+  cairo, not uv: the macos-15 runner image (2026-09-07) ships cairo 1.18.4
+  and `brew install cairo` does not upgrade an installed formula, so the
+  workflow now runs `brew update` and then upgrades or installs cairo.
   Bootstrap a clean environment from the repo root with:
 
       HOMEBREW_NO_AUTO_UPDATE=1 brew bundle --file Brewfile

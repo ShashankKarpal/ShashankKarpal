@@ -46,7 +46,11 @@ jobs:
           cache-dependency-glob: requirements.lock
 
       - name: Install native Cairo
-        run: brew install cairo
+        # The runner image can ship an older cairo, and `brew install` does not
+        # upgrade one that is already present; update first, then upgrade or install.
+        run: |
+          brew update --quiet
+          brew upgrade cairo || brew install cairo
 
       - name: Recreate locked Python environment
         run: |
