@@ -13,7 +13,7 @@ SCRIPT_DIR=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
 # version fails: qualify deliberately, then move EXPECTED_UV and the CI
 # setup-uv pin together. The rule has an executable selftest so it cannot
 # drift from its prose: `check-toolchain.sh --selftest`, also run below.
-EXPECTED_UV="0.12.10"
+EXPECTED_UV="0.13.0"
 
 # uv_drift BASELINE ACTUAL -> prints exact | patch | reject
 uv_drift() {

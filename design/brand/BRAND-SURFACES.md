@@ -593,8 +593,8 @@ change, and the easiest one to believe is done when it is not.
 - Python is pinned exactly in `.python-version`; direct dependencies live in
   `requirements.in`; `requirements.lock` pins the full Python dependency
   graph with distribution hashes. The lock was generated with uv 0.12.5 and
-  is verified against the uv BASELINE in `check-toolchain.sh` (0.12.10 since
-  2026-09-05; baseline semantics since the same day, see the RULE below).
+  is verified against the uv BASELINE in `check-toolchain.sh` (0.13.0 since
+  2026-10-10; baseline semantics since 2026-09-05, see the RULE below).
   QUALIFIED 2026-09-04: Homebrew moved uv to 0.12.9 on
   2026-09-01 and the local toolchain check went red unnoticed for three days
   because the boundary gates do not run it and CI pins its own uv. 0.12.9
@@ -632,6 +632,14 @@ change, and the easiest one to believe is done when it is not.
   Homebrew (`brew pin uv`) was considered and rejected the same day by
   owner policy: the machine stays current; the check adapts, the tool does
   not stall.
+  QUALIFIED 2026-10-10 (first minor change under the baseline rule):
+  Homebrew moved uv to 0.13.0 at the 08:00 maintenance window and the first
+  `--pre-push` round of the day stopped at the toolchain step, as designed.
+  Every functional check passed on 0.13.0 (exact lock match, native render,
+  20 regressions, Karpal round trip); by owner decision `EXPECTED_UV` and
+  the CI setup-uv pin moved to 0.13.0 together, followed by the restamp
+  round. The selftest cases keep their fixed 0.12.10 base; they test the
+  comparison rule, not the current pin.
   Bootstrap a clean environment from the repo root with:
 
       HOMEBREW_NO_AUTO_UPDATE=1 brew bundle --file Brewfile
