@@ -688,6 +688,29 @@ change, and the easiest one to believe is done when it is not.
 - QUIRK (2026-10-28): after a time zone change, launchd calendar jobs can
   keep firing on the old zone's wall time until a reboot; compare the next
   run's log stamp with its plist.
+- QUIRK (2026-10-29, Zest v3.1.1): `withAnimation(.repeatForever)` started
+  in `onAppear` inside an NSPopover also catches the popover's first layout,
+  so the whole content collapses and regrows every cycle while open; and a
+  hosting controller kept after the popover closes keeps rendering every
+  display frame (about 30 percent CPU for a menu bar app, WindowServer up,
+  from the first click until quit). Build popover content on open and release
+  it on close; drive repeating motion from `TimelineView` with `paused:` tied
+  to visibility; measure CPU after closing, not only while open.
+- QUIRK (2026-10-29): on macOS 27 the system renders a status item once per
+  menu bar display variant, so setting a new image on every state change
+  multiplies into many redraws. Set the image only when the rendered inputs
+  change, and redraw once on a screen-parameter change (the image is a bitmap
+  drawn at one scale).
+- QUIRK (2026-10-29, macOS 27.0.1): the AppleSmartBattery registry entry
+  moved `DesignCapacity` to `BatteryData.DesignCapacity`, replaced
+  `AppleRawMaxCapacity` with `BatteryData.FullChargeCapacity`, and dropped
+  `Temperature`; the battery temperature is in the SMC keys `TB0T` to `TB2T`
+  (floats, readable without root). After a macOS upgrade, diff the key list
+  of `ioreg -rn <class> -a` before trusting a "--".
+- QUIRK (2026-10-29): to check a menu bar app by picture from automation,
+  drive it through Accessibility and capture only its own window
+  (`screencapture -l <window id>`, ids from `CGWindowListCopyWindowInfo`); a
+  region or full-screen capture also records whatever app is behind it.
 
 ## Build toolchain and private-operations handoff
 
