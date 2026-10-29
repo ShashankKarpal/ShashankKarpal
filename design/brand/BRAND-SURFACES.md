@@ -189,6 +189,11 @@ remapped again, and `v1.1.0` was retagged again.
 - QUIRK: `git bundle verify` needs a repository. Run outside one, it exits 1
   ("need a repository to verify a bundle") even for a good bundle; run it as
   `git --git-dir=<mirror> bundle verify <file>`.
+- QUIRK (2026-10-27): making a public fork private detaches it from its fork
+  network, but GitHub keeps serving the fork's old commits through the
+  upstream repository's URLs (`github.com/<upstream>/<repo>/commit/<sha>`).
+  Rewritten fork commits therefore stay public until GitHub Support purges
+  them; when confirming a purge, test the upstream URLs too, anonymously.
 
 ## Per-project surfaces
 
@@ -273,6 +278,18 @@ remapped again, and `v1.1.0` was retagged again.
 - INCIDENT LOG: `.ledge/incidents.log`, bounded at 200 lines, content-free,
   records stall start, end, observer, peer, version, and seconds after the
   last install.
+- REINSTALL (2026-09-14): Ledge runs as a login item, not a LaunchAgent.
+  After a rebuild, quit it through AppKit (`osascript -e 'tell application
+  "Ledge" to quit'`), replace /Applications/Ledge.app, reopen. Never
+  `pkill` a fleet Swift app that saves on quit: SIGTERM skips
+  applicationWillTerminate unless the app routes it (Ledge does since
+  0.5.2). Recovery window: right-click the glyph, Recovery; its report is
+  content-free by test. Local backups live in ~/Library/Application
+  Support/Ledge/backups, outside iCloud, never in a repo. Release:
+  `./scripts/notarize.sh` then `gh release create`; the cask in the
+  personal tap pins the zip's sha256. TCC denies the Ledge folder to
+  automation; Terminal.app with Full Disk Access is the only automation
+  route.
 
 ### helios
 - [ ] Guarded distributor reports the declared live assets and both
@@ -299,17 +316,41 @@ remapped again, and `v1.1.0` was retagged again.
       icons/icon-512.png, icons/icon-512-maskable.png, apple-touch-icon.png,
       splash/*.png (9 sizes). Safari tabs use apple-touch-icon, Chrome can
       use manifest icons; fixing favicon.svg alone changes nothing visible.
-- [ ] web/public/sw.js: bump the CACHE version string, or every returning
-      browser keeps serving the old assets cache-first.
+- [ ] web/public/sw.js: since 2026-10-08 non-hashed files (icons, manifest,
+      splash, the shell) are network-first and only hashed /assets/ files
+      are cache-first, so an icon change shows up on the next load. Bumping
+      the CACHE version string still clears the old caches.
 - [ ] npm run build in helios/web. dist is what the deployed service serves
       and it is gitignored, so it MUST be rebuilt on the serving machine;
       patching single files inside dist is a trap (2026-08-19: a stale
-      Aug 17 dist shipped the entire old bundle for a day).
-- [ ] REBUILD + INSTALL: xcodegen + xcodebuild for Helios Bridge to iPhone
+      Aug 17 dist shipped the entire old bundle for a day). The web app's
+      Today line and /api/health's brief block read last_valid_brief.json
+      beside the store; a web change needs only `npm run build` on the
+      serving Mac, no CACHE bump.
+- [ ] Before a Helios Bridge rebuild run `swift test` in
+      ios-bridge/BridgeCore (outbox, crash and replay tests). Build with a
+      script whose output records the version, build number, commit and
+      binary hash. The app icon set is ios-bridge/Assets.xcassets; an update
+      installs over the same bundle id, keeping the Host, the token, the
+      anchors and the outbox.
+- [ ] ios-bridge/GlanceWidget: the Helios widget extension, embedded in
+      Helios Bridge since 1.2 (3): two widgets, both "Helios" (Home Screen
+      small with a nonremovable background, Lock Screen rectangular). No
+      brand asset and no palette value: system fonts and colours; the
+      widget gallery shows the app's icon from
+      ios-bridge/Assets.xcassets/AppIcon.appiconset. If it ever takes a
+      brand colour, the value comes from design/tokens.json and this line
+      grows a check. VERIFY after a Bridge install: the Home Screen icon is
+      unchanged and the widget gallery shows "Helios" with that icon.
+- [ ] REBUILD + INSTALL: `ios-bridge/generate.sh` (xcodegen with the Team ID
+      from the untracked .env) + xcodebuild for Helios Bridge to iPhone
 - [ ] VERIFY: use the deployed origin recorded in the private operations
       extension; compare served-file checksums against dist, then load the
       page in a clean browser profile and inspect the tab icon, in-page
-      branding, and the iPhone home-screen icon for the bridge app.
+      branding, and the iPhone home-screen icon for the bridge app. Since
+      2026-10-28 the web app asks for the token once per browser (a sign-in
+      card); a clean browser profile shows the card first, with the tab
+      icon already in place. Check the in-page branding after signing in.
 - CLIENT CACHES after the server is verified (2026-08-19): Chrome normal
   profile heals with two reloads (SW update then serve). Safari can retain
   its on-disk favicon cache even in private windows; use the private
@@ -338,7 +379,11 @@ remapped again, and `v1.1.0` was retagged again.
   the ones the mapping happened to know about.
 - [ ] DEPLOYED RUNTIME: pull and verify the serving checkout using the
       private operations extension; static assets are read from disk and
-      do not require a service restart.
+      do not require a service restart. Deploys land within about 15
+      minutes of a push; verify on a known clock.
+- [ ] Data migrations ship in the repo (migrations.py, run once at server
+      start, marker in the data folder); never edit data on the serving
+      host.
 - [ ] Safari web app on the Dock: icon is SNAPSHOTTED at add time. Delete
       ~/Applications/Content Digest.app and re-add via File > Add to Dock
       (clears its site data; articles live on the server)
@@ -355,9 +400,18 @@ remapped again, and `v1.1.0` was retagged again.
       consumer `design/marks` snapshot was never a build input.
 - [ ] `design/tokens.json` records Ink and Bone v1.1.0 Brass semantics;
       check `knowledge.html` hexes whenever the palette changes.
-- [ ] Zest rebuild/reinstall is manual: run `./build.sh`, replace the installed
-      application only after reviewing the ignored build, then verify its
-      Finder and Dock icon. Do not commit `Zest.app` or a release zip.
+- [ ] Zest rebuild/reinstall (since 2026-09-05): `bash build.sh release install`
+      copies the bundle to `~/Applications/Zest.app` through a staging name
+      and an atomic rename, then `bash scripts/install-launchagent.sh`
+      reloads the agent (bootout, then bootstrap). The installed copy is
+      the one launchd runs; the in-tree `Zest.app` is a build product only.
+      Verify its Finder and Dock icon. Do not commit `Zest.app` or a
+      release zip.
+- [ ] Zest release (2026-10-24): `ZEST_SIGN_IDENTITY=... bash build.sh release`
+      (strips debug symbols and fails on any home path), `bash notarize.sh`,
+      tag the audited commit, `gh release create` with the zip and its
+      SHA-256, download it back and compare, then the cask in the personal
+      tap. Check build paths with a raw-byte grep, never `strings`.
 - QUIRK (2026-09-02): launchd pins code identity, so replacing a LaunchAgent's
   program in place makes `launchctl kickstart -k` fail with
   `OS_REASON_CODESIGNING` and an AMFI Launch Constraint Violation, even though
@@ -480,6 +534,16 @@ remapped again, and `v1.1.0` was retagged again.
 - [ ] INSTALLED WIDGET: refresh the running copy at the location recorded in
       the private operations extension; the repo remains source of truth.
 - [ ] Gallery zip claude-tokens.widget.zip regenerated by CI on push to main
+- [ ] The widget's `command:` block is a verbatim copy of
+      `bin/ccusage-today.sh` after its marker line: edit the script, paste,
+      rebuild the zip with `COPYFILE_DISABLE=1 zip -r -X`, run
+      `bash tests/selftest.sh`; where an installed copy exists, copy
+      `index.coffee` into the installed widget folder and `cmp` it (since
+      2026-09-17 the repo publishes for the gallery only and no copy is
+      installed). Read ccusage as `ccusage claude daily --offline`; the bare
+      `daily` sums every agent and fetches pricing over the network. A `#`
+      inside an unquoted Actions `run:` line is a YAML comment; use a block
+      scalar.
 - [ ] VERIFY: widget on the desktop after Uebersicht refresh.
 - RESOLVED DRIFT (2026-08-19): the repo was renamed uebersicht-claude-tokens
   to claude-tokens on 2026-08-18 (profile repo c92b3d3, widget repo b2b9126).
@@ -587,6 +651,43 @@ change, and the easiest one to believe is done when it is not.
 - [ ] Labels and README badge hexes if palette changed
 - [ ] VERIFY: repo page banner in dark AND light, social card via a link
       paste somewhere private.
+
+## Fleet quirks (public-safe)
+
+- QUIRK (2026-09-05): editors that rewrite a file can drop its exec bit;
+  after editing any launcher or script, check `ls -l` and pin tracked modes
+  with a test. A staged `git update-index --chmod=+x` rides whatever commit
+  comes next; stage it with the commit that owns it.
+- QUIRK (2026-09-14): a LaunchAgent whose PYTHONHOME dangles exits 78 before
+  Python runs a line, so no in-process resolver can help and no log line
+  appears; the check has to live outside the process (a RunAtLoad
+  self-check that compares the bundle copy's build string with the
+  interpreter it points at). uv's minor-version alias directory is already
+  a symlink to the patch install; do not add another. A dedupe key for
+  launchd exit codes is label plus code plus plist mtime, so a reinstalled
+  agent re-arms. Use StartCalendarInterval for daily checks;
+  StartInterval events are dropped during sleep.
+- QUIRK (2026-09-14, corrected 2026-09-17 and 2026-10-10): Uebersicht
+  compiles a widget's `className` with emotion, so a nested `@media` query
+  is the way to make a fixed-offset panel laptop-aware without touching
+  gallery users. To verify a main-screen-only widget without a clean
+  desktop, open the local server with the main display id in the path and
+  screenshot the browser. Derive the id from `CGMainDisplayID` before every
+  render: it is not fixed (3 on 2026-09-17, 2 on 2026-10-10), and a wrong id
+  renders a blank page. Window-scoped `screencapture -l` of the Uebersicht
+  window returns real pixels; an empty layer means the capture landed
+  mid-reload.
+- QUIRK (2026-09-17): a content-sized Uebersicht card has no height knob;
+  give it a `minHeight` and a flex `justify-content` so it can match a
+  neighbour and still grow. Never park a widget below one that grows with
+  peripherals.
+- QUIRK (2026-10-10): macOS bash 3.2 still scans a quoted heredoc inside
+  `$( ... <<'PY' ... PY )` for quotes; one `\'` in the Python body broke a
+  whole selftest with "syntax error near unexpected token `;;'" on a line
+  far below. No single quotes inside such heredocs (`chr(39)` in Python).
+- QUIRK (2026-10-28): after a time zone change, launchd calendar jobs can
+  keep firing on the old zone's wall time until a reboot; compare the next
+  run's log stamp with its plist.
 
 ## Build toolchain and private-operations handoff
 
