@@ -327,6 +327,9 @@ remapped again, and `v1.1.0` was retagged again.
       Today line and /api/health's brief block read last_valid_brief.json
       beside the store; a web change needs only `npm run build` on the
       serving Mac, no CACHE bump.
+- Since rank 4 (2026-10-29) the web app has three tabs (Today, History,
+  System); the tab glyphs are inline SVG in TabBar.tsx using the palette
+  variables; a web change still needs only npm run build on the serving Mac.
 - [ ] Before a Helios Bridge rebuild run `swift test` in
       ios-bridge/BridgeCore (outbox, crash and replay tests). Build with a
       script whose output records the version, build number, commit and
@@ -711,6 +714,21 @@ change, and the easiest one to believe is done when it is not.
   drive it through Accessibility and capture only its own window
   (`screencapture -l <window id>`, ids from `CGWindowListCopyWindowInfo`); a
   region or full-screen capture also records whatever app is behind it.
+- QUIRK (2026-10-29, Zest v3.1.2): a `.transient` NSPopover in a menu bar
+  app does not close on a click outside it, because the app is not active
+  when the popover opens; only a click inside (which activates the app) arms
+  the close. Activate the app as the popover opens, close it from a global
+  mouse-down monitor that ignores clicks inside the popover's own window
+  (judged at the event's position), close it on Escape from a local monitor,
+  and remove both monitors when it closes.
+- QUIRK (2026-10-29, macOS 27): the unified log stores an app's NSLog text as
+  `<private>`; a line meant to be read later needs `Logger` with
+  `privacy: .public`.
+- QUIRK (no Screen Recording): `CGWindowListCopyWindowInfo` still returns
+  other apps' window owner, layer and bounds without Screen Recording, so a
+  script can tell whether a menu bar app's popover is open, and whether its
+  size moves, without capturing pixels. On macOS 27 a status item has no
+  window in its own app while its popover is closed.
 
 ## Build toolchain and private-operations handoff
 
