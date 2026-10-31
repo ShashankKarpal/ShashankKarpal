@@ -43,6 +43,13 @@
       ],
       "display": "claude-tokens",
       "category": "mist"
+    },
+    {
+      "id": "ibp-07",
+      "slug": "menutile",
+      "aliases": [],
+      "display": "menutile",
+      "category": "brass"
     }
   ]
 }

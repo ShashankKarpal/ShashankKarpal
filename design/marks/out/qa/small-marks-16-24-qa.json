@@ -811,6 +811,141 @@
           }
         }
       }
+    },
+    "menutile": {
+      "id": "ibp-07",
+      "sizes": {
+        "16": {
+          "dark": {
+            "edgeAlphaMax": {
+              "left": 0.0,
+              "right": 0.0,
+              "top": 0.0,
+              "bottom": 0.0
+            },
+            "threshold128Bounds": [
+              1,
+              4,
+              15,
+              12
+            ],
+            "threshold128Margins": {
+              "left": 1,
+              "top": 4,
+              "right": 1,
+              "bottom": 4
+            },
+            "pass": true
+          },
+          "light": {
+            "edgeAlphaMax": {
+              "left": 0.0,
+              "right": 0.0,
+              "top": 0.0,
+              "bottom": 0.0
+            },
+            "threshold128Bounds": [
+              1,
+              4,
+              15,
+              12
+            ],
+            "threshold128Margins": {
+              "left": 1,
+              "top": 4,
+              "right": 1,
+              "bottom": 4
+            },
+            "pass": true
+          },
+          "mono": {
+            "edgeAlphaMax": {
+              "left": 0.0,
+              "right": 0.0,
+              "top": 0.0,
+              "bottom": 0.0
+            },
+            "threshold128Bounds": [
+              1,
+              4,
+              15,
+              12
+            ],
+            "threshold128Margins": {
+              "left": 1,
+              "top": 4,
+              "right": 1,
+              "bottom": 4
+            },
+            "pass": true
+          }
+        },
+        "24": {
+          "dark": {
+            "edgeAlphaMax": {
+              "left": 0.0,
+              "right": 0.0,
+              "top": 0.0,
+              "bottom": 0.0
+            },
+            "threshold128Bounds": [
+              2,
+              6,
+              23,
+              19
+            ],
+            "threshold128Margins": {
+              "left": 2,
+              "top": 6,
+              "right": 1,
+              "bottom": 5
+            },
+            "pass": true
+          },
+          "light": {
+            "edgeAlphaMax": {
+              "left": 0.0,
+              "right": 0.0,
+              "top": 0.0,
+              "bottom": 0.0
+            },
+            "threshold128Bounds": [
+              2,
+              6,
+              23,
+              19
+            ],
+            "threshold128Margins": {
+              "left": 2,
+              "top": 6,
+              "right": 1,
+              "bottom": 5
+            },
+            "pass": true
+          },
+          "mono": {
+            "edgeAlphaMax": {
+              "left": 0.0,
+              "right": 0.0,
+              "top": 0.0,
+              "bottom": 0.0
+            },
+            "threshold128Bounds": [
+              2,
+              6,
+              23,
+              19
+            ],
+            "threshold128Margins": {
+              "left": 2,
+              "top": 6,
+              "right": 1,
+              "bottom": 5
+            },
+            "pass": true
+          }
+        }
+      }
     }
   }
 }

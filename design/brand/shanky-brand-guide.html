@@ -232,7 +232,7 @@ td .yes,td .no{border:0; padding-left:0; color:var(--text)}
       <span class="ratio" data-ratio="copper">.</span></div></div>
     <div class="sw"><div class="chip" style="background:var(--brass); color:var(--on-fill)">brass</div>
       <div class="body"><div class="name">Brass</div><div class="hexes" data-hex="brass"></div>
-      <div class="use">Use this when the thing reads a signal against a baseline. helios, zest.</div>
+      <div class="use">Use this when the thing reads a signal against a baseline. helios, zest, menutile.</div>
       <span class="ratio" data-ratio="brass">.</span></div></div>
     <div class="sw"><div class="chip" style="background:var(--mist); color:var(--on-fill)">mist</div>
       <div class="body"><div class="name">Mist</div><div class="hexes" data-hex="mist"></div>
@@ -248,7 +248,7 @@ td .yes,td .no{border:0; padding-left:0; color:var(--text)}
     <thead><tr><th>Colour</th><th>Job it names</th><th>Where it goes</th><th>Repos and surfaces</th></tr></thead>
     <tbody>
       <tr><td><span class="st" style="background:var(--copper)">copper</span></td><td>Capture and keep</td><td>Left rail, mark, badge</td><td>ledge, content-digest-app</td></tr>
-      <tr><td><span class="st" style="background:var(--brass)">brass</span></td><td>Read a signal against a baseline</td><td>Left rail, mark, badge</td><td>helios, zest</td></tr>
+      <tr><td><span class="st" style="background:var(--brass)">brass</span></td><td>Read a signal against a baseline</td><td>Left rail, mark, badge</td><td>helios, zest, menutile</td></tr>
       <tr><td><span class="st" style="background:var(--mist)">mist</span></td><td>Claude and AI tooling</td><td>Left rail, mark, badge, focus ring</td><td>AI tooling, agent workflows and model-facing utilities</td></tr>
       <tr><td><span class="st" style="background:var(--edge-strong); color:var(--text)">ink</span></td><td>Neutral, unaccented default</td><td>Decorative rail in edge strong, or no rail</td><td>Profile, forks, making work, and one explicit internal-tooling exception</td></tr>
       <tr><td colspan="4" class="q">KodeKloud client work is out of scope. It keeps the KodeKloud system. The only crossover is one thin accent edge on documents you personally authored.</td></tr>
@@ -474,10 +474,9 @@ td .yes,td .no{border:0; padding-left:0; color:var(--text)}
   <div class="sechead"><span class="n">11</span><h2>Open items, carried honestly</h2></div>
   <div class="grid g2">
     <div class="rule"><strong>Marks: shipped 2026-08-18.</strong> All public project marks exist as production geometry in design/marks/generate_marks.py with master, 24px and 16px variants and the full public export matrix. Private definitions and outputs stay in the private extension. This item is closed; stable public IDs and aliases are recorded in the public registry.</div>
-    <div class="rule"><strong>Small-size tuning is the live open item.</strong> Several 16px variants are under-distinctive or touch the crop (see the 2026-08-19 external critique audit in design/brand/reviews/). Retune the weak ones before any new surface ships at 16px.</div>
+    <div class="rule"><strong>Small marks are gated, and the redraw rule stays.</strong> Every public mark's 16px and 24px variants pass the safe-area gate in dark, light and mono (design/marks/out/qa/small-marks-16-24-qa.json). The gate checks the margin to the crop, not legibility, so the rule stands: if a 16px mark reads weak, redraw it before it ships on any new surface.</div>
     <div class="rule"><strong>Capitals.</strong> Karpal Geometric is lowercase only. Capital keys produce the lowercase shapes so nothing breaks. Real capitals are a separate project.</div>
-    <div class="rule"><strong>helios tokens.json.</strong> Its badge hex and its token file drifted apart once. Reconcile both to Brass in the same commit.</div>
-    <div class="rule"><strong>The profile clone is behind the remote.</strong> Pull with fast forward before editing the banner locally, or you will recreate the drift.</div>
+    <div class="rule"><strong>Closed: helios colours and the profile clone.</strong> The helios token file and its badges now agree on Brass, and the profile clone is level with the remote. Keep both true: change a badge and its token file in the same commit, and fast forward the profile clone before editing the banner.</div>
     <div class="rule"><strong>Making and 3D printing.</strong> Ink for now, by your decision. Revisit only when it has something worth colouring.</div>
   </div>
 </section>

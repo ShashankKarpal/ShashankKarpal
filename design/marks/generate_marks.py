@@ -283,6 +283,17 @@ MARKS = {
                 [R(66, y, 24, 12, 6, role="acc") for y in (70, 54, 38)] +
                 [R(66, 16, 24, 12, 6, rot=(-16, 78, 22))]),
     },
+    "menutile": {
+        "id": "ibp-07", "aliases": [],
+        "cat": "brass", "private": False,
+        "story": "a loose script, given a tile of its own",
+        "master": [P("M16 34 30 48 16 62"),
+                   R(42, 28, 42, 40, 10, role="acc", mode="stroke", sw=7)],
+        "s24": [P("M13 32 28 48 13 64", sw=10),
+                R(42, 27, 44, 42, 11, role="acc", mode="stroke", sw=10)],
+        "s16": [P("M13 32 27 48 13 64", sw=13),
+                R(46, 28, 38, 40, 9, role="acc", mode="stroke", sw=12)],
+    },
 }
 
 # registry validation and private overlay -----------------------------------

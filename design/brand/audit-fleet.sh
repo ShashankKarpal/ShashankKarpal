@@ -28,6 +28,7 @@ else
     zest
     switchdeck
     claude-tokens
+    menutile
     shashankkarpal
   )
 fi

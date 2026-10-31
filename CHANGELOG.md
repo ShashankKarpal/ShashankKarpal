@@ -4,7 +4,7 @@ Ink and Bone follows semantic versioning for the shared specification,
 generator, and canonical exports. Consumer applications keep their own product
 versions.
 
-## Unreleased: v1.1.0 candidate, 2026-08-20
+## v1.1.0: released, tagged 2026-08-24
 
 - Made public generation fail closed and private generation explicitly opt-in.
 - Separated public brand rules from private operations and private project data.
@@ -18,9 +18,10 @@ versions.
   and content-addressed provenance.
 - Added privacy, token, output, glyph, retired-colour, and fleet checks.
 
-This candidate must not be tagged until the local implementation report's
-automated checks pass, the owner completes the listed live checks, and the
-reviewed changes are committed in both canonical and private repositories.
+Prepared as a candidate on 2026-08-20 and tagged `v1.1.0` on 2026-08-24.
+The 2026-09-24 and 2026-09-30 author-identity rewrites of this repository's
+history moved the tag to the rewritten commit each time; it was not
+re-released.
 
 ## v1.0.0: retrospective, untagged, retired
 

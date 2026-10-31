@@ -51,6 +51,14 @@
       "sourceRenderedXHeightPx": 43.2,
       "standardMinimumWidthPx": 191,
       "controlledMinimumWidthPx": 167
+    },
+    {
+      "id": "ibp-07",
+      "lockup": "menutile",
+      "sourceRenderedWidthPx": 742.4,
+      "sourceRenderedXHeightPx": 43.2,
+      "standardMinimumWidthPx": 138,
+      "controlledMinimumWidthPx": 121
     }
   ]
 }

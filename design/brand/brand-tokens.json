@@ -93,7 +93,7 @@
       },
       "category": {
         "copper": {"hex": "#B17E51", "rgb": [177, 126, 81],  "contrastOnPage": 5.57,  "means": "capture and keep", "use": "ledge, content-digest-app"},
-        "brass":  {"hex": "#BFB287", "rgb": [191, 178, 135], "contrastOnPage": 9.26,  "means": "read a signal against a baseline", "use": "helios, zest"},
+        "brass":  {"hex": "#BFB287", "rgb": [191, 178, 135], "contrastOnPage": 9.26,  "means": "read a signal against a baseline", "use": "helios, zest, menutile"},
         "mist":   {"hex": "#CFDFE8", "rgb": [207, 223, 232], "contrastOnPage": 14.33, "means": "Claude and AI tooling", "use": "AI tooling, agent workflows and model-facing utilities"}
       },
       "status": {

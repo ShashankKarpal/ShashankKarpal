@@ -2,7 +2,7 @@
   <picture>
     <source media="(prefers-color-scheme: dark)"  srcset="design/github/profile-banner-dark.svg">
     <source media="(prefers-color-scheme: light)" srcset="design/github/profile-banner-light.svg">
-    <img alt="Six project marks with names" src="design/github/profile-banner-dark.svg" width="680">
+    <img alt="Seven project marks with names" src="design/github/profile-banner-dark.svg" width="680">
   </picture>
 </p>
 
