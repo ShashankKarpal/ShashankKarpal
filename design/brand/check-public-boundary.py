@@ -140,7 +140,7 @@ def main() -> int:
     except RuntimeError as exc:
         errors.append(str(exc))
     else:
-        expected = projects | {"avatar", "qa"}
+        expected = projects | {"avatar", "qa", "profile-social"}
         if targets != expected:
             errors.append(
                 "default generator targets differ from the public allowlist: "

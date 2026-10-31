@@ -146,6 +146,47 @@ class GeneratorTests(unittest.TestCase):
             gm.transactional_commit_dir(staged, destination)
             self.assertEqual(os.listdir(destination), ["new"])
 
+    def test_upload_jpeg_settings_and_limit(self):
+        from PIL import Image, JpegImagePlugin
+        img = Image.new("RGBA", (1280, 640), (11, 12, 13, 255))
+        img.alpha_composite(gm.grain_overlay((1280, 640), gm.GRAIN["dark"], "test:jpeg"))
+        with tempfile.TemporaryDirectory() as root:
+            png = os.path.join(root, "social-preview-1280x640.png")
+            img.convert("RGB").save(png)
+            jpg = gm.upload_jpeg_path(png)
+            self.assertEqual(jpg, os.path.join(root, "social-preview-1280x640.jpg"))
+            size = gm.write_upload_jpeg(png, jpg)
+            with open(jpg, "rb") as handle:
+                first = handle.read()
+            self.assertEqual(size, len(first))
+            self.assertLess(size, gm.UPLOAD_JPEG_LIMIT)
+            with Image.open(jpg) as out:
+                self.assertEqual((out.format, out.mode, out.size), ("JPEG", "RGB", (1280, 640)))
+                self.assertEqual(JpegImagePlugin.get_sampling(out), 0)
+            gm.write_upload_jpeg(png, jpg)
+            with open(jpg, "rb") as handle:
+                self.assertEqual(handle.read(), first)
+            refused = os.path.join(root, "refused.jpg")
+            with self.assertRaises(ValueError):
+                gm.write_upload_jpeg(png, refused, limit=size)
+            self.assertFalse(os.path.exists(refused))
+            self.assertEqual(gm.write_upload_jpeg(png, refused, limit=size + 1), size)
+
+    def test_tracked_upload_jpegs_match_their_pngs(self):
+        pngs = [os.path.join(gm.OUT, name, "web", "social-preview-1280x640.png")
+                for name, mark in gm.PUBLIC_MARKS.items() if not mark.get("no_wordmark")]
+        pngs.append(os.path.join(gm.BRAND_DIR, "..", "github", "social-preview-1280x640.png"))
+        with tempfile.TemporaryDirectory() as root:
+            for png in pngs:
+                with self.subTest(png=os.path.relpath(png, gm.HERE)):
+                    jpg = gm.upload_jpeg_path(png)
+                    self.assertTrue(os.path.isfile(jpg))
+                    self.assertLess(os.path.getsize(jpg), gm.UPLOAD_JPEG_LIMIT)
+                    fresh = os.path.join(root, "fresh.jpg")
+                    gm.write_upload_jpeg(png, fresh)
+                    with open(jpg, "rb") as tracked, open(fresh, "rb") as rebuilt:
+                        self.assertEqual(tracked.read(), rebuilt.read())
+
     def test_public_render_api_remains_available(self):
         for name in ("mark_svg", "wordmark_svg", "favicon_svg", "tile_svg", "pwa_icon_svg",
                      "mono_mark_png", "svg_to_png", "png_bytes_to_img"):

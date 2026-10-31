@@ -4,6 +4,24 @@ Ink and Bone follows semantic versioning for the shared specification,
 generator, and canonical exports. Consumer applications keep their own product
 versions.
 
+## Unreleased (since v1.1.0)
+
+- Added the menutile mark, ibp-07 brass, as the seventh public consumer
+  (2026-10-31). Its 11 manifest entries carry `expectedPreviousSha256` set to
+  that build, so the distributor accepts those files as trusted predecessors
+  when the mark next changes.
+- Recorded the Karpal Geometric licence: all rights reserved, for Shashank
+  Karpal's own brand and projects only (2026-10-30,
+  `design/brand/font/KARPAL-LICENSE-STATUS.md`). Added the canonical brand
+  terms, `design/brand/TRADEMARKS.md` (2026-10-31): each public consumer
+  keeps a plain MIT LICENSE for its source code and carries a byte-identical
+  root TRADEMARKS.md that reserves its name, marks, icons and other brand
+  assets wherever they sit, and the typeface.
+- The generator writes an upload JPEG beside every social preview PNG
+  (quality 92, 4:4:4, optimized) and fails if one reaches 1,000,000 bytes,
+  GitHub's limit. New reserved target `profile-social` derives the profile's
+  JPEG from its tracked PNG. Every PNG is byte-identical to before.
+
 ## v1.1.0: released, tagged 2026-08-24
 
 - Made public generation fail closed and private generation explicitly opt-in.

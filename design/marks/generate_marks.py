@@ -303,7 +303,7 @@ MARKS = {
 
 PUBLIC_MARKS = dict(MARKS)
 MARK_NAME_RE = re.compile(r"^[a-z0-9][a-z0-9-]*$")
-RESERVED_TARGETS = {"avatar", "qa"}
+RESERVED_TARGETS = {"avatar", "qa", "profile-social"}
 MARK_KEYS = {"id", "aliases", "cat", "private", "story", "master", "s24", "s16",
              "display", "no_wordmark", "retired", "private_overlay"}
 
@@ -1080,6 +1080,34 @@ def render_with_grain(foreground_svg, path, W, H, theme, seed_key):
     img.alpha_composite(png_bytes_to_img(svg_to_png(foreground_svg, W, H)))
     img.convert("RGB").save(path)
 
+# GitHub refuses a social preview of 1 MB or more, and the seeded grain keeps
+# every social preview PNG near 1.2 MB, so each one gets an upload JPEG beside
+# it. These settings reproduce the hand-made upload copies of 2026-10-31 byte
+# for byte; the PNG stays the tracked master and is never rewritten here.
+UPLOAD_JPEG_OPTIONS = {"quality": 92, "subsampling": 0, "optimize": True}
+UPLOAD_JPEG_LIMIT = 1000000
+
+
+def upload_jpeg_path(png_path):
+    return os.path.splitext(png_path)[0] + ".jpg"
+
+
+def write_upload_jpeg(png_path, jpg_path, limit=UPLOAD_JPEG_LIMIT):
+    """Write the upload JPEG for a social preview PNG; refuse at the limit.
+
+    The bytes are encoded and sized in memory first, so a refused JPEG is
+    never written."""
+    buffer = io.BytesIO()
+    with Image.open(png_path) as img:
+        img.convert("RGB").save(buffer, "JPEG", **UPLOAD_JPEG_OPTIONS)
+    data = buffer.getvalue()
+    if len(data) >= limit:
+        raise ValueError("upload JPEG for %s is %s bytes; GitHub needs under %s" %
+                         (png_path, len(data), limit))
+    with open(jpg_path, "wb") as handle:
+        handle.write(data)
+    return len(data)
+
 # icon tiles ----------------------------------------------------------------
 
 def tile_svg(project, px, radius_pct=0.225, scale=0.62, square=False):
@@ -1514,10 +1542,11 @@ def build(project, out_root=OUT):
         with open(os.path.join(web, "social-preview-1280x640.svg"), "w",
                   encoding="utf-8") as f:
             f.write(ssvg)
+        social_png = os.path.join(web, "social-preview-1280x640.png")
         render_with_grain(
             social_svg(project, with_ground=False),
-            os.path.join(web, "social-preview-1280x640.png"),
-            1280, 640, "dark", "social:%s" % project)
+            social_png, 1280, 640, "dark", "social:%s" % project)
+        write_upload_jpeg(social_png, upload_jpeg_path(social_png))
 
     img = png_bytes_to_img(svg_to_png(tile_svg(project, 1024, square=True), 1024))
     img.convert("RGB").save(os.path.join(pdir, "appstore", "AppStore-1024.png"))
@@ -1609,7 +1638,30 @@ def transactional_commit_dir(staged, destination, extra_files=()):
                 os.remove(temp_path)
 
 
+def build_profile_social():
+    """Upload JPEG beside the tracked profile social preview PNG.
+
+    The profile PNG (all public marks on one card) is built outside this
+    generator, so this target only derives its upload copy, installed with
+    one atomic rename."""
+    github_dir = os.path.normpath(os.path.join(BRAND_DIR, "..", "github"))
+    png = os.path.join(github_dir, "social-preview-1280x640.png")
+    fd, temp_path = tempfile.mkstemp(prefix=".generated-", suffix=".jpg", dir=github_dir)
+    os.close(fd)
+    try:
+        os.chmod(temp_path, 0o644)
+        write_upload_jpeg(png, temp_path)
+        os.replace(temp_path, upload_jpeg_path(png))
+    finally:
+        if os.path.exists(temp_path):
+            os.remove(temp_path)
+    print("  built profile-social -> %s" % os.path.relpath(upload_jpeg_path(png), HERE))
+
+
 def build_transaction(target):
+    if target == "profile-social":
+        build_profile_social()
+        return
     with tempfile.TemporaryDirectory(prefix=".generate-marks-", dir=HERE) as temp_dir:
         stage_root = os.path.join(temp_dir, "out")
         if target == "avatar":
@@ -1639,7 +1691,8 @@ def parse_args(argv):
     parser = argparse.ArgumentParser(
         description="Generate Ink and Bone public marks transactionally.")
     parser.add_argument("targets", nargs="*",
-                        help="canonical project slug, declared alias, avatar, or qa")
+                        help="canonical project slug, declared alias, avatar, qa, "
+                             "or profile-social")
     parser.add_argument("--private-overlay", action="append", default=[], metavar="PATH",
                         help="explicit private registry; repeat for multiple overlays")
     parser.add_argument("--include-private", action="store_true",
@@ -1680,6 +1733,7 @@ def main(argv=None):
             print(name)
         print("avatar")
         print("qa")
+        print("profile-social")
         for name in available_private:
             print(name)
         return 0
@@ -1699,7 +1753,7 @@ def main(argv=None):
             if canonical not in targets:
                 targets.append(canonical)
     else:
-        targets = list(PUBLIC_MARKS) + ["avatar", "qa"] + available_private
+        targets = list(PUBLIC_MARKS) + ["avatar", "qa", "profile-social"] + available_private
 
     if args.validate_only:
         print("validated canonical tokens, fonts, %s public marks%s" %

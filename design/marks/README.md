@@ -9,6 +9,7 @@ From the repository root, after following the locked bootstrap in
 
     bash design/brand/run-mark-pipeline.sh              # public targets
     bash design/brand/run-mark-pipeline.sh helios zest  # selected targets
+    bash design/brand/run-mark-pipeline.sh profile-social  # profile upload JPEG
 
 Do not install ad hoc dependencies. Direct requirements are declared in
 `requirements.in`; the full graph and distribution hashes are in
@@ -44,7 +45,7 @@ private operations extension.
 | `macos/` | AppIcon.iconset, AppIcon.icns, menu bar `*-template.png` at 1x 2x 3x (black with alpha) |
 | `ios/` | full AppIcon.appiconset with Contents.json, apple-touch-icon 180 |
 | `watchos/` | current 38-49 mm watch AppIcon.appiconset, complications (circular, extra large, graphic corner, graphic circular) as white monochrome templates |
-| `web/` | favicon.ico (16 32 48), favicon.svg (theme adaptive), opaque PWA icons at 192 and 512 plus a safe-zone-tested 512 maskable icon, README banners 1400x400 dark and light, social preview 1280x640 |
+| `web/` | favicon.ico (16 32 48), favicon.svg (theme adaptive), opaque PWA icons at 192 and 512 plus a safe-zone-tested 512 maskable icon, README banners 1400x400 dark and light, social preview 1280x640 (PNG master plus the upload JPEG, under 1 MB, which is the file to upload to GitHub) |
 | `appstore/` | AppStore-1024.png, no alpha, no rounded corners |
 | `contact-sheet-<project>.png` | one-glance review sheet (the unsuffixed `contact-sheet.png` name is legacy; the pipeline deletes it on rebuild) |
 
