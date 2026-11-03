@@ -23,7 +23,7 @@ if [ "$#" -gt 0 ]; then
 else
   repos=(
     ledge
-    content-digest-app
+    content-digest
     helios
     zest
     switchdeck

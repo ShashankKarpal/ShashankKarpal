@@ -2,8 +2,8 @@
   "$meta": {
     "name": "Shanky personal brand tokens",
     "direction": "Ink and Bone",
-    "version": "1.1.0",
-    "date": "2026-08-20",
+    "version": "1.2.0",
+    "date": "2026-11-03",
     "owner": "Shashank Karpal",
     "defaultTheme": "dark",
     "scope": "personal repos, personal apps, dashboards, personal documents. KodeKloud client work keeps the KodeKloud system.",
@@ -92,7 +92,7 @@
         "quiet":   {"hex": "#8F8C85", "rgb": [143, 140, 133], "contrastOnPage": 5.83,  "use": "labels, captions, metadata. Never for a number you need."}
       },
       "category": {
-        "copper": {"hex": "#B17E51", "rgb": [177, 126, 81],  "contrastOnPage": 5.57,  "means": "capture and keep", "use": "ledge, content-digest-app"},
+        "copper": {"hex": "#B17E51", "rgb": [177, 126, 81],  "contrastOnPage": 5.57,  "means": "capture and keep", "use": "ledge, content-digest"},
         "brass":  {"hex": "#BFB287", "rgb": [191, 178, 135], "contrastOnPage": 9.26,  "means": "read a signal against a baseline", "use": "helios, zest, menutile"},
         "mist":   {"hex": "#CFDFE8", "rgb": [207, 223, 232], "contrastOnPage": 14.33, "means": "Claude and AI tooling", "use": "AI tooling, agent workflows and model-facing utilities"}
       },

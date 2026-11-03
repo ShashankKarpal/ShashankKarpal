@@ -4,7 +4,7 @@ Ink and Bone follows semantic versioning for the shared specification,
 generator, and canonical exports. Consumer applications keep their own product
 versions.
 
-## Unreleased (since v1.1.0)
+## v1.2.0: released, tagged 2026-11-03
 
 - Added the menutile mark, ibp-07 brass, as the seventh public consumer
   (2026-10-31). Its 11 manifest entries carry `expectedPreviousSha256` set to
@@ -21,6 +21,11 @@ versions.
   (quality 92, 4:4:4, optimized) and fails if one reaches 1,000,000 bytes,
   GitHub's limit. New reserved target `profile-social` derives the profile's
   JPEG from its tracked PNG. Every PNG is byte-identical to before.
+- Renamed the content-digest-app mark label to content-digest (ibp-02 geometry
+  unchanged).
+- README truth rule in BRAND-SURFACES.md (GitHub layer): a shipped roadmap
+  item, an added or removed feature, or a version cut updates the README in
+  the same commit.
 
 ## v1.1.0: released, tagged 2026-08-24
 

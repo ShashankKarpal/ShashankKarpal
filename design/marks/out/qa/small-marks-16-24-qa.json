@@ -137,7 +137,7 @@
         }
       }
     },
-    "content-digest-app": {
+    "content-digest": {
       "id": "ibp-02",
       "sizes": {
         "16": {

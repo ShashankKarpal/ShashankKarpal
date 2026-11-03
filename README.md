@@ -21,8 +21,8 @@ I have ADHD-C. Most of these close a loop my brain leaves open. Maybe one of the
 ## Apps
 
 - **[ledge](https://github.com/ShashankKarpal/ledge).** ADHD-first sidebar notepad for Mac, iPhone, iPad, and Apple Watch. One hotkey, plain Markdown in your own iCloud Drive folder, capture from Siri and the Watch, and every unchecked box resurfaces until you deal with it.
-- **[zest](https://github.com/ShashankKarpal/zest).** Menu bar battery command center for Apple Silicon Macs. Power flow, battery health trends, every Apple device's battery in one place, and alerts you set yourself.
-- **[content-digest-app](https://github.com/ShashankKarpal/content-digest-app).** Save a link from your Mac, iPhone, or Chrome. A local model summarizes and tags it, you can ask questions across everything you saved, and a short brief lands in your inbox each morning.
+- **[zest](https://github.com/ShashankKarpal/zest).** Menu bar battery command center for Apple Silicon Macs. Power flow, battery health trends, your AirPods, accessories and other Apple devices in one place, and alerts you set yourself.
+- **[content-digest](https://github.com/ShashankKarpal/content-digest).** Save a link from your Mac, iPhone, or Chrome. A local model summarizes and tags it, you can ask questions across everything you saved, and a short brief lands in your inbox each morning.
 - **[helios](https://github.com/ShashankKarpal/helios).** Local-only personal health system. Reads every wearable through Apple Health, trusts one device per metric instead of averaging them, compares you to your own baselines, and lets a local model explain the numbers without inventing any.
 
 ## Smaller tools

@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "status": "authoritative consumer mapping for Ink and Bone v1.1.0",
+  "status": "authoritative consumer mapping for Ink and Bone v1.2.0",
   "visibility": "public",
   "consumers": [
     {
@@ -65,39 +65,39 @@
       ]
     },
     {
-      "project": "content-digest-app",
-      "repository": "content-digest-app",
-      "outputRoot": "design/marks/out/content-digest-app",
+      "project": "content-digest",
+      "repository": "content-digest",
+      "outputRoot": "design/marks/out/content-digest",
       "assets": [
         {
           "mode": "copy",
           "source": "web/banner-dark-1400x400.png",
           "destination": "design/github/readme-banner-dark-1400x400.png",
-          "expectedPreviousSha256": "b2677d2dd99418f4b7425f503aeac36727fc197cb97989c1c8a70d8bf8d87f4d"
+          "expectedPreviousSha256": "3290b11439a4b33f085e52d3697838cc70e92ce614238c72c83ea9d8f5775ccd"
         },
         {
           "mode": "copy",
           "source": "web/banner-dark-1400x400.svg",
           "destination": "design/github/readme-banner-dark-1400x400.svg",
-          "expectedPreviousSha256": "f610bba59ae9830b2e5032691ca49ed4839f52e7ed4a2f01f69e1e1f4b36339c"
+          "expectedPreviousSha256": "000135d238df1a9f2872165dda9da64e1fd8b2952aff250d0f81495def326c0d"
         },
         {
           "mode": "copy",
           "source": "web/banner-light-1400x400.png",
           "destination": "design/github/readme-banner-light-1400x400.png",
-          "expectedPreviousSha256": "546867cc69160c7d84fcbd884ac75fedb065bac31973916f1affd90bc03e3cf7"
+          "expectedPreviousSha256": "9d53f8154d1afade2b9cdb7322750586ea344bf0756a5015beaa5f2eb0f22c09"
         },
         {
           "mode": "copy",
           "source": "web/banner-light-1400x400.svg",
           "destination": "design/github/readme-banner-light-1400x400.svg",
-          "expectedPreviousSha256": "9e8068bbe283a4e5b301f7b2443488e87ca5802e03a344a4bd63a2f65dd1421c"
+          "expectedPreviousSha256": "da3c5dc233387807bbc2f385dfcd2a343db9e5a41a60221a5b24654b10a56bcc"
         },
         {
           "mode": "copy",
           "source": "web/social-preview-1280x640.png",
           "destination": "design/github/social-preview-1280x640.png",
-          "expectedPreviousSha256": "c2a36dee5beac68355f94afd7a426dd11b7a54c21bfca5f8ba50338b4d57ac3c"
+          "expectedPreviousSha256": "d1c30b1b97bc50ba99150bf9110a91c0799e8adf631443531595b7a79a7e6a30"
         },
         {
           "mode": "copy",
@@ -131,7 +131,7 @@
         },
         {
           "mode": "copy",
-          "source": "macos/content-digest-app-template@2x.png",
+          "source": "macos/content-digest-template@2x.png",
           "destination": "design/logo/menubar-template.png",
           "expectedPreviousSha256": "f7a2b3e0a8b92d887f7d7813291cfd2f59ce7d96b664f78f6e0e0257242945de"
         },

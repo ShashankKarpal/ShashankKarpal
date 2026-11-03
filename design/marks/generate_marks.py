@@ -216,7 +216,7 @@ MARKS = {
         "s16": [R(8, 34, 40, 52, 9), R(8, 60, 80, 26, 9),
                 C(46, 19, 15, role="acc")],
     },
-    "content-digest-app": {
+    "content-digest": {
         "id": "ibp-02", "aliases": [],
         "cat": "copper", "private": False,
         "story": "three lines in, one line carried out",

@@ -366,7 +366,14 @@ remapped again, and `v1.1.0` was retagged again.
   diff your edit against it. Rewriting a section from memory or from an
   earlier read is how same-day incident knowledge got deleted.
 
-### content-digest-app
+### content-digest
+- RENAME (2026-11-03): the repo, the M4 and M1 folders, the mark label and
+  the manifest entry are content-digest (were content-digest-app; owner
+  decision 2026-11-01). Mark id ibp-02 and its geometry, the bundle and job
+  ids (com.shashank.contentdigest, .daily, .client), the menu bar name and
+  the extension name did not change. GitHub redirects the old repo URL;
+  never create a new repo under the old name, which would end the redirect.
+  Dated records keep the old name.
 - [ ] Guarded distributor reports the declared live assets and both
       `design/BRAND-ASSETS` files current; no consumer `design/marks` tree.
 - [ ] design/web SERVED icons: favicon.svg, favicon-16/32/48.png,
@@ -527,9 +534,11 @@ remapped again, and `v1.1.0` was retagged again.
   engine on this Mac revalidates every consumer of it in the same session,
   or records the open row in that consumer's handoff. The row is the
   tripwire, not the fix. switchdeck now carries unit tests (`tests/`,
-  run with the package venv); the agent restart after a code-only change is
-  `launchctl kickstart -k`, because the bundle binary is unchanged;
-  bootout plus bootstrap is for a rebuilt bundle.
+  run with the package venv). Restart the agent, after a code-only change
+  or a rebuilt bundle alike, with `launchctl bootout` then `launchctl
+  bootstrap`, after checking that ProgramArguments:0 exists; never
+  `kickstart -k` (corrected 2026-11-03; the 2026-11-01 engine 0.29.0 round
+  found the old kickstart line wrong).
 - MENU BAR INVENTORY: lives in the private operations extension (moved
   2026-08-24; it names private consumers, which this public file must not).
 ### claude-tokens
@@ -688,6 +697,12 @@ change, and the easiest one to believe is done when it is not.
 ## GitHub layer (all repos)
 
 - [ ] Every touched repo: committed, pushed, CI green
+- [ ] README truth: the README says what this push ships. A shipped
+      roadmap item moves its Roadmap row to Shipped in the same commit;
+      an added or removed user-visible feature updates Features and
+      Roadmap in the same commit; a version cut updates every version
+      string, badge and constant and the CHANGELOG heading, and tags
+      that commit.
 - [ ] Social preview upload (MANUAL, settings page): PUBLIC repos only.
       Private repos have no social preview section; the PNG waits in
       design/github/social-preview-1280x640.png for a visibility flip
@@ -706,6 +721,18 @@ change, and the easiest one to believe is done when it is not.
   locked Pillow and its libjpeg build: a Pillow bump in requirements.lock
   needs a full rebuild (every mark plus profile-social), and the generator
   test that compares each tracked JPEG with a fresh encode is the tripwire.
+- RULE (2026-11-01): README truth. Found when a public README's
+  Roadmap was two months stale: both "Planned" rows had shipped and
+  the newest features had no row, because no step in any round touched
+  README text. The pre-push round now runs a read-only README truth
+  check over every public repo: version badges, version strings and
+  version constants against the newest tag and the newest released
+  CHANGELOG heading; Planned, Next and In progress rows against what
+  has been released; relative links and images against the committed
+  tree; an old Unreleased section. A monthly read-only sweep covers
+  what the check cannot read (repository descriptions, topics,
+  external links). A round that changes nothing a visitor reads says so
+  in its record.
 - [ ] Labels and README badge hexes if palette changed
 - [ ] VERIFY: repo page banner in dark AND light, social card via a link
       paste somewhere private.

@@ -14,11 +14,11 @@
     },
     {
       "id": "ibp-02",
-      "lockup": "content-digest-app",
-      "sourceRenderedWidthPx": 1345.9,
+      "lockup": "content-digest",
+      "sourceRenderedWidthPx": 1086.7,
       "sourceRenderedXHeightPx": 43.2,
-      "standardMinimumWidthPx": 250,
-      "controlledMinimumWidthPx": 219
+      "standardMinimumWidthPx": 202,
+      "controlledMinimumWidthPx": 177
     },
     {
       "id": "ibp-03",

@@ -1,5 +1,7 @@
 # PROGRESS: audit recovery continuation
 
+> Historical record of the 2026-08-24 audit recovery session, closed. Kept for history; current state lives in CHANGELOG.md and design/brand/BRAND-SURFACES.md.
+
 Started 2026-08-24. Session: Claude Code (Fable 5), single window, no subagents.
 Mode approved by Shanky: option (c), Claude executes the bounded scope below,
 Codex audits the result afterward. No merges, no pushes without explicit

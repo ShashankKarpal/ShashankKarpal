@@ -1,4 +1,4 @@
-/* Shanky personal brand tokens, direction: Ink and Bone, v1.1.0, 2026-08-20
+/* Shanky personal brand tokens, direction: Ink and Bone, v1.2.0, 2026-11-03
    Dark is the default. Light applies automatically, or force it with [data-theme="light"].
    Put data-theme on the document root. Font files live in the adjacent font/ folder.
    Category colour is secondary, never the sole identifier, and never shares a status slot. */
@@ -89,7 +89,7 @@
   --text-quiet: #8F8C85;
   --link: #5E92DC;             /* inline links, always underlined; 4.5+ on raised */
 
-  --cat-copper: #B17E51;   /* capture and keep: ledge, content-digest-app */
+  --cat-copper: #B17E51;   /* capture and keep: ledge, content-digest */
   --cat-brass:  #BFB287;   /* signal against a baseline: helios, zest, menutile */
   --cat-mist:   #CFDFE8;   /* AI tooling, agent workflows and model-facing utilities */
 
